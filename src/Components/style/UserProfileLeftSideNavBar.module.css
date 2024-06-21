@@ -1,0 +1,29 @@
+.leftSideNavBar {
+    width: 200px;
+
+    background-color: #333;
+    color: #fff;
+    padding-top: 20px;
+
+    /* 2 fix the height to 100vh and set fixed position */
+    height: 100vh;
+    position: fixed;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 1.5vh 0;
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.navText {
+    margin-left: 10px;
+}

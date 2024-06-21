@@ -1,0 +1,30 @@
+.bookCountContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.TotalBooks,
+.AvailableBooks,
+.IssuedBooks {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(to right, #1a33ad, #8184fe);
+    width: 200px;
+    height: 100px;
+}
+
+.TotalBooks h3,
+.AvilableBooks h3,
+.IssuedBooks h3 {
+    margin-bottom: 10px;
+}
+
+.TotalBooks p,
+.AvilableBooks p,
+.IssuedBooks p {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

@@ -1,0 +1,11 @@
+.contents{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e6e6e6;
+
+    background-image: url('../../resources/Notifications.jpg');
+    background-size: cover;
+    background-position: center;
+}

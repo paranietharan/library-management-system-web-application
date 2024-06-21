@@ -1,0 +1,139 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Root Variables */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #4caf50;
+    --text-color: #333;
+    --background-color: #f5f5f5;
+    --heading-font: "Merriweather", serif;
+    --join-now-font: "Anton", sans-serif;
+    --body-font: "Arial", sans-serif;
+}
+
+body, html {
+    overflow: hidden; /*2 Prevent scrolling in x and y directions */
+    height: 100%; /*2 Ensure the body and html take full height */
+}
+
+/* Overall Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: var(--background-color); */
+}
+
+/* Join Now Section */
+.join-now {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: var(--join-now-font);
+}
+
+.join-now a {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Form Container */
+.container {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e6e6e6;
+}
+
+/* Form Title */
+.form-title {
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Input Styles */
+.login-form input {
+    max-width: 350px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--body-font);
+}
+
+/* Password Toggle Button */
+.eye-icon-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.login-input {
+    width: calc(100% - 40px); /* Adjusted width to accommodate the eye icon button */
+    padding: 10px;
+    margin: 10px;
+    font-family: 'Arial, FontAwesome';
+}
+
+/* Submit Button */
+.login-form-submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form-submit-button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Forgot Password Link */
+.forgot-password {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+
+.img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Full viewport width */
+    height: 100vh;
+    /* Full viewport height */
+    z-index: -1;
+}

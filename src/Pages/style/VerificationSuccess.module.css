@@ -1,0 +1,23 @@
+.VerificationSuccessContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+} 
+
+.Verification-Success-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+}

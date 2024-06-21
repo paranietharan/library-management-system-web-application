@@ -1,0 +1,46 @@
+.memberVerificationDetails {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.memberVerificationDetails h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.memberVerificationDetails .details {
+    margin-bottom: 20px;
+}
+
+.memberVerificationDetails .details p {
+    margin: 5px 0;
+}
+
+.memberVerificationDetails .actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.memberVerificationDetails .actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.memberVerificationDetails .actions button:first-child {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.memberVerificationDetails .actions button:last-child {
+    background-color: #ccc;
+    color: #000;
+}
+
+.memberVerificationDetails .actions button:hover {
+    opacity: 0.8;
+}

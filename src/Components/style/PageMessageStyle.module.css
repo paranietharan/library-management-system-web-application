@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: #f2f2f2;
+  border-radius: 10px 10px 10px 10px;
+  margin: 10px 0px 10px 0px;
+  width: 60vw;
+}
+
+/* .message-container {
+  display: flex;
+  align-items: center;
+}
+
+.message-container p {
+  margin-left: 5px;
+  display: flex;
+} */
+
+.message-container {
+  display: flex;
+  flex-direction: column; /* Set flex direction to column */
+  align-items: flex-start; /* Align items to the start of the column */
+  padding: 10px;
+}
+
+.message-container p {
+  margin-top: 5px; /* Add top margin to separate paragraph from heading */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.message-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.message-container p {
+  margin-left: 10px;
+}
+
+.heading {
+  font-size: 20px; /* Adjust the font size of the heading */
+  font-weight: bold; /* Make the heading bold */
+  margin-left: 10px; /* Add left margin to separate it from the icon */
+}

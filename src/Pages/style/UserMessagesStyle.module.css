@@ -1,0 +1,49 @@
+.UserMessages{
+    width: 100%;
+}
+
+.notificationContainer {
+    display: flex;
+    justify-content: center;
+    /* Center align horizontally */
+    background-color: #fbf9fa;
+}
+
+
+.notifications {
+    width: 70%;
+    /* Adjust the width of the notifications container */
+    max-width: 800px;
+    /* Maximum width to ensure readability */
+    margin-left: 2vw;
+}
+
+
+.notification {
+    background-color: #f0f0f0;
+    /* Light gray background */
+    border: 1px solid #ddd;
+    /* Gray border */
+    border-radius: 5px;
+    /* Rounded corners */
+    padding: 10px;
+    /* Add padding around the message */
+    margin-bottom: 10px;
+    /* Add bottom margin between messages */
+}
+
+.notification p {
+    margin: 0;
+    /* Remove default margin from paragraphs inside messages */
+    font-size: 16px;
+    /* Adjust font size */
+    color: #333;
+    /* Dark text color */
+}
+
+.notification:hover {
+    background-color: #e0e0e0;
+    /* Lighter background color on hover */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+}

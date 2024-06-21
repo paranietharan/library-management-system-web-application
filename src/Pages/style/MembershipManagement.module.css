@@ -1,0 +1,46 @@
+.MembershipManagement{
+    background-color: #f2f2f2;
+    width: 100vw;
+    height: auto;
+}
+
+.contents{
+    background: url('../../resources/membership_management_background.jpg');
+    width: 90vw;
+    height: 70vh;
+    border-radius: 10px;
+    margin-top: 2vh;
+    margin-top: 10vh;
+    margin-left: 5vw;
+}
+
+.buttongroup{
+    text-align: center;
+}
+
+.buttongroup button{
+    padding: 10px;
+    margin: 10px;
+    width: 7vw;
+    height: auto;
+    border-color: #808080;
+    border-radius: 10px;
+}
+
+/* .addbutton{
+    padding: 10px;
+    margin: 10px;
+    width: 7vw;
+    height: auto;
+    border-color: #808080;
+    border-radius: 10px;
+}
+
+.removebutton{
+    padding: 10px;
+    margin: 10px;
+    width: 7vw;
+    height: auto;
+    border-color: #808080;
+    border-radius: 10px;
+} */

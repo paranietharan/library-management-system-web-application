@@ -1,0 +1,122 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 10vh;
+    width: 14vw;
+    height: 100%;
+    padding: 10px 30px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.sidebarContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    padding-bottom: 3rem;
+    height: 100%;
+}
+
+.sidebarLogo {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: .5rem;
+}
+
+.sidebarLogoImg {
+    width: 37px;
+}
+
+.sidebarLogoText {
+    width: 76px;
+}
+
+.sidebarContent {
+    position: relative;
+    overflow: auto;
+    padding-top: 2rem;
+}
+
+.sidebarList {
+    display: flex;
+    flex-direction: column;
+    row-gap: .25rem;
+}
+
+.sidebarLink {
+    color: var(--text-color);
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    column-gap: 1.5rem;
+    padding: 1rem;
+    border-radius: .25rem;
+    transition: background .3s;
+}
+
+.sidebarLinkFloating {
+    display: none;
+}
+
+.sidebarLink i {
+    color: var(--white-color);
+    font-size: 1.25rem;
+}
+
+.sidebarLinkName {
+    font-weight: var(--font-medium);
+    transition: color .4s;
+}
+
+.sidebarLink:hover {
+    background-color: var(--white-color-light);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--white-color);
+}
+
+.sidebarPerfil {
+    width: 55px;
+    border-radius: 50%;
+    border: 2px solid var(--white-color);
+}
+
+.sidebarAccount {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+
+.sidebarName {
+    font-size: var(--normal-font-size);
+    color: var(--white-color);
+    margin-bottom: .25rem;
+}
+
+.sidebarEmail {
+    font-size: var(--small-font-size);
+    font-weight: var(--font-medium);
+}
+
+.sidebarAccount i {
+    color: var(--white-color);
+    font-size: 1.5rem;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.active-link {
+    background-color: var(--white-color-light);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.active-link span {
+    color: var(--white-color);
+}
+
+a{
+    text-decoration: none;
+}

@@ -1,0 +1,37 @@
+.TermsAndPoliciesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.contents {
+    max-width: 800px; /* Adjust max-width as needed */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contents h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contents h2 {
+    margin-top: 30px;
+}
+
+.contents h3 {
+    margin-top: 20px;
+}
+
+.contents p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.terms {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}

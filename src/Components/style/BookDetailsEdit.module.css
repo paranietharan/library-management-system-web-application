@@ -1,0 +1,68 @@
+.bookDetails {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.bookCover {
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.bookName {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.bookInfo {
+    margin-bottom: 20px;
+}
+
+.bookInfo>* {
+    margin-bottom: 10px;
+    /* Add space between input fields */
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.saveButton,
+.backButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.saveButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.saveButton:hover {
+    background-color: #0056b3;
+}
+
+.backButton {
+    background-color: #ccc;
+    color: #000;
+}
+
+.backButton:hover {
+    background-color: #bbb;
+}
+
+
+.column {
+    padding-top: 2px;
+}
+
+.column> p {
+    padding: 2px 0px;
+}

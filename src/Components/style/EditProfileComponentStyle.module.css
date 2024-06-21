@@ -1,0 +1,80 @@
+.editProfileContainer {
+    /* max-width: 400px; */
+    width: 40vw;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid #808080;
+    border-radius: 5px;
+}
+
+.editProfileContainer h2 {
+    margin-bottom: 20px;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+}
+
+.button {
+    width: 100%;
+    max-width: 150px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    text-transform: none;
+    margin-left: 10px;
+}
+
+.profilePicture{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.editProfileItems{
+    padding: 0px 0px;
+}
+
+/* Align Icons and text */
+.editProfileItems{
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    margin-left: 10vw;
+}
+
+.editProfileItems p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.editProfileItems label {
+    margin-right: 10px;
+}
+
+.editProfileItems span {
+    display: inline-block;
+}
+
+.editProfileItems svg {
+    margin-right: 5px;
+}

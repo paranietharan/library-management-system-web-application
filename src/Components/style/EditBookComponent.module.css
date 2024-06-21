@@ -1,0 +1,32 @@
+/* .editBookComponent {
+    background-image: url('../../resources/bookImage.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 50vw;
+    margin-left: 20vw;
+    border-radius: 10px;
+    display: flex;
+} */
+.editBookComponent {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 50vw;
+    margin-left: 20vw;
+}
+
+.searchBar {
+    width: 20vw;
+    margin-left: 10vw;
+    flex: 1;
+}
+
+.searchResults {
+    margin-top: 20px;
+    /* Adjust the margin-top according to your design */
+    padding: 20px;
+    /* Add padding for spacing */
+    background-color: white;
+    /* Set the background color for the search results container */
+}

@@ -1,0 +1,17 @@
+.complaintContainer {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.complaintFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+  }
