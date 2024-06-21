@@ -1,0 +1,41 @@
+.bookFrameItem a{
+    text-decoration: none;
+}
+
+.bookFrameItem {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.bookFrame {
+    width: 220px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.userHome {
+    padding: 10px;
+    /* background: url('../../resources/libraryHomeBackground.jpg') no-repeat center center fixed; */
+}
+
+.home {
+    background-color: #e6e6e6;
+}
+
+.bookFrame {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.bookFrame img {
+    width: 20vw;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+}

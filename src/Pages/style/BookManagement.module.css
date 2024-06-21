@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.bookManagementPage {
+    /* background-color: #e6e6e6; */
+    background-image: url('../../resources/bgImage_01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.content {
+    height: 100%;
+}
+
+.menuItems {
+    margin-top: 10vh;
+}
+
+.addBooks,
+.editBooks,
+.deleteBooks {
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #6666ff;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+}
+
+
+.addBooks:hover,
+.editBooks:hover,
+.deleteBooks:hover {
+    background-color: #5555cc;
+}
+
+.displayComponent {
+    margin-top: 7vh;
+    margin-left: 10vw;
+}
+
+.menuItems {
+    margin-top: 10vh;
+    display: flex;
+    /* Use flexbox 2 alignment*/
+    justify-content: center;
+    /* Allign items horizontally 2 the center */
+}
+
+.menuItems button {
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #6666ff;
+    display: flex;
+    /* Use flexbox 2 alignment */
+    align-items: center;
+    /* Align items vertically */
+}
+
+.menuItems button svg {
+    margin-right: 5px;
+}

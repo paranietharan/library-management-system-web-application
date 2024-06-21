@@ -1,0 +1,25 @@
+.chatList {
+    width: 300px;
+    /* Adjust the width as needed */
+    border: 5px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.contactList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    /* Enable vertical scrolling if needed */
+}
+
+.contactList li {
+    cursor: pointer;
+    padding: 10px;
+    /* border-bottom: 1px solid #ccc; */
+}
+
+.contactList li:hover {
+    background-color: #f9f9f9;
+}

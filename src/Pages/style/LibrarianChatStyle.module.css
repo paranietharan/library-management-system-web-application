@@ -1,0 +1,43 @@
+.librarianChat{
+    background-color: #f2f2f2;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Container {
+    margin-left: 5vw;
+    padding: 10px;
+    /* height: 80vh; */
+    max-height: 85vh;
+    margin-top: 10px;
+}
+
+.chatContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.chatList {
+    order: 1;
+    /* This will position chatPanel on the left */
+    /* background-color: blue; */
+    /* margin-right: 10vw; */
+    width: 20vw;
+    overflow: hidden;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.chatPannel {
+    flex: 1;
+    /* This will make chatList take up the remaining space */
+    width: 10vw;
+    order: 2;
+    /* This will position chatList on the right */
+    /* background-color: purple; */
+    border: 5px solid #ccc;
+    border-radius: 10px;
+}

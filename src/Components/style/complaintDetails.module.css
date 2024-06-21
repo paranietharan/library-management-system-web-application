@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --font-1: "Platypi", serif;
+    --font-2: "Bebas Neue", sans-serif;
+    --font-3: "Libre Baskerville", serif;
+}
+
+.ComplaintDetailsContainer {
+    background-color: #F6F6F6;
+    border: #56594A solid 2px;
+    border-radius: 10px;
+    width: 40vw;
+    padding: 20px;
+}
+
+.type {
+    /* display: flex; */
+    font-family: var(--font-1);
+    font-size: 20px;
+}
+
+.processStage {
+    display: flex;
+    align-items: center;
+    color: green;
+}
+
+.processIcon {
+    margin-right: 8px;
+}
+
+.complaintSection {
+    display: flex;
+    align-items: center;
+}
+
+.sectionIcon {
+    margin-right: 8px;
+}
+
+
+.complaintDescription {
+    padding-top: 15px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-family: var(--font-2);
+    font-size: 20px;
+}
+
+.headingIcon {
+    margin-right: 8px;
+}
+
+.descriptionText{
+    font-family: var(--font-3);
+    font-weight: 800;
+}
