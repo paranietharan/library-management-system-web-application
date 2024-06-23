@@ -59,7 +59,7 @@ function App() {
       <Routes>
         {/* Paranietharan */}
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/article-home" element={<ArticleHome articles={articles} />} />
+        <Route path="/article-home" element={<ArticleHome />} />
         <Route path='/publish-articles' element={<PublishArticles />} />
         <Route path='/article-tag' element={<ArticleTag />} />
         <Route path='/my-profile' element={<MyProfile articles={articles}/>} />
@@ -68,7 +68,7 @@ function App() {
           element={<ViewArticle articles={articles} />}
         />
 
-        {/*Shobikan */}~
+        {/*Shobikan */}
         <Route path="/login" element={<Login />} />
         <Route path='/details-fill' element={<DetailsFilling />} />
         <Route path='/details-confirmation' element={<DetailsConfirmation />} />
