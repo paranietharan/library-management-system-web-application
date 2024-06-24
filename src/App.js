@@ -8,8 +8,8 @@ import ArticleHome from './Pages/ArticleHome';
 import PublishArticles from './Pages/PublishArticles';
 import MyProfile from './Pages/MyProfile';
 import ViewArticle from './Pages/ViewArticle';
-import ArticleTag from './Pages/ArticleTag';
 import articles from './articles';
+import ArticleSearch from './Pages/ArticleSearch';
 
 // Shobikan
 import Login from './Pages/login';
@@ -64,7 +64,7 @@ function App() {
         <Route path='/my-profile' element={<MyProfile articles={articles}/>} />
 
         <Route path='/publish-articles' element={<PublishArticles />} />
-        <Route path='/article-tag' element={<ArticleTag />} />
+        <Route path='/article-search' element={<ArticleSearch />} />
 
 
         {/*Shobikan */}
