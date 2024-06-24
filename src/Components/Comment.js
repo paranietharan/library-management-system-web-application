@@ -1,17 +1,34 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Comment({ comment }) {
-    const { imgLink, author, content, timestamp } = comment;
+    const { comment: content, commenterId: authorId } = comment;
+    const [commenter, setCommenter] = useState({});
+
+    useEffect(() => {
+        const fetchCommenterName = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/user/getUserProfile/${authorId}`);
+                const commenter = response.data;
+                setCommenter(commenter);
+            } catch (error) {
+                console.error("Error fetching commenter details:", error);
+            }
+        };
+
+        fetchCommenterName();
+    }, [authorId]);
+
+    const commenterName = commenter.firstName + " " + commenter.lastName;
 
     return (
         <>
             <div style={{ padding: "20px 10px", display: "flex", alignItems: "center" }}>
-                <img src={imgLink} alt={author} style={{ borderRadius: "50%", width: "50px", height: "50px", marginRight: "10px" }} />
                 <div style={{ flex: "1", minWidth: "0" }}>
-                    <h4 style={{ margin: 0, textAlign: "left" }}>{author}</h4>
                     <p style={{ textAlign: "left" }}>{content}</p>
                     <p style={{ textAlign: "left", color: "gray" }}>
-                        posted {timestamp}
+                        {commenterName}
                     </p>
                 </div>
             </div>
