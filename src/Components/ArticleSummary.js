@@ -14,7 +14,8 @@ function ArticleSummary({ article }) {
 
   return (
     <Card sx={{ maxWidth: '25%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' }}>
-      <Link to={`/article/${article.articleId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <Link to={`/article/${article.articleID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        {/* Use article.articleID instead of article.articleId */}
         <CardActionArea>
           <CardMedia
             component="img"
@@ -35,44 +36,10 @@ function ArticleSummary({ article }) {
       </Link>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small" component={Link} to={`/article/${article.articleId}`} style={{ textDecoration: 'none' }}>
+        <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none' }}>
           Read Article
         </Button>
       </CardActions>
-      {article.author && (
-        <CardContent>
-          <Typography variant="subtitle1" color="text.secondary">
-            Author: {article.author.name}
-          </Typography>
-          <Typography variant="subtitle2" color="text.secondary">
-            Published Date: {article.dateCreated}
-          </Typography>
-        </CardContent>
-      )}
-      {article.comments && (
-        <CardContent>
-          <Typography variant="h6" color="text.primary">
-            Comments:
-          </Typography>
-          {article.comments.map(comment => (
-            <div key={comment.id}>
-              <Typography variant="body2" color="text.secondary">
-                {comment.content}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                Commented by: {comment.author.name} on {comment.timestamp}
-              </Typography>
-            </div>
-          ))}
-        </CardContent>
-      )}
-      {article.averageRating && (
-        <CardContent>
-          <Typography variant="subtitle1" color="text.primary">
-            Average Rating: {article.averageRating}
-          </Typography>
-        </CardContent>
-      )}
     </Card>
   );
 }

@@ -11,7 +11,7 @@ function ArticleHome() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/article/all');
+                const response = await axios.get('http://localhost:8080/article/allArticles');
                 setArticles(response.data); // Assuming your API returns an array of articles
             } catch (error) {
                 console.error('Error fetching articles:', error);
