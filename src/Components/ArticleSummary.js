@@ -13,7 +13,7 @@ function ArticleSummary({ article }) {
   const displayedTitle = title.length > 7 ? `${title.slice(0, 7).join(' ')}...` : title.join(' ');
 
   return (
-    <Card sx={{ maxWidth: '25%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' }}>
+    <Card sx={{ maxWidth: '100%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' }}>
       <Link to={`/article/${article.articleID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         {/* Use article.articleID instead of article.articleId */}
         <CardActionArea>
