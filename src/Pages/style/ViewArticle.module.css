@@ -116,6 +116,8 @@
 
 .writeComment {
     margin-top: 20px;
+    margin-left: 20vw;
+    max-width: 25vw;
 }
 
 .writeComment textarea {
