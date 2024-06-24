@@ -18,8 +18,11 @@ function ViewArticle() {
 
     const [comment, setComment] = useState('');
 
+    const [UserRating, setUserRating] = useState(1.0);
+
     const userId = 1; // Hardcoded user ID for now, replace with actual user ID
 
+    // Function to handle comment submission
     const handleSubmit = async () => {
         try {
             const response = await axios.post(`http://localhost:8080/article/${userId}/comment`, {
@@ -32,6 +35,21 @@ function ViewArticle() {
             setComment('');
         } catch (error) {
             console.error('Error submitting comment:', error);
+            // Handle error state or show error message to the user
+        }
+    };
+
+    // Function to handle rating change
+    const handleRatingChange = async (newRating) => {
+        try {
+            const response = await axios.post(`http://localhost:8080/article/${articleId}/rating`, {
+                userID: userId,
+                rating: newRating
+            });
+            console.log('Rating submitted successfully:', response.data);
+            // Optionally, show a success message to the user
+        } catch (error) {
+            console.error('Error submitting rating:', error);
             // Handle error state or show error message to the user
         }
     };
@@ -81,7 +99,22 @@ function ViewArticle() {
             }
         };
 
+        const getUserRating = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/article/${articleId}/rating/${userId}`);
+                if (response.ok) {
+                    const ratingData = await response.json();
+                    setUserRating(ratingData);
+                } else {
+                    setUserRating(null);
+                }
+            } catch (error) {
+                console.error('Error fetching user rating:', error);
+            }
+        };
+
         fetchArticleDetails();
+        getUserRating();
     }, [articleId]);
 
     if (isLoading) {
@@ -142,7 +175,7 @@ function ViewArticle() {
                     {/* Rating Section */}
                     <div className={styles.ratingSection}>
                         <p>Average Rating: {averageRating}</p>
-                        <HoverRating />
+                        <HoverRating ratingValue={UserRating} onRatingChange={handleRatingChange} />
                     </div>
 
                     <div className={styles.commentSection}>
