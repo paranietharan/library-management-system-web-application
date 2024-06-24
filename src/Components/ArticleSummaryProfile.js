@@ -8,7 +8,7 @@ import { CardActionArea } from '@mui/material';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 
-function ArticleSummary({ article }) {
+function ArticleSummaryProfile({ article }) {
   const title = article.title.split(' ');
   const displayedTitle = title.length > 7 ? `${title.slice(0, 7).join(' ')}...` : title.join(' ');
 
@@ -35,7 +35,7 @@ function ArticleSummary({ article }) {
         </CardActionArea>
       </Link>
       <CardActions>
-        <Button size="small">Share</Button>
+        <Button size="small">Delete</Button>
         <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none' }}>
           Read Article
         </Button>
@@ -44,4 +44,4 @@ function ArticleSummary({ article }) {
   );
 }
 
-export default ArticleSummary;
+export default ArticleSummaryProfile;

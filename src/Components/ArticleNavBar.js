@@ -20,8 +20,8 @@ import SearchIcon from '@mui/icons-material/Search';
 // Notification icon
 // import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
-const pages = ['Tags', 'Home', 'About'];
-const links = ['article-tag', 'article-home', 'about'];
+const pages = ['Search', 'Home', 'About'];
+const links = ['article-search', 'article-home', 'about'];
 
 const settings = ['Profile', 'Library book', 'About','Publish Articles', 'Logout'];
 const settingslinks = ['my-profile', '', 'about','publish-articles', 'logout'];

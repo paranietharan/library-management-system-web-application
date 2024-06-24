@@ -56,13 +56,16 @@ const pageStyle = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh', // Ensure the page takes up at least the full viewport height
+    backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     alignItems: 'center',
-    fontFamily: 'ArialAbhaya Libre, serif',
+    fontFamily: 'Arial, sans-serif',
     fontSize: '20px',
+    overflowY: 'auto', // Enable vertical scrolling when content exceeds viewport height
 };
+
 
 const Heading = {
     fontSize: '40px',
