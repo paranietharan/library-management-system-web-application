@@ -2,14 +2,10 @@
 
 .App {
   text-align: center;
-
-  [role=navigation] {
-    overflow: auto !important
-  }
 }
 
 *{
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: visible; /* Enable vertical scrolling */
   max-height: 100vh; /* Example: limit height to viewport height */
 }
 
