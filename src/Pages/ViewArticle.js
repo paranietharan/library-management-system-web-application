@@ -61,11 +61,11 @@ function ViewArticle() {
         return <div>Article not found!</div>;
     }
 
-    const {articleID, userID, title, body, articleImg} = article;
+    const { articleID, userID, title, body, articleImg } = article;
 
     return (
         <>
-            
+
             <div className={styles.navbar}>
                 <ArticleBreadCrumbs className={styles.breadCrumbs} />
             </div>
@@ -104,11 +104,19 @@ function ViewArticle() {
 
                 {/* Details from comments and Rating */}
                 <div className={styles.RatingAndCommentSection}>
+                    {/* Rating Section */}
                     <div className={styles.ratingSection}>
-                        <p>Average Rating: {averageRating?.average || "Not Rated Yet"}</p>
+                        <p>Average Rating: {averageRating}</p>
                         <HoverRating />
                     </div>
+
                     <div className={styles.commentSection}>
+                        {/* Write a comment */}
+                        <div className={styles.writeComment}>
+                            <textarea placeholder="Write a comment"></textarea>
+                            <button>Submit</button>
+                        </div>
+                        {/* List all comments */}
                         <div className={styles.viewComments}>
                             <ViewComments comments={comments || []} />
                         </div>
