@@ -1,7 +1,26 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Comment({ comment }) {
-    const { comment: content, commenterId: authorId, articleId, timestamp } = comment;
+    const { comment: content, commenterId: authorId } = comment;
+    const [commenter, setCommenter] = useState({});
+
+    useEffect(() => {
+        const fetchCommenterName = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/user/getUserProfile/${authorId}`);
+                const commenter = response.data;
+                setCommenter(commenter);
+            } catch (error) {
+                console.error("Error fetching commenter details:", error);
+            }
+        };
+
+        fetchCommenterName();
+    }, [authorId]);
+
+    const commenterName = commenter.firstName + " " + commenter.lastName;
 
     return (
         <>
@@ -9,13 +28,7 @@ function Comment({ comment }) {
                 <div style={{ flex: "1", minWidth: "0" }}>
                     <p style={{ textAlign: "left" }}>{content}</p>
                     <p style={{ textAlign: "left", color: "gray" }}>
-                        posted on {timestamp}
-                    </p>
-                    <p style={{ textAlign: "left", color: "gray" }}>
-                        Commenter ID: {authorId}
-                    </p>
-                    <p style={{ textAlign: "left", color: "gray" }}>
-                        Article ID: {articleId}
+                        {commenterName}
                     </p>
                 </div>
             </div>
