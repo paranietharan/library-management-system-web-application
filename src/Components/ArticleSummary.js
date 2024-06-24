@@ -9,13 +9,13 @@ import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 
 function ArticleSummary({ article }) {
-  const title = article.contents.title.split(' ');
+  const title = article.title.split(' ');
   const displayedTitle = title.length > 7 ? `${title.slice(0, 7).join(' ')}...` : title.join(' ');
 
-
   return (
-    <Card sx={{ maxWidth: '25%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' }}>
-      <Link to={`/article/${article.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Card sx={{ maxWidth: '100%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' }}>
+      <Link to={`/article/${article.articleID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        {/* Use article.articleID instead of article.articleId */}
         <CardActionArea>
           <CardMedia
             component="img"
@@ -26,18 +26,17 @@ function ArticleSummary({ article }) {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {/* {article.contents.title.split(' ').slice(0, 7).join(' ')} getting title from article.contents */}
               {displayedTitle}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {article.contents.paragraphs[0].split(' ').slice(0, 10).join(' ')} {/* 2 display the first paragraph 10 wrds as summary */}
+              {article.body.substring(0, 200)} {/* Display first 200 characters of body */}
             </Typography>
           </CardContent>
         </CardActionArea>
       </Link>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small" component={Link} to={`/article/${article.id}`} style={{ textDecoration: 'none' }}>
+        <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none' }}>
           Read Article
         </Button>
       </CardActions>

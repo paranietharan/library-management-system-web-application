@@ -22,7 +22,7 @@ const footerStyle = {
     justifyContent: 'center', // Horizontal centering
     alignItems: 'center', // Vertical centering
     border: '2px solid black',
-    margin: '0px 5px 2px 2px',
+    margin: '20px 5px 2px 2px',
 }
 
 export default Footer;

@@ -1,24 +1,28 @@
 import React from "react";
-import styles from "./ProfileCard.module.css"; // Import module CSS
+import styles from "./ProfileCard.module.css";
 
-function ProfileCard(props) {
-	return (
-		<div className={styles["card-container"]}>
-			<div
-				className={styles.profileheader}
-				style={{ backgroundImage: `url(${props.wallpaper})` }}
-			>
-				<img src={props.avatar} alt={props.name} className={styles.profileImage} />
-			</div>
-			<h1 className={styles["bold-text"]}>
-				{props.name}
-			</h1>
-			<h2 className={styles["normal-text"]}>{props.class}</h2>
-			<div className={styles["about-container"]}>
-				<p>{props.about}</p>
-			</div>
-		</div>
-	);
+function ProfileCard({ authorDetails }) {
+  return (
+    <div className={styles["card-container"]}>
+      <div
+        className={styles.profileheader}
+        style={{ backgroundImage: `url(${authorDetails.wallpaper || 'default_wallpaper_url'})` }}
+      >
+        <img
+          src={authorDetails.profileImg || 'https://www.w3schools.com/howto/img_avatar.png'}
+          alt={`${authorDetails.firstName} ${authorDetails.lastName}`}
+          className={styles.profileImage}
+        />
+      </div>
+      <h1 className={styles["bold-text"]}>
+        {`${authorDetails.firstName} ${authorDetails.lastName}`}
+      </h1>
+      <h2 className={styles["normal-text"]}>{authorDetails.role}</h2>
+      {/* <div className={styles["about-container"]}>
+        <p>Role : {authorDetails.role}</p>
+      </div> */}
+    </div>
+  );
 }
 
 export default ProfileCard;
