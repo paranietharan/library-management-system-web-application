@@ -6,6 +6,7 @@ import HoverRating from '../Components/HoverRating';
 import ViewComments from '../Components/ViewComments';
 import ArticleBreadCrumbs from '../Components/ArticleBreadCrumbs';
 import Footer from '../Components/LibraryFooter';
+import axios from 'axios';
 
 function ViewArticle() {
     const { articleId } = useParams();
@@ -14,6 +15,26 @@ function ViewArticle() {
     const [averageRating, setAverageRating] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [authorDetails, setAuthorDetails] = useState(null);
+
+    const [comment, setComment] = useState('');
+
+    const userId = 1; // Hardcoded user ID for now, replace with actual user ID
+
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8080/article/${userId}/comment`, {
+                comment,
+                commenterId: userId,
+                articleId
+            });
+            console.log('Comment submitted successfully:', response.data);
+            // Optionally, reset the comment textarea or show a success message
+            setComment('');
+        } catch (error) {
+            console.error('Error submitting comment:', error);
+            // Handle error state or show error message to the user
+        }
+    };
 
     useEffect(() => {
         const fetchArticleDetails = async () => {
@@ -127,8 +148,12 @@ function ViewArticle() {
                     <div className={styles.commentSection}>
                         {/* Write a comment */}
                         <div className={styles.writeComment}>
-                            <textarea placeholder="Write a comment"></textarea>
-                            <button>Submit</button>
+                            <textarea
+                                placeholder="Write a comment"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            ></textarea>
+                            <button onClick={handleSubmit}>Submit</button>
                         </div>
                         {/* List all comments */}
                         <div className={styles.viewComments}>
