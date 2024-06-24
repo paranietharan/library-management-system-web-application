@@ -60,10 +60,12 @@ function App() {
         {/* Paranietharan */}
         <Route path="/about" element={<AboutPage />} />
         <Route path="/article-home" element={<ArticleHome />} />
+        <Route path="/article/:articleId" element={<ViewArticle />} />
+        <Route path='/my-profile' element={<MyProfile articles={articles}/>} />
+
         <Route path='/publish-articles' element={<PublishArticles />} />
         <Route path='/article-tag' element={<ArticleTag />} />
-        <Route path='/my-profile' element={<MyProfile />} />
-        <Route path="/article/:articleId" element={<ViewArticle />} />
+
 
         {/*Shobikan */}
         <Route path="/login" element={<Login />} />
