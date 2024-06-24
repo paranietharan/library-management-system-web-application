@@ -13,6 +13,7 @@ function ViewArticle() {
     const [comments, setComments] = useState([]);
     const [averageRating, setAverageRating] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [authorDetails, setAuthorDetails] = useState(null);
 
     useEffect(() => {
         const fetchArticleDetails = async () => {
@@ -42,6 +43,15 @@ function ViewArticle() {
                     setAverageRating(ratingData);
                 } else {
                     setAverageRating(null);
+                }
+
+                // fetch author details
+                const authorResponse = await fetch(`http://localhost:8080/user/getUserProfile/${articleData.userID}`);
+                if (authorResponse.ok) {
+                    const authorData = await authorResponse.json();
+                    setAuthorDetails(authorData);
+                } else {
+                    setAuthorDetails(null);
                 }
             } catch (error) {
                 console.error('Error fetching article details:', error);
@@ -77,8 +87,12 @@ function ViewArticle() {
 
                     <div className={styles.authorSection}>
                         <div className={styles.authorDetails}>
-                            {/* {authorDetails?.image && <img src={authorDetails.image} alt="Author" className={styles.authorImage} />} */}
-                            <p>{"Author Name Not Available"}</p>
+                            {/* if author image avilable display that else display default image */}
+                            {authorDetails?.profileImg && <img src={authorDetails.profileImg} alt="Author" className={styles.authorImage} />}
+                            {!authorDetails?.profileImg && <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Author" className={styles.authorImage} />}
+
+                            {/*author name */}
+                            <p>{authorDetails.firstName + " " + authorDetails.lastName}</p>
                         </div>
                         <div className={styles.publishedDate}>
                             {/* <p>{authorDetails?.publishedDate || "Publish Date Not Available"}</p> */}
