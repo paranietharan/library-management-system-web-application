@@ -7,8 +7,8 @@ function CheckYourEmail() {
     return (
         <div className={styles['check-email-container']}>
             <div className={styles['check-email-icon']}><FontAwesomeIcon icon={faEnvelopeOpenText} /></div>
-            <p className={styles['check-email-title']}>Check Your Email or Phone</p>
-            <p className={styles['check-email-content']}>We have sent a password recovery link to your email & phone</p>
+            <p className={styles['check-email-title']}>Check Your Email </p>
+            <p className={styles['check-email-content']}>We have sent a OTP to your email </p>
         </div>
     );
 }
