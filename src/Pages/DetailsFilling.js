@@ -1,13 +1,75 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './style/DetailsFillingStyle.module.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 import 'font-awesome/css/font-awesome.min.css';
 
 function DetailsFilling() {
 
+    // for connecting to the backend
+    const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        indexNumber: '',
+        email: '',
+        phoneNumber: '',
+        password: ''
+    });
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!emailValid || !phoneNumberValid || !isValid || !passwordMatch) {
+            console.error('Form validation failed');
+            return;
+        }
+        try {
+            const response = await axios.post('http://localhost:8080/user/saveUser', user);
+            console.log(response.data);
+            // Redirect to confirmation page with response data
+            navigate.push('/details-confirmation', { data: response.data });
+        } catch (error) {
+            console.error('Error registering user:', error);
+        }
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setUser(prevUser => ({
+            ...prevUser,
+            [name]: value
+        }));
+    };
+
+    // for email checking
+    const [emailValid, setEmailValid] = useState(false);
+
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+        handleChange(event);
+        setEmailValid(checkEmail(newEmail));
+    };
+
+    const checkEmail = (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    // for phone number checking
+    const [phoneNumberValid, setPhoneNumberValid] = useState(false);
+
+    const handlePhoneNumberChange = (event) => {
+        const newPhoneNumber = event.target.value;
+        handleChange(event);
+        setPhoneNumberValid(checkPhoneNumber(newPhoneNumber));
+    };
+
+    const checkPhoneNumber = (phoneNumber) => {
+        return /^[0-9]{10}$/.test(phoneNumber);
+    };
+
     // for password checking
-    const [password, setPassword] = useState('');
     const [isValid, setIsValid] = useState(false);
     const [hasMinLength, setHasMinLength] = useState(false);
     const [hasNumber, setHasNumber] = useState(false);
@@ -16,23 +78,21 @@ function DetailsFilling() {
     const [passwordMatch, setPasswordMatch] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleConfirmPasswordChange = (event) => {
-        const newConfirmPassword = event.target.value;
-        setConfirmPassword(newConfirmPassword);
-        setPasswordMatch(newConfirmPassword === password);
-        setIsValid(checkPassword(password, newConfirmPassword));
-    };
-
-    // Password Validation
-    const handleChange = (event) => {
+    const handlePasswordChange = (event) => {
         const newPassword = event.target.value;
-        setPassword(newPassword);
+        handleChange(event);
 
         setHasMinLength(checkMinLength(newPassword));
         setHasNumber(checkNumber(newPassword));
         setHasSpecialChar(checkSpecialChar(newPassword));
 
         setIsValid(checkPassword(newPassword));
+    };
+
+    const handleConfirmPasswordChange = (event) => {
+        const newConfirmPassword = event.target.value;
+        setConfirmPassword(newConfirmPassword);
+        setPasswordMatch(newConfirmPassword === user.password);
     };
 
     const checkMinLength = (password) => {
@@ -48,7 +108,7 @@ function DetailsFilling() {
     };
 
     const checkPassword = (password) => {
-        return hasMinLength && hasNumber && hasSpecialChar;
+        return checkMinLength(password) && checkNumber(password) && checkSpecialChar(password);
     };
 
     return (
@@ -61,22 +121,31 @@ function DetailsFilling() {
                 </div>
 
                 <div className={styles.form}>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
                             type='text'
                             placeholder='First Name'
+                            name='firstName'
+                            value={user.firstName}
+                            onChange={handleChange}
                             required
                         />
 
                         <input
                             type='text'
                             placeholder='Last Name'
+                            name='lastName'
+                            value={user.lastName}
+                            onChange={handleChange}
                             required
                         />
 
                         <input
                             type='text'
                             placeholder='Index Number'
+                            name='indexNumber'
+                            value={user.indexNumber}
+                            onChange={handleChange}
                             required
                         />
 
@@ -84,6 +153,9 @@ function DetailsFilling() {
                             type="text"
                             placeholder="&#xf0e0; Example@Email.com"
                             style={{ fontFamily: 'fontAwesome', width: '100%' }}
+                            name='email'
+                            value={user.email}
+                            onChange={handleEmailChange}
                             required
                         />
 
@@ -91,6 +163,9 @@ function DetailsFilling() {
                             type='text'
                             placeholder='&#xf095; Phone Number'
                             style={{ fontFamily: 'fontAwesome', width: '100%' }}
+                            name='phoneNumber'
+                            value={user.phoneNumber}
+                            onChange={handlePhoneNumberChange}
                             required
                         />
 
@@ -98,10 +173,21 @@ function DetailsFilling() {
                             type='password'
                             placeholder='&#xf023; Password'
                             style={{ fontFamily: 'fontAwesome', width: '100%' }}
-                            value={password}
-                            onChange={handleChange}
+                            name='password'
+                            value={user.password}
+                            onChange={handlePasswordChange}
                             required
                         />
+
+                        <input
+                            type='password'
+                            placeholder='&#xf023; Confirm Password'
+                            style={{ fontFamily: 'fontAwesome', width: '100%' }}
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                            required
+                        />
+
                         <div className={styles['password-requirements']}>
                             <ul>
                                 <li>At least 8 characters: {hasMinLength ? '✓' : '✗'}</li>
@@ -110,14 +196,6 @@ function DetailsFilling() {
                                 <li>Passwords match: {passwordMatch ? '✓' : '✗'}</li>
                             </ul>
                         </div>
-
-                        <input
-                            type='password'
-                            placeholder='&#xf023; Confirm Password'
-                            style={{ fontFamily: 'fontAwesome', width: '100%' }}
-                            onChange={handleConfirmPasswordChange}
-                            required
-                        />
 
                         <button type='submit' className={styles['next-button']}>Next</button>
                     </form>

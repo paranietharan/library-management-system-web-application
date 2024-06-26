@@ -1,20 +1,20 @@
 import styles from './style/DetailsConfirmation.module.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function DetailsConfirmation() {
-    const [currentStep, setCurrentStep] = useState(2);
 
-    const handleNextStep = () => {
-        setCurrentStep(currentStep + 1);
+    const location = useLocation();
+    const { data } = location.state.data;
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate('/verification-success');
     };
 
-    const formValues = {
-        firstName: 'Shobikan',
-        lastName: 'Vigneshwaran',
-        dob: '29/08/2001',
-        classDetails: '12C'
-    };
+
 
     return (
         <div>
@@ -32,7 +32,7 @@ function DetailsConfirmation() {
                             <input
                                 type="text"
                                 name="firstName"
-                                defaultValue={formValues.firstName}
+                                defaultValue={data.firstName}
                                 disabled // Make the input disabled to prevent editing
                             />
                         </p>
@@ -41,7 +41,7 @@ function DetailsConfirmation() {
                             <input
                                 type="text"
                                 name="lastName"
-                                defaultValue={formValues.lastName}
+                                defaultValue={data.lastName}
                                 disabled // Make the input disabled to prevent editing
                             />
                         </p>
@@ -50,7 +50,7 @@ function DetailsConfirmation() {
                             <input
                                 type="text"
                                 name="dob"
-                                defaultValue={formValues.dob}
+                                defaultValue={data.dateOfBirth}
                                 disabled // Make the input disabled to prevent editing
                             />
                         </p>
@@ -59,12 +59,16 @@ function DetailsConfirmation() {
                             <input
                                 type="text"
                                 name="classDetails"
-                                defaultValue={formValues.classDetails}
+                                defaultValue={data.grade}
                                 disabled // Make the input disabled to prevent editing
                             />
                         </p>
 
-                        <button type='submit' className={styles['confirm-details-next-button']}>Next</button>
+                        <button 
+                            type='submit' 
+                            className={styles['confirm-details-next-button']}
+                            onClick={handleButtonClick}
+                            >Next</button>
                     </div>
                 </div>
             </div>
