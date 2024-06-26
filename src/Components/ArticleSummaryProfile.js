@@ -20,9 +20,9 @@ function ArticleSummaryProfile({ article }) {
           <CardMedia
             component="img"
             height="140"
-            image={article.articleImage}
+            image={`data:image/jpeg;base64,${article.articleImg}`}
             alt="Article Image"
-            style={{ width: '25vw', maxHeight: '250px', height: 'auto' }}
+            style={{ width: '25vw', maxHeight: '100px', height: 'auto' }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -35,6 +35,7 @@ function ArticleSummaryProfile({ article }) {
         </CardActionArea>
       </Link>
       <CardActions>
+        <Button size="small" component={Link} to={`/article-edit/${article.articleID}`} style={{ textDecoration: 'none' }}>Edit</Button>
         <Button size="small">Delete</Button>
         <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none' }}>
           Read Article
