@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,10 +7,29 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
+import ArticleDeleteAlertDialog from './ArticleDeleteAlert';
+import { useState } from 'react';
 
 function ArticleSummaryProfile({ article }) {
   const title = article.title.split(' ');
   const displayedTitle = title.length > 7 ? `${title.slice(0, 7).join(' ')}...` : title.join(' ');
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [authorId, setAuthorId] = useState(1); // Example author ID
+  const [articleId, setArticleId] = useState(3); // Example article ID
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  useEffect(() => {
+    setArticleId(article.articleID);
+    setAuthorId(article.userID);
+  }, [])
 
   return (
     <Card sx={{ maxWidth: '100%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' }}>
@@ -36,7 +55,17 @@ function ArticleSummaryProfile({ article }) {
       </Link>
       <CardActions>
         <Button size="small" component={Link} to={`/article-edit/${article.articleID}`} style={{ textDecoration: 'none' }}>Edit</Button>
-        <Button size="small">Delete</Button>
+
+        <Button variant="contained" color="secondary" onClick={handleDialogOpen}>
+          Delete Article
+        </Button>
+        <ArticleDeleteAlertDialog
+          authorId={authorId}
+          articleId={articleId}
+          open={dialogOpen}
+          handleClose={handleDialogClose}
+        />
+
         <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none' }}>
           Read Article
         </Button>
