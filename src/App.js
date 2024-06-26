@@ -10,6 +10,7 @@ import MyProfile from './Pages/MyProfile';
 import ViewArticle from './Pages/ViewArticle';
 import articles from './articles';
 import ArticleSearch from './Pages/ArticleSearch';
+import ArticleEdit from './Pages/ArticleEdit';
 
 // Shobikan
 import Login from './Pages/login';
@@ -61,9 +62,11 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/article-home" element={<ArticleHome />} />
         <Route path="/article/:articleId" element={<ViewArticle />} />
-        <Route path='/my-profile' element={<MyProfile articles={articles}/>} />
-
+        <Route path='/my-profile' element={<MyProfile/>} />
         <Route path='/publish-articles' element={<PublishArticles />} />
+        <Route path='/article-edit/:articleId' element={<ArticleEdit />} />
+
+        {/*TODO: Conect article Search with Backend */}
         <Route path='/article-search' element={<ArticleSearch />} />
 
 

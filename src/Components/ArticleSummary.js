@@ -20,7 +20,7 @@ function ArticleSummary({ article }) {
           <CardMedia
             component="img"
             height="140"
-            image={article.articleImage}
+            image={`data:image/jpeg;base64,${article.articleImg}`}
             alt="Article Image"
             style={{ width: '25vw', maxHeight: '250px', height: 'auto' }}
           />
