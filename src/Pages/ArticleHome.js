@@ -22,7 +22,7 @@ function ArticleHome() {
     }, []); // Empty dependency array means it only runs once on component mount
 
     return (
-        <div>
+        <div className={styles.ArticleHomePage}>
             <ArticleNavBar />
             <div className={styles.container}>
                 <div className={styles.articles}>
