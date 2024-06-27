@@ -46,22 +46,22 @@ function EditArticle() {
     formData.append('authorId', 1); // Hardcoded for now
     if (newImage) {
       formData.append('articleImg', newImage);
-    }
+    } else if (originalArticle.articleImg) {
+      // Convert base64 to Blob
+      const byteCharacters = atob(originalArticle.articleImg.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/jpeg' });
+    
+      formData.append('articleImg', blob, 'oldImage.jpg');
+    }else {
+      // No image
+      formData.append('articleImg', null);
+    } 
 
-    // send data to api
-    // fetch(`http://localhost:8080/article/editArticle/${articleId}`, {
-    //   method: 'PUT',
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.success) {
-    //       alert('Article updated successfully');
-    //       setOriginalArticle(article);
-    //     } else {
-    //       alert('Failed to update article');
-    //     }
-    //   });
     // Axios PUT request
     axios.put(`http://localhost:8080/article/editArticle/${articleId}`, formData, {
       headers: {
@@ -73,8 +73,6 @@ function EditArticle() {
         if (response.data.success) {
           alert('Article updated successfully');
           setOriginalArticle(article);
-        } else {
-          alert('Failed to update article');
         }
       })
       .catch((error) => {
