@@ -127,7 +127,6 @@ function App() {
         */}
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
-        {/*TODO: change wallpaper */}
 
         {/* TODO: New pages to do */}
         <Route path='/admin-settings' element={<AdminSettings />} />
