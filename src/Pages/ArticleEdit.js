@@ -10,6 +10,7 @@ function EditArticle() {
   const [originalArticle, setOriginalArticle] = useState({});
   const [editMode, setEditMode] = useState({ title: false, image: false, body: false });
   const [newImage, setNewImage] = useState(null);
+  const [deleteImage, setDeleteImage] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8080/article/viewFull/${articleId}`)
@@ -24,43 +25,54 @@ function EditArticle() {
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setNewImage(e.target.files[0]);
+      setDeleteImage(false); // Reset delete flag when new image is selected
     }
   };
 
+  const handleDeleteImage = () => {
+    setNewImage(null);
+    setDeleteImage(true);
+  };
+
+  const base64ToBlob = (base64Data, contentType) => {
+    const byteCharacters = atob(base64Data.split(",")[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+  };
+
   const handleSave = () => {
+    // check for changes
     const isArticleChanged =
       article.title !== originalArticle.title ||
       article.body !== originalArticle.body ||
-      newImage;
+      newImage || deleteImage;
 
     if (!isArticleChanged) {
       alert('No changes detected');
       return;
     }
 
-    // Create form data
+    // Create a form data object
     const formData = new FormData();
 
+    // Copy properties from the original article
     formData.append('title', article.title);
     formData.append('body', article.body);
-    formData.append('authorId', 1); // Hardcoded for now
+    formData.append('authorId', 1); // Add authorId
+
+    // Add or remove the image
     if (newImage) {
       formData.append('articleImg', newImage);
+    } else if (deleteImage) {
+      formData.append('articleImg', '');
     } else if (originalArticle.articleImg) {
-      // Convert base64 to Blob
-      const byteCharacters = atob(originalArticle.articleImg.split(',')[1]);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'image/jpeg' });
-    
-      formData.append('articleImg', blob, 'oldImage.jpg');
-    }else {
-      // No image
-      formData.append('articleImg', null);
-    } 
+      const imageBlob = base64ToBlob(`data:image/jpeg;base64,${originalArticle.articleImg}`, 'image/jpeg');
+      formData.append('articleImg', imageBlob, 'original_image.jpg');
+    }
 
     // Axios PUT request
     axios.put(`http://localhost:8080/article/editArticle/${articleId}`, formData, {
@@ -77,7 +89,7 @@ function EditArticle() {
       })
       .catch((error) => {
         console.error('Error:', error);
-        alert('Failed to fetch data. Please try again later.');
+        alert('Failed to update article. Please try again later.');
       });
   };
 
@@ -103,9 +115,16 @@ function EditArticle() {
 
           <div className={style.articleImage}>
             {editMode.image ? (
-              <input type="file" onChange={handleImageChange} />
+              <div className={style.deleteImageAndEditImage}>
+                <input type="file" onChange={handleImageChange} />
+                <button onClick={handleDeleteImage}>Delete Image</button>
+              </div>
             ) : (
-              <img src={newImage ? URL.createObjectURL(newImage) : `data:image/jpeg;base64,${article.articleImg}`} alt="Article" />
+              <div className={style.imageContainer}>
+                <img 
+                src={newImage ? URL.createObjectURL(newImage) : `data:image/jpeg;base64,${originalArticle.articleImg}`}
+                alt="Article" />
+              </div>
             )}
             <button onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
               {editMode.image ? 'Save' : 'Change'}
