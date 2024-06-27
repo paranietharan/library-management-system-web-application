@@ -111,8 +111,6 @@ function App() {
         <Route path='/admin-book-management' element={<BookManagement />} />
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
-           TODO: 1 - Confirmation Dialog for add member
-
            TODO: 2 - create edit EditMember component
                       * Search bar for search member
                       * Filter for search member : by membername, by memberid, by email, by phone number
