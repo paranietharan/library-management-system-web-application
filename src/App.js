@@ -62,7 +62,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/article-home" element={<ArticleHome />} />
         <Route path="/article/:articleId" element={<ViewArticle />} />
-        <Route path='/my-profile' element={<MyProfile/>} />
+        <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/publish-articles' element={<PublishArticles />} />
         <Route path='/article-edit/:articleId' element={<ArticleEdit />} />
 
@@ -110,13 +110,32 @@ function App() {
         <Route path="/admin" element={<AdminDashboardHome />} />
         <Route path='/admin-book-management' element={<BookManagement />} />
         <Route path='/membership-management' element={<MembershipManagement />} />
-        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles}/>} />
+        {/*
+           TODO: 1 - Confirmation Dialog for add member
+
+           TODO: 2 - create edit EditMember component
+                      * Search bar for search member
+                      * Filter for search member : by membername, by memberid, by email, by phone number
+                      * Confirmation Dialog for edit member
+            TODO: 3 - forward to member Delete member page page
+        */}
+        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
+        {/* 
+          TODO: create a new page to check articles view 
+          - option to delete comments
+          - option to delete articles
+        */}
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
+        {/*TODO: change wallpaper */}
 
-        {/* TO DO */}
+        {/* TODO: New pages to do */}
         <Route path='/admin-settings' element={<AdminSettings />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
+
+        {/* TODO: Create a new page to search delete member */}
+        {/* TODO: Create a new page to display all member details */}
+
 
         {/* Sample code for test */}
         <Route path='/test' element={<Test />} />
