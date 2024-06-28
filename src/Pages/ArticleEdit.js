@@ -3,6 +3,7 @@ import style from './style/EditArticleStyle.module.css';
 import { useParams } from "react-router";
 import ArticleNavBar from "../Components/ArticleNavBar";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function EditArticle() {
   const { articleId } = useParams();
@@ -11,6 +12,8 @@ function EditArticle() {
   const [editMode, setEditMode] = useState({ title: false, image: false, body: false });
   const [newImage, setNewImage] = useState(null);
   const [deleteImage, setDeleteImage] = useState(false);
+
+  const author_id = 'sampleUserID'; // Example author ID
 
   useEffect(() => {
     fetch(`http://localhost:8080/article/viewFull/${articleId}`)
@@ -62,7 +65,7 @@ function EditArticle() {
     // Copy properties from the original article
     formData.append('title', article.title);
     formData.append('body', article.body);
-    formData.append('authorId', 1); // Add authorId
+    formData.append('authorId', author_id); // Add authorId
 
     // Add or remove the image
     if (newImage) {
@@ -81,7 +84,7 @@ function EditArticle() {
       }
     })
       .then((response) => {
-        console.log('Success:', response.data);
+        //console.log('Success:', response.data);
         if (response.data.success) {
           alert('Article updated successfully');
           setOriginalArticle(article);
@@ -121,9 +124,9 @@ function EditArticle() {
               </div>
             ) : (
               <div className={style.imageContainer}>
-                <img 
-                src={newImage ? URL.createObjectURL(newImage) : `data:image/jpeg;base64,${originalArticle.articleImg}`}
-                alt="Article" />
+                <img
+                  src={newImage ? URL.createObjectURL(newImage) : `data:image/jpeg;base64,${originalArticle.articleImg}`}
+                  alt="Article" />
               </div>
             )}
             <button onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
