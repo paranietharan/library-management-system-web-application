@@ -28,6 +28,27 @@ function AdminNotificationControl() {
         setNotifications(updatedNotifications);
     };
 
+    // harcode some initial notifications
+    useState(() => {
+        setNotifications([
+            {
+                id: 1,
+                heading: 'Welcome to the Library',
+                message: 'We are glad to have you as a member of our library. Please feel free to ask any questions.',
+            },
+            {
+                id: 2,
+                heading: 'Library Closure Notice',
+                message: 'The library will be closed on the 25th of December due to the Christmas holiday.',
+            },
+            {
+                id: 3,
+                heading: 'Library Closure Notice',
+                message: 'The library will be closed on the 1st of January due to the New Year holiday.',
+            },
+        ]);
+    }, []);
+
     return (
         <div className={styles.AdminNotificationControl}>
             <div className={styles.container}>
