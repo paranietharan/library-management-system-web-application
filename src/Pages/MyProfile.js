@@ -5,6 +5,7 @@ import ProfileCard from "../Components/ProfileCard";
 import ArticleSummaryProfile from "../Components/ArticleSummaryProfile";
 import styles from "./style/MyProfile.module.css";
 import axios from "axios";
+import Footer from "../Components/LibraryFooter";
 
 function MyProfile() {
   const [articles, setArticles] = useState([]);
@@ -49,7 +50,7 @@ function MyProfile() {
           ))}
         </div>
       </div>
-      <CustomFooter />
+      <Footer />
     </div>
   );
 }

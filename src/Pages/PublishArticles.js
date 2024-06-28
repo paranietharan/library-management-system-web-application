@@ -8,6 +8,8 @@ function ArticleForm() {
     const [heading, setHeading] = useState('');
     const [body, setBody] = useState('');
 
+    const author_id = 'sampleUserID'; // Example author ID
+
     const handleImageChange = (e) => {
         const selectedImage = e.target.files[0];
         setImage(selectedImage);
@@ -23,7 +25,7 @@ function ArticleForm() {
         const formData = new FormData();
         formData.append('title', heading);
         formData.append('body', body);
-        formData.append('authorId', '1');// Hardcoded for now
+        formData.append('authorId', author_id);
 
         if (image) {
             formData.append('articleImg', image);
