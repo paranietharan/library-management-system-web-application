@@ -23,12 +23,31 @@ import SearchIcon from '@mui/icons-material/Search';
 const pages = ['Search', 'Home', 'About'];
 const links = ['article-search', 'article-home', 'about'];
 
-const settings = ['Profile', 'Library book', 'About','Publish Articles', 'Logout'];
-const settingslinks = ['my-profile', '', 'about','publish-articles', 'logout'];
+const settings = ['Profile', 'Library book', 'About', 'Publish Articles', 'Logout'];
+const settingslinks = ['my-profile', '', 'about', 'publish-articles', 'logout'];
 
 function ArticleNavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [userDetails, setUserDetails] = React.useState({});
+
+    // Get user details from api
+    React.useEffect(() => {
+        const userID = 'sampleUserID'; // Replace 'sampleUserID' with actual user id from 'localStorage.getItem('userID')
+        // Fetch user details from api
+        const fetchUserDetails = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/user/getUserProfile/${userID}`);
+                const data = await response.json();
+                console.log('User details:', data);
+                setUserDetails(data);
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        };
+
+        fetchUserDetails();
+    }, []);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -182,7 +201,14 @@ function ArticleNavBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Profile">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                {/* Display profile image if available, else display first letter of first name & lastname */}
+                                <Avatar alt="User Avatar" src={userDetails.profileImg ? `data:image/jpeg;base64,${userDetails.profileImg}` : null}>
+                                    {
+                                        !userDetails?.profileImg && userDetails?.firstName && userDetails?.lastName
+                                            ? `${userDetails.firstName.charAt(0)}${userDetails.lastName.charAt(0)}`
+                                            : ' '
+                                    }
+                                </Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu
