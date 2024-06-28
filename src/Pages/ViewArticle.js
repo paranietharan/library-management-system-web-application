@@ -20,7 +20,7 @@ function ViewArticle() {
 
     const [UserRating, setUserRating] = useState(1.0);
 
-    const userId = 1; // Hardcoded user ID for now, replace with actual user ID
+    const userId = "sampleUserID"; // Hardcoded user ID for now, replace with actual user ID
 
     // Function to handle comment submission
     const handleSubmit = async () => {
