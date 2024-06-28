@@ -15,8 +15,8 @@ function ArticleSummaryProfile({ article }) {
   const displayedTitle = title.length > 7 ? `${title.slice(0, 7).join(' ')}...` : title.join(' ');
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [authorId, setAuthorId] = useState(1); // Example author ID
-  const [articleId, setArticleId] = useState(3); // Example article ID
+  const [authorId, setAuthorId] = useState(""); // Example author ID
+  const [articleId, setArticleId] = useState(0); // Example article ID
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
