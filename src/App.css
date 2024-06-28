@@ -4,11 +4,6 @@
   text-align: center;
 }
 
-*{
-  overflow-y: visible; /* Enable vertical scrolling */
-  max-height: 100vh; /* Example: limit height to viewport height */
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;

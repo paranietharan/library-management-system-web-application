@@ -18,9 +18,9 @@ function ViewArticle() {
 
     const [comment, setComment] = useState('');
 
-    const [UserRating, setUserRating] = useState(1.0);
+    const [UserRating, setUserRating] = useState(5.0);
 
-    const userId = 1; // Hardcoded user ID for now, replace with actual user ID
+    const userId = "sampleUserID"; // Hardcoded user ID for now, replace with actual user ID
 
     // Function to handle comment submission
     const handleSubmit = async () => {
@@ -155,11 +155,6 @@ function ViewArticle() {
 
                     <div className={styles.articleHeader}>
                         <h1 className={styles.articleTitle}>{title}</h1>
-                        <p>
-                            {/* {contents?.tags?.map((tag, index) => (
-                                <span key={index}>#{tag} </span>
-                            )) || "No Tags Available"} */}
-                        </p>
                     </div>
 
                     <div className={styles.articleContent}>
