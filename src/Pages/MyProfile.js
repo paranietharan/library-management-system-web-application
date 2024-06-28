@@ -11,9 +11,10 @@ function MyProfile() {
   const [authorDetails, setAuthorDetails] = useState({});
 
   useEffect(() => {
+    const authorId = 'sampleUserID';
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/article/getByUserID/1');
+        const response = await axios.get(`http://localhost:8080/article/getByUserID/${authorId}`);
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -22,7 +23,7 @@ function MyProfile() {
 
     const fetchAuthorDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/getUserProfile/1');
+        const response = await axios.get(`http://localhost:8080/user/getUserProfile/${authorId}`);
         setAuthorDetails(response.data);
       } catch (error) {
         console.error('Error fetching author details:', error);
