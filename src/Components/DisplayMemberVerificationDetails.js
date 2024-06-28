@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './style/DisplayMemberVerificationDetails.module.css';
+import ConfirmAddMemberComponent from './ConfirmAddMemberComponent';
 
 function DisplayMemberVerificationDetails({ memberDetails, onConfirm, onGoToMainMenu }) {
-    const handleConfirm = () => {
-        onConfirm();
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleDialogOpen = () => {
+        setDialogOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
     };
 
     const handleGoToMainMenu = () => {
@@ -22,7 +29,14 @@ function DisplayMemberVerificationDetails({ memberDetails, onConfirm, onGoToMain
                 <p><strong>Date of Birth:</strong> {memberDetails.dateOfBirth}</p>
             </div>
             <div className={styles.actions}>
-                <button onClick={handleConfirm}>Confirm</button>
+                <button variant="contained" color="secondary" onClick={handleDialogOpen}>
+                    Confirm
+                </button>
+                <ConfirmAddMemberComponent
+                    memberDetails={memberDetails}
+                    open={dialogOpen}
+                    handleClose={handleDialogClose}
+                />
                 <button onClick={handleGoToMainMenu}>Go to Main Menu</button>
             </div>
         </div>

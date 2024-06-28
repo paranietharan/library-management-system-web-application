@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.article {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.articleTitle,
+.articleImage,
+.articleBody {
+    margin-bottom: 20px;
+}
+
+.articleTitle h1,
+.articleTitle input {
+    font-size: 24px;
+    margin: 0;
+}
+
+.articleTitle button,
+.articleImage button,
+.articleBody button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.articleTitle button:hover,
+.articleImage button:hover,
+.articleBody button:hover {
+    background-color: #0056b3;
+}
+
+.articleImage img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.articleImage input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.articleBody p,
+.articleBody textarea {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.articleBody textarea {
+    width: 100%;
+    height: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+
+/******************************************/
+.deleteImageAndEditImage{
+    padding: 2px;
+}

@@ -21,7 +21,7 @@ export default function HoverRating({ ratingValue, onRatingChange }) {
         '& > legend': { mt: 2 },
       }}
     >
-      {/* {console.log('Rating:', value)} */}
+      {console.log('Rating:', value)}
       <Rating
         name="simple-controlled"
         value={value}
