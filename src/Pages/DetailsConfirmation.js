@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function DetailsConfirmation() {
 
     const location = useLocation();
-    const { data } = location.state.data;
+    const { data } = location.state;
 
     const navigate = useNavigate();
 
