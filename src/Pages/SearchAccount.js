@@ -21,12 +21,12 @@ function SearchAccount() {
         try {
             const response = await axios.post('http://localhost:8080/user/forgotPassword', { email });
             console.log(response.data);
-            if (response.data.true) {
+            if (response.data) {
                 localStorage.setItem('email', email)
                 // Redirect to confirmation page with response data
-                navigate.push('/verify-email');
+                navigate('/verify-email');
             } else {
-                console.error('Search failed:', response.data.message);
+                console.error('Search failed:');
                 setIsWrong(false);
                 setShowInvalidEmail(true);
             }
