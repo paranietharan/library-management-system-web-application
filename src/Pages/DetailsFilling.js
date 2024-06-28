@@ -28,8 +28,12 @@ function DetailsFilling() {
         try {
             const response = await axios.post('http://localhost:8080/user/saveUser', user);
             console.log(response.data);
+            if (response.data) {
             // Redirect to confirmation page with response data
-            navigate.push('/details-confirmation', { data: response.data });
+            navigate('/details-confirmation', { state: { data: response.data} });
+            } else {
+                console.error('Registration failed:', response.data.message);
+            }
         } catch (error) {
             console.error('Error registering user:', error);
         }

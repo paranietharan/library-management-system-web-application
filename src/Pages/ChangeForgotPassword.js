@@ -2,11 +2,40 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from './style/ChangeForgotPassword.module.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function ChangeForgotPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    const email = localStorage.getItem('email');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!hasMinLength || !hasNumber || !hasSpecialChar || !passwordMatch) {
+            console.error('Password does not meet requirements');   
+            return;
+        }
+        try {
+            const response = await axios.post('http://localhost:8080/user/changePassword', { email, password });
+            console.log(response.data);
+            if (response.data) {
+                // Redirect to confirmation page with response data
+                navigate('/verification-success');
+            } else {
+                console.error('Password change failed:');
+            }
+        } catch (error) {
+            console.error('Error changing password:', error);
+        }
+    };
+
+
+
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -66,7 +95,16 @@ function ChangeForgotPassword() {
                                 <li>Passwords match: <span className={passwordMatch ? styles['password-requirements-right-symbol'] : styles['password-requirements-wrong-symbol']}>{passwordMatch ? '✓' : '✗'}</span></li>
                             </ul>
                         </div>
-                        <button type='submit' className={styles['login-form-submit-button']}>Change Password {<i className="fa fa-chevron-circle-right" aria-hidden="true" style={{ marginLeft: '10px', fontSize: '20px' }}></i>}</button>
+                        <button 
+                            type='submit' 
+                            className={styles['login-form-submit-button']}
+                            onClick={handleSubmit}>
+                                Change Password 
+                                {<i className="fa fa-chevron-circle-right" 
+                                    aria-hidden="true" 
+                                    style={{ marginLeft: '10px', 
+                                    fontSize: '20px' }}></i>}
+                        </button>
                     </form>
                 </div>
             </div>
