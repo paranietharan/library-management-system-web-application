@@ -17,6 +17,15 @@ function EditBooksComponent() {
       isbn: '1234567890',
       count: 5,
     },
+    {
+      id: 2,
+      profileImage: exampleImage,
+      name: 'John Doe',
+      bookName: 'The Great Gatsby',
+      Description: '$10',
+      isbn: '1234567890',
+      count: 5,
+    },
   ]);
 
   //which component 2 display
