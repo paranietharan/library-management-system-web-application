@@ -33,10 +33,11 @@ function ArticleNavBar() {
 
     // Get user details from api
     React.useEffect(() => {
+        const userID = 'sampleUserID'; // Replace 'sampleUserID' with actual user id from 'localStorage.getItem('userID')
         // Fetch user details from api
         const fetchUserDetails = async () => {
             try {
-                const response = await fetch('http://localhost:8080/user/getUserProfile/1');
+                const response = await fetch(`http://localhost:8080/user/getUserProfile/${userID}`);
                 const data = await response.json();
                 console.log('User details:', data);
                 setUserDetails(data);
