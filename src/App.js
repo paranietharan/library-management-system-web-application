@@ -68,6 +68,7 @@ function App() {
 
         {/*TODO: Conect article Search with Backend */}
         <Route path='/article-search' element={<ArticleSearch />} />
+        {/*TODO: Create a search result page for articles */}
 
 
         {/*Shobikan */}
