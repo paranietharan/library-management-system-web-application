@@ -48,11 +48,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar(props) {
-    const { SearchBarPlaceholder, width, onSearchChange } = props;
+    const { SearchBarPlaceholder, width, onSearch } = props; // Adjusted prop name
 
     const handleInputChange = (event) => {
-        if (onSearchChange) {
-            onSearchChange(event.target.value);
+        if (onSearch) {
+            onSearch(event.target.value);
         }
     };
 
