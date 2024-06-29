@@ -3,18 +3,32 @@ import ArticleNavBar from "../Components/ArticleNavBar";
 import Footer from "../Components/LibraryFooter";
 import SearchBar from '../Components/SearchBarComponent';
 import styles from './style/ArticleTag.module.css';
+import SearchResultsList from '../Components/SearchResultsList';
 
 function ArticleSearch() {
-    const [searchText, setSearchText] = useState([]);
+    const [data, setData] = useState([]);
+    const [query, setQuery] = useState("");
 
-    // Function 2 handle search
-    const handleSearch = (searchText) => {
-        setSearchText([searchText]);
+    const fetchData = (query) => {
+        if (!query) {
+            setData([]);
+            return;
+        }
+
+        const url = query.startsWith('heading:')
+            ? `http://localhost:8080/article/search/heading/${query.replace('heading:', '')}`
+            : `http://localhost:8080/article/search/body/${query}`;
+
+        fetch(url)
+            .then((res) => res.json())
+            .then((d) => setData(d));
     };
-    const searchResults = [];
 
-    //const searchResults = ["Article 1", "Article 2", "Article 3", "Article 4", "Article 5", "Article 6", "Article 7", "Article 8", "Article 9", "Article 10"];
-
+    const handleSearch = (query) => {
+        console.log(query);
+        setQuery(query);
+        fetchData(query);
+    };
 
     return (
         <div className={styles.container}>
@@ -23,9 +37,7 @@ function ArticleSearch() {
             <div className={styles.content}>
                 <SearchBar onSearch={handleSearch} className={styles.searchBar} />
                 <div className={styles.searchResults}>
-                    {searchResults.map((result) => (
-                        <div className={styles.searchResult}>{result}</div>
-                    ))}
+                    <SearchResultsList results={data} />
                 </div>
 
             </div>
@@ -33,7 +45,7 @@ function ArticleSearch() {
             <div className={styles.footerContainer}>
                 <Footer />
             </div>
-        </div >
+        </div>
     );
 }
 
