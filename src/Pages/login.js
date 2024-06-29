@@ -10,9 +10,21 @@ import { jwtDecode } from 'jwt-decode';
 
 function Login() {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+   
     const [showPassword, setShowPassword] = useState(false);
+
+    const [request, setRequest] = useState({
+        emailAddress: '',
+        password: ''
+    });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setRequest(prevRequest => ({
+            ...prevRequest,
+            [name]: value
+        }));
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -20,12 +32,19 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {        
         event.preventDefault();
+        console.log('Request:', request);
+        const cleanRequest = {
+            emailAddress: request.emailAddress,
+            password: request.password,
+        };
+
         try {
-            const response = await axios.post('http://localhost:8080/user/login', { email, password });
+            console.log('cleanRequest:', cleanRequest);
+            const response = await axios.post('http://localhost:8080/user/login', cleanRequest);
             console.log(response.data);
-            if (response.data.isLoginSuccess) {
+            if (response.data.loginSuccess) {
                 // Save the token to local storage
                 localStorage.setItem('token', response.data.token);
                 // Decode the token
@@ -67,11 +86,12 @@ function Login() {
                             <div className={styles['input-wrapper']}>
                                 <input
                                     type="text"
+                                    name="emailAddress"
                                     placeholder="&#xf0e0; Example@Email.com"
                                     className={styles['login-input']}
                                     style={{ fontFamily: 'Arial, FontAwesome' }}
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={request.emailAddress}
+                                    onChange={handleChange}
                                 />
                             </div>
 
@@ -79,8 +99,9 @@ function Login() {
                             <div className={styles['input-wrapper']}>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    name="password"
+                                    value={request.password}
+                                    onChange={handleChange}
                                     placeholder='&#xf023; Password'
                                     className={styles['login-input']}
                                     style={{ fontFamily: 'Arial, FontAwesome' }}
@@ -115,5 +136,6 @@ function Login() {
         </div>
     )
 }
+
 
 export default Login;
