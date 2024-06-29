@@ -12,7 +12,7 @@ function DetailsFilling() {
         firstName: '',
         lastName: '',
         indexNumber: '',
-        email: '',
+        emailAddress: '',
         phoneNumber: '',
         password: ''
     });
@@ -26,6 +26,7 @@ function DetailsFilling() {
             return;
         }
         try {
+            console.log('User:', user);
             const response = await axios.post('http://localhost:8080/user/saveUser', user);
             console.log(response.data);
             if (response.data) {
@@ -56,8 +57,8 @@ function DetailsFilling() {
         setEmailValid(checkEmail(newEmail));
     };
 
-    const checkEmail = (email) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const checkEmail = (emailAddress) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddress);
     };
 
     // for phone number checking
@@ -157,8 +158,8 @@ function DetailsFilling() {
                             type="text"
                             placeholder="&#xf0e0; Example@Email.com"
                             style={{ fontFamily: 'fontAwesome', width: '100%' }}
-                            name='email'
-                            value={user.email}
+                            name='emailAddress'
+                            value={user.emailAddress}
                             onChange={handleEmailChange}
                             required
                         />
