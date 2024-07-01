@@ -6,7 +6,7 @@ const SearchResult = ({ result }) => {
     return (
         <div
             className={styles.searchResult}
-            onClick={() => alert(`You selected ${result.title}!`)}
+            //onClick={() => alert(`You selected ${result.title}!`)}
         >
             <Link to={`/article/${result.articleID}`} className={styles.title}>
                 {result.title}

@@ -16,7 +16,7 @@ function ArticleSearch() {
         }
 
         const url = query.startsWith('heading:')
-            ? `http://localhost:8080/article/search/heading/${query.replace('heading:', '')}`
+            ? `http://localhost:8080/article/search/heading/${query}`
             : `http://localhost:8080/article/search/body/${query}`;
 
         fetch(url)
@@ -25,7 +25,6 @@ function ArticleSearch() {
     };
 
     const handleSearch = (query) => {
-        console.log(query);
         setQuery(query);
         fetchData(query);
     };
@@ -36,6 +35,7 @@ function ArticleSearch() {
 
             <div className={styles.content}>
                 <SearchBar onSearch={handleSearch} className={styles.searchBar} />
+
                 <div className={styles.searchResults}>
                     <SearchResultsList results={data} />
                 </div>
