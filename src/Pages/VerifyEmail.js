@@ -18,8 +18,11 @@ function VerifyEmail() {
         setOtpValue(otp);
     };
 
-
-    const email = localStorage.getItem('email');
+    const userSaveRequset = JSON.parse(localStorage.getItem('user'));
+    const combinedObject = {
+        ...userSaveRequset,
+        otpValue: otpValue
+    };
     const navigate = useNavigate();
 
 
@@ -28,11 +31,12 @@ function VerifyEmail() {
     const SubmitCode = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/user/verifyOTP', { email, otpValue });
+            console.log('User:', combinedObject);
+            const response = await axios.post('http://localhost:8080/user/saveUser', combinedObject);
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data
-                navigate('/change-forgot-password');
+                navigate('/verification-success');
             } else {
                 console.error('Verification failed:');
             }
