@@ -84,7 +84,7 @@ function App() {
 
 
         {/* Mihunan */}
-        <Route path="/" element={<UserHome books={books} />} />
+        <Route path="/" element={<UserHome/>} />
         <Route path='/complaint' element={<Complaint />} />
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
         <Route path="/book/:id" element={<ViewBook books={books} />} />
