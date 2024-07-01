@@ -2,6 +2,7 @@ import styles from './style/DetailsConfirmation.module.css';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function DetailsConfirmation() {
 
@@ -10,9 +11,25 @@ function DetailsConfirmation() {
 
     const navigate = useNavigate();
 
-    const handleButtonClick = () => {
-        navigate('/verification-success');
-    };
+    const emailAddress = JSON.parse(localStorage.getItem('user')).emailAddress;
+    
+
+    const handleButtonClick = async (event) => {
+        event.preventDefault();
+        console.log('Email:', emailAddress);
+        try {
+            const response = await axios.post('http://localhost:8080/user/sendOtp',{emailAddress: emailAddress});
+            console.log(response.data);
+            if (response.data) {
+                // Redirect to confirmation page with response data
+                navigate('/verify-email');
+            } else {
+                console.error('Registration failed:');
+            }
+        } catch (error) {
+            console.error('Error registering user:', error);
+        }
+    }
 
 
 

@@ -1,15 +1,34 @@
 import CheckYourEmail from '../Components/CheckYourEmail';
 import styles from './style/VerifyForgotPassword.module.css';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 function VerifyForgotPassword() {
-    const SubmitCode = () => {
-        console.log('Code submitted');
-        console.log();
+    
+    const [otpValue, setOtpValue] = useState();   
+
+    const setVerificationCode = (e) => {
+        setOtpValue(e.target.value);
+        console.log(e.target.value);
     }
 
-    // 4 verification code
-    const setVerificationCode = (e) => {
-        console.log(e.target.value);
+    const email = localStorage.getItem('email');
+    const navigate = useNavigate();
+
+    const SubmitCode = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/user/verifyOTP', { email, otpValue });
+            console.log(response.data);
+            if (response.data) {
+                // Redirect to confirmation page with response data
+                navigate('/change-forgot-password');
+            } else {
+                console.error('Verification failed:');
+            }
+        } catch (error) {
+            console.error('Error verifying email:', error);
+        }
     }
 
     return (

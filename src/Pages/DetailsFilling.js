@@ -17,6 +17,8 @@ function DetailsFilling() {
         password: ''
     });
 
+    
+
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -27,7 +29,8 @@ function DetailsFilling() {
         }
         try {
             console.log('User:', user);
-            const response = await axios.post('http://localhost:8080/user/saveUser', user);
+            const response = await axios.post('http://localhost:8080/user/checkDetails', user);
+            localStorage.setItem('user', JSON.stringify(user));
             console.log(response.data);
             if (response.data) {
             // Redirect to confirmation page with response data
