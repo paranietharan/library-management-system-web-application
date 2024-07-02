@@ -1,17 +1,46 @@
 import React, { useState } from 'react';
 import styles from './style/MakeNewComplaintStyle.module.css';
 import UserNavBar from '../Components/UserNavBar';
+import axios from 'axios';
 
 function MakeNewComplaint() {
   const [complaintType, setComplaintType] = useState('');
   const [complaintDescription, setComplaintDescription] = useState('');
-  const [complaintLocation, setComplaintLocation] = useState('');
   const [complaintDate, setComplaintDate] = useState('');
   const [complaintTime, setComplaintTime] = useState('');
 
+  const user_id = "sampleUserID";
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // handle form submission logic here
+    sendComplaint();
+
+    setComplaintType('');
+    setComplaintDescription('');
+    setComplaintDate('');
+    setComplaintTime('');
+
+    alert('Complaint submitted successfully');
+    // forwards to the user home page
+    //window.location.href = '/complaint';
+  };
+
+  // axios function to send data to backend
+  const sendComplaint = () => {
+    axios.post('http://localhost:8080/complaint/new', {
+      //userID: localStorage.getItem('userID'),
+      userID: user_id,
+      complaintType: complaintType,
+      complaintDescription: complaintDescription,
+      complaintDate: complaintDate.toString(),
+      complaintTime: complaintTime.toString()
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (
@@ -33,10 +62,13 @@ function MakeNewComplaint() {
             <label htmlFor="complaintDescription">Complaint Description:</label>
             <textarea id="complaintDescription" value={complaintDescription} onChange={(event) => setComplaintDescription(event.target.value)}></textarea>
           </div>
-          <div className={styles.complaintLocation}>
+
+          {/* No need to add location detils */}          
+          {/* <div className={styles.complaintLocation}>
             <label htmlFor="complaintLocation">Complaint Location:</label>
             <input type="text" id="complaintLocation" value={complaintLocation} onChange={(event) => setComplaintLocation(event.target.value)} />
-          </div>
+          </div> */}
+
           <div className={styles.complaintDate}>
             <label htmlFor="complaintDate">Complaint Date:</label>
             <input type="date" id="complaintDate" value={complaintDate} onChange={(event) => setComplaintDate(event.target.value)} />
