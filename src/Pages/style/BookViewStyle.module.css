@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .bookViewContainer {
     /* display: flex; */
     justify-content: center;
@@ -5,19 +8,27 @@
     background-color: #f2f2f2;
 }
 
+.bookDetailsContent {
+    margin-left: 10vw;
+    font-family: "Wittgenstein", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+}
+
+
 .bookDetails {
     margin-right: 50px;
-    width: 40vw;
+    width: 35vw;
     margin-left: 4vw;
     align-items: flex-start;
     margin-left: 10vw;
 }
 
-.bookHeading{
-    margin-left: 30vw;
+.bookHeading {
+    margin-left: 20vw;
 }
 
-.bookImage img{
+.bookImage img {
     width: 700px;
     height: auto;
     border: black solid 2px;
@@ -25,83 +36,16 @@
     margin-left: 10vw;
 }
 
-/* 
-.commentsAndRating {
+
+.Rating {
     flex-grow: 1;
     width: 30vw;
-    margin-right: 10vw;
+    margin-left: 40vw;
 }
 
-.commentsAndRating h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+.averageRating {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
 }
-
-.commentList {
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.comment {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.comment img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.comment p {
-    margin: 0;
-}
-
-.writeComment textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.writeComment button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.writeComment button:hover {
-    background-color: #0056b3;
-}
-
-.averageRating p {
-    font-size: 1.2rem;
-}
-
-.ratingVal{
-    margin-left: 10vw;
-    height: 10vh;
-}
-
-.addComment{
-    display: flex;
-    padding: 10px;
-}
-
-.addComment textarea{
-    margin-right: 20px;
-    height: 50px;
-}
-
-.addComment button{
-    height: 50px;
-} */
