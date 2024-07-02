@@ -13,12 +13,14 @@ function VerifyForgotPassword() {
     }
 
     const email = localStorage.getItem('email');
+    const combinedObject = {emailAddress: email, otpValue: otpValue}
     const navigate = useNavigate();
 
     const SubmitCode = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/user/verifyOTP', { email, otpValue });
+            console.log(combinedObject)
+            const response = await axios.post('http://localhost:8080/user/verifyOTP', combinedObject);
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data

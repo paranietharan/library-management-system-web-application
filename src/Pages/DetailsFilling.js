@@ -29,10 +29,10 @@ function DetailsFilling() {
         }
         try {
             console.log('User:', user);
-            const response = await axios.post('http://localhost:8080/user/checkDetails', user);
-            localStorage.setItem('user', JSON.stringify(user));
+            const response = await axios.post('http://localhost:8080/user/checkDetails', user);            
             console.log(response.data);
-            if (response.data) {
+            if (!response.data.isUserExists) {
+                localStorage.setItem('user', JSON.stringify(user));
             // Redirect to confirmation page with response data
             navigate('/details-confirmation', { state: { data: response.data} });
             } else {

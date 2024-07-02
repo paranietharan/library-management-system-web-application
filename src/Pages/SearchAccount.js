@@ -19,12 +19,13 @@ function SearchAccount() {
             setShowInvalidEmail(true);
         }
         try {
-            const response = await axios.post('http://localhost:8080/user/forgotPassword', { email });
+            console.log(email);
+            const response = await axios.post('http://localhost:8080/user/forgotPassword', {emailAddress :email});
             console.log(response.data);
             if (response.data) {
                 localStorage.setItem('email', email)
                 // Redirect to confirmation page with response data
-                navigate('/verify-email');
+                navigate('/verifyMailForgotPassword');
             } else {
                 console.error('Search failed:');
                 setIsWrong(false);

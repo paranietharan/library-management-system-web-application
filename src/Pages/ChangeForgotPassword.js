@@ -11,6 +11,7 @@ function ChangeForgotPassword() {
     const [showPassword, setShowPassword] = useState(false);
 
     const email = localStorage.getItem('email');
+    const combinedObject = {emailAddress: email, password: password};
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -20,7 +21,8 @@ function ChangeForgotPassword() {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:8080/user/changePassword', { email, password });
+            console.log(combinedObject);
+            const response = await axios.post('http://localhost:8080/user/changePassword', combinedObject);
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data
@@ -52,7 +54,8 @@ function ChangeForgotPassword() {
     // Password validation logic
     const hasMinLength = password.length >= 8;
     const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+    // eslint-disable-next-line no-useless-escape
+    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>?]+/.test(password);
     const passwordMatch = password === confirmPassword;
 
     return (
