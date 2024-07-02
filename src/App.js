@@ -65,10 +65,7 @@ function App() {
         <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/publish-articles' element={<PublishArticles />} />
         <Route path='/article-edit/:articleId' element={<ArticleEdit />} />
-
-        {/*TODO: Conect article Search with Backend */}
         <Route path='/article-search' element={<ArticleSearch />} />
-        {/*TODO: Create a search result page for articles */}
 
 
         {/*Shobikan */}
@@ -85,9 +82,9 @@ function App() {
 
         {/* Mihunan */}
         <Route path="/" element={<UserHome/>} />
+        <Route path="/book/:id" element={<ViewBook/>} />
         <Route path='/complaint' element={<Complaint />} />
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
-        <Route path="/book/:id" element={<ViewBook books={books} />} />
         <Route path='/user-chat' element={<UserChat />} />
         {/*Librarian Chat */}
         <Route path='/librarian-chat' element={<LibrarianChat />} />
