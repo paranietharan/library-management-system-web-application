@@ -12,7 +12,9 @@ function ViewBook() {
     const [book, setBook] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-    const [rating, setRating] = useState(3.5);
+
+    const [ratingValue, setRatingValue] = useState(0);
+    const [avgRating, setAvgRating] = useState(0);
 
     const userId = 'sampleUserID';
 
@@ -37,19 +39,34 @@ function ViewBook() {
             }
         };
 
+        // Fetch initial rating value of user from the database
         const fetchRating = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/resource/get/id/${id}/rating`);
+                const response = await fetch(`http://localhost:8080/resource/${id}/rating/${userId}`);
                 const data = await response.json();
-                setRating(data);
+                setRatingValue(data); // Assuming the response contains a rating field
             } catch (error) {
                 console.error('Error fetching rating:', error);
             }
         };
 
+        // fetch average rating of the book
+        const fetchAvgRating = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/resource/${id}/rating`);
+                const data = await response.json();
+                setAvgRating(data); // Assuming the response contains a rating field
+            } catch (error) {
+                console.error('Error fetching average rating:', error);
+            }
+        };
+
         fetchBookDetails();
         fetchComments();
-        //fetchRating();
+        // get user rating(individual) for the book
+        fetchRating();
+        // get average rating of the book
+        fetchAvgRating();
     }, [id]);
 
     const handleAddComment = async () => {
@@ -77,13 +94,36 @@ function ViewBook() {
         }
     };
 
+    const handleRatingChange = async (newRating) => {
+        try {
+            const response = await fetch(`http://localhost:8080/resource/${id}/rating`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userID: userId,
+                    rating: newRating
+                })
+            });
+
+            if (response.ok) {
+                console.log('Rating updated successfully');
+            } else {
+                console.error('Failed to update rating');
+            }
+        } catch (error) {
+            console.error('Error updating rating:', error);
+        }
+    };
+
     if (!book.title) {
         return <div>Loading...</div>;
     }
 
-    const handleRatingChange = (newValue) => {
-        setRating(newValue);
-    };
+    // const handleRatingChange = (newValue) => {
+    //     setRating(newValue);
+    // };
 
     return (
         <>
@@ -101,24 +141,32 @@ function ViewBook() {
                     <div className={styles.bookHeading}>
                         <h1>{book.title}</h1>
                     </div>
-                    <div className={styles.authorDetails}>
-                        <div>
-                            <p>Author: {book.author}</p>
-                            <p>ISBN: {book.isbn || "Not mentioned"}</p>
+
+                    <div className={styles.bookDetailsContent}>
+                        <div className={styles.authorDetails}>
+                            <div>
+                                <p>Author: {book.author}</p>
+                                <p>ISBN: {book.isbn || "Not mentioned"}</p>
+                                <p>No of copies : {book.no_of_copies}</p>
+                                <p>Category: {book.category}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.about}>
-                        <p> Description: {book.about}</p>
+                        <div className={styles.about}>
+                            <p> Description: {book.about}</p>
+                        </div>
                     </div>
                 </div>
 
                 <div className={styles.commentsAndRating}>
                     <div className={styles.Rating}>
                         <div className={styles.ratingVal}>
-                            <TextRating onRatingChange={handleRatingChange} />
+                            <TextRating
+                                ratingValue={ratingValue}
+                                onRatingChange={handleRatingChange}
+                            />
                         </div>
                         <div className={styles.averageRating}>
-                            <p>Average Rating: {book.averageRating}</p>
+                            <p>Average Rating: {avgRating}</p>
                         </div>
                     </div>
 
