@@ -86,9 +86,8 @@ function App() {
         <Route path="/book/:id" element={<ViewBook/>} />
         <Route path='/complaint' element={<Complaint />} />
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
-
+        {/* TODO: Librarian Chat */}
         <Route path='/user-chat' element={<UserChat />} />
-        {/*Librarian Chat */}
         <Route path='/librarian-chat' element={<LibrarianChat />} />
 
 
