@@ -1,0 +1,115 @@
+.viewArticle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.ViewArticle {
+    padding: 5px 0px;
+}
+
+.content {
+    background-color: #F5F5F5;
+}
+
+.navbar {
+    background-color: #e6e6e6;
+    height: 8vh;
+    padding: 10px 2vw;
+    border: #8c8c8c 2px solid;
+    border-radius: 2px;
+}
+
+.articleImage {
+    width: 100vw;
+    height: 40vh;
+    object-fit: fill;
+}
+
+.articleContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70vw;
+    margin: 0 auto;
+}
+
+.articleImage {
+    width: 100%;
+    max-height: 300px;
+    /* Adjust the max-height as needed */
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.articleHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 45vw;
+}
+
+.articleTitle {
+    margin: 0;
+    /* Removes default margin from h1 */
+}
+
+.articleContent {
+    text-align: center;
+}
+
+.articleHeader h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.articleContent p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+
+
+.authorSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border: 2px solid #bfbfbf;
+    border-radius: 5px;
+}
+
+.authorDetails {
+    display: flex;
+    align-items: center;
+}
+
+.authorImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.authorDetails p {
+    font-size: 16px;
+}
+
+
+.RatignAndCommentSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F5F5F5;
+}
+
+.ratingSection {
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    margin: 30px 0px;
+    overflow: hidden;
+}
