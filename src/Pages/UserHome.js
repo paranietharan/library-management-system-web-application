@@ -8,13 +8,30 @@ import axios from 'axios';
 
 function UserHome() {
     const [bookDetails, setBookDetails] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/resource/all').then((response) => {
-            setBookDetails(response.data);
-        }
-        );
+        axios.get('http://localhost:8080/resource/all')
+            .then((response) => {
+                setBookDetails(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error('Error fetching book details:', err);
+                setError('Failed to fetch book details.');
+                setLoading(false);
+            });
     }, []);
+
+    if (loading) {
+        return <div className={styles.loading}>Loading...</div>;
+    }
+
+    if (error) {
+        return <div className={styles.error}>{error}</div>;
+    }
+
 
     return (
         <div className={styles.home}>
@@ -25,7 +42,6 @@ function UserHome() {
                     {bookDetails.map((book) => (
                         <Link to={`/book/${book.resourceId}`} key={book.resourceId}>
                             <div className={styles.bookFrame}>
-                                {console.log(book)}
                                 <BookFrame book={book} />
                             </div>
                         </Link>

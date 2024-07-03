@@ -1,16 +1,25 @@
-// AddBooksComponent.js
 import React, { useState } from 'react';
 import styles from './style/AddBooksComponent.module.css';
+import axios from 'axios';
+import BookAddAlertDialog from './BookAddAlertDialog';
 
 function AddBooksComponent({ onAdd }) {
-    // code for image preview
+    const [isbn, setIsbn] = useState('');
+    const [bookName, setBookName] = useState('');
+    const [authorName, setAuthorName] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [bookImage, setBookImage] = useState(null);
+    const [bookCount, setBookCount] = useState('');
     const [previewUrl, setPreviewUrl] = useState('');
+    const [errors, setErrors] = useState({});
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [formData, setFormData] = useState(null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         setBookImage(file);
 
-        // Read the file and set the preview URL
         const reader = new FileReader();
         reader.onload = () => {
             setPreviewUrl(reader.result);
@@ -18,61 +27,96 @@ function AddBooksComponent({ onAdd }) {
         reader.readAsDataURL(file);
     };
 
-    const [bookName, setBookName] = useState('');
-    const [authorName, setAuthorName] = useState('');
-    const [description, setDescription] = useState('');
-    const [bookImage, setBookImage] = useState('');
-    const [bookCount, setBookCount] = useState('');
-    const [errors, setErrors] = useState({});
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validate form fields
         const errors = {};
         if (!bookName) errors.bookName = 'Please enter book name';
         if (!authorName) errors.authorName = 'Please enter author name';
         if (!description) errors.description = 'Please enter description';
-        if (!bookImage) errors.bookImage = 'Please select book image';
         if (!bookCount) errors.bookCount = 'Please enter book count';
+        if (!isbn) errors.isbn = 'Please enter ISBN';
+        if (!category) errors.category = 'Please enter category';
         setErrors(errors);
 
-        // Check if there are any errors
         if (Object.keys(errors).length !== 0) return;
 
-        // Create a new book object
-        const newBook = {
-            bookName,
-            authorName,
-            description,
-            bookImage,
-            bookCount: parseInt(bookCount),
-        };
+        const newFormData = new FormData();
+        newFormData.append('ISBN', isbn);
+        newFormData.append('title', bookName);
+        newFormData.append('author', authorName);
+        newFormData.append('about', description);
+        newFormData.append('category', category);
+        newFormData.append('no_of_copies', bookCount);
 
-        // Pass the new book object to the parent component
-        onAdd(newBook);
+        if (bookImage) {
+            newFormData.append('bookImg', bookImage);
+        } else {
+            newFormData.append('bookImg', null);
+        }
 
-        // Reset form fields after submission
-        setBookName('');
-        setAuthorName('');
-        setDescription('');
-        setBookImage('');
-        setBookCount('');
+        setFormData(newFormData);
+        setDialogOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+    };
+
+    const handleDialogAgree = async () => {
+        setDialogOpen(false);
+
+        try {
+            const response = await axios.post('http://localhost:8080/resource/addResource', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            //console.log(response.data);
+            //onAdd(response.data);
+
+            setIsbn('');
+            setBookName('');
+            setAuthorName('');
+            setDescription('');
+            setCategory('');
+            setBookCount('');
+            setBookImage(null);
+            setPreviewUrl('');
+        } catch (error) {
+            console.error('Error adding book:', error);
+        }
     };
 
     return (
         <div className={styles.addBooksComponent}>
             <div className={styles.addBooksForm}>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    {/* <input
+                    <input
+                        type="text"
+                        placeholder="ISBN"
+                        value={isbn}
+                        onChange={(e) => setIsbn(e.target.value)}
+                        className={errors.isbn && styles.errorInput}
+                    />
+                    {errors.isbn && <p className={styles.errorMsg}>{errors.isbn}</p>}
+                    <input
                         type="text"
                         placeholder="Book Name"
                         value={bookName}
                         onChange={(e) => setBookName(e.target.value)}
                         className={errors.bookName && styles.errorInput}
-                    /> */}
-                    
+                    />
                     {errors.bookName && <p className={styles.errorMsg}>{errors.bookName}</p>}
+                    <input
+                        type="text"
+                        placeholder="Category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        className={errors.category && styles.errorInput}
+                    />
+                    {errors.category && <p className={styles.errorMsg}>{errors.category}</p>}
                     <input
                         type="text"
                         placeholder="Author Name"
@@ -91,10 +135,7 @@ function AddBooksComponent({ onAdd }) {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => {
-                            setBookImage(e.target.files[0]);
-                            handleImageChange(e); // Call the handleImageChange function 2 update the preview
-                        }}
+                        onChange={handleImageChange}
                         className={errors.bookImage && styles.errorInput}
                     />
                     {errors.bookImage && <p className={styles.errorMsg}>{errors.bookImage}</p>}
@@ -106,18 +147,19 @@ function AddBooksComponent({ onAdd }) {
                         className={errors.bookCount && styles.errorInput}
                     />
                     {errors.bookCount && <p className={styles.errorMsg}>{errors.bookCount}</p>}
-
-                    {/* Display image preview */}
                     <div className={styles.imagePreview}>
-                        {previewUrl && (
-                            <img src={previewUrl} alt="Book Preview" />
-                        )}
+                        {previewUrl && <img src={previewUrl} alt="Book Preview" />}
                     </div>
                     <button type="submit">Add Book</button>
                 </form>
             </div>
+            <BookAddAlertDialog
+                open={dialogOpen} 
+                onClose={handleDialogClose} 
+                onAgree={handleDialogAgree} 
+            />
         </div>
     );
-};
+}
 
 export default AddBooksComponent;
