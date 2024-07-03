@@ -16,6 +16,9 @@ function ViewBook() {
     const [ratingValue, setRatingValue] = useState(0);
     const [avgRating, setAvgRating] = useState(0);
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     const userId = 'sampleUserID';
 
     useEffect(() => {
@@ -23,9 +26,16 @@ function ViewBook() {
             try {
                 const response = await fetch(`http://localhost:8080/resource/get/id/${id}`);
                 const data = await response.json();
-                setBook(data);
+                if (response.ok) {
+                    setBook(data);
+                } else {
+                    throw new Error(data.error || 'Failed to fetch book details');
+                }
             } catch (error) {
                 console.error('Error fetching book details:', error);
+                setError(error.message);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -33,48 +43,55 @@ function ViewBook() {
             try {
                 const response = await fetch(`http://localhost:8080/resource/${id}/comment`);
                 const data = await response.json();
-                setComments(data);
+                if (response.ok) {
+                    setComments(data || []);
+                } else {
+                    throw new Error(data.error || 'Failed to fetch comments');
+                }
             } catch (error) {
                 console.error('Error fetching comments:', error);
+                setError(error.message);
             }
         };
 
-        // Fetch initial rating value of user from the database
         const fetchRating = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/resource/${id}/rating/${userId}`);
                 const data = await response.json();
-                setRatingValue(data); // Assuming the response contains a rating field
+                if (response.ok) {
+                    setRatingValue(data || 0);
+                } else {
+                    throw new Error(data.error || 'Failed to fetch rating');
+                }
             } catch (error) {
                 console.error('Error fetching rating:', error);
+                setError(error.message);
             }
         };
 
-        // fetch average rating of the book
         const fetchAvgRating = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/resource/${id}/rating`);
                 const data = await response.json();
-                setAvgRating(data); // Assuming the response contains a rating field
+                if (response.ok) {
+                    setAvgRating(data || 0);
+                } else {
+                    throw new Error(data.error || 'Failed to fetch average rating');
+                }
             } catch (error) {
                 console.error('Error fetching average rating:', error);
+                setError(error.message);
             }
         };
 
         fetchBookDetails();
         fetchComments();
-        // get user rating(individual) for the book
         fetchRating();
-        // get average rating of the book
         fetchAvgRating();
     }, [id]);
 
     const handleAddComment = async () => {
         try {
-            if (!JSON || typeof JSON.stringify !== 'function') {
-                throw new Error('JSON.stringify is not available');
-            }
-
             const response = await fetch(`http://localhost:8080/resource/${id}/comment`, {
                 method: 'POST',
                 headers: {
@@ -87,10 +104,15 @@ function ViewBook() {
             });
 
             const newCommentData = await response.json();
-            setComments([...comments, newCommentData]);
-            setNewComment('');
+            if (response.ok) {
+                setComments([...comments, newCommentData]);
+                setNewComment('');
+            } else {
+                throw new Error(newCommentData.error || 'Failed to add comment');
+            }
         } catch (error) {
             console.error('Error adding comment:', error);
+            setError(error.message);
         }
     };
 
@@ -109,21 +131,24 @@ function ViewBook() {
 
             if (response.ok) {
                 console.log('Rating updated successfully');
+                setRatingValue(newRating);
             } else {
-                console.error('Failed to update rating');
+                const data = await response.json();
+                throw new Error(data.error || 'Failed to update rating');
             }
         } catch (error) {
             console.error('Error updating rating:', error);
+            setError(error.message);
         }
     };
 
-    if (!book.title) {
+    if (loading) {
         return <div>Loading...</div>;
     }
 
-    // const handleRatingChange = (newValue) => {
-    //     setRating(newValue);
-    // };
+    // if (error) {
+    //     return <div>Error: {error}</div>;
+    // }
 
     return (
         <>
@@ -132,8 +157,9 @@ function ViewBook() {
                 <div className={styles.bookDetails}>
                     <div className={styles.bookImage}>
                         <img
-                            src={book.bookImage ? `data:image/png;base64,${book.bookImage}`
-                                : `https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200-1024x672.png`}
+                            // src={book.bookImg ? `data:image/png;base64,${book.bookImg}`
+                            //     : `https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200-1024x672.png`}
+                            src={`data:image/png;base64,${book.bookImg}`}
                             alt={book.title || "Book Image"}
                             className={styles.book_image}
                         />
@@ -152,7 +178,7 @@ function ViewBook() {
                             </div>
                         </div>
                         <div className={styles.about}>
-                            <p> Description: {book.about}</p>
+                            <p>Description: {book.about}</p>
                         </div>
                     </div>
                 </div>
