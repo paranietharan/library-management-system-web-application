@@ -52,6 +52,7 @@ import AdminFineManagement from './Pages/AdminFineManagement';
 import AdminSettings from './Pages/AdminSettings';
 import AdminProfileManagement from './Pages/AdminProfileManagement';
 import AdminNotificationControl from './Pages/AdminNotificationControl';
+import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
 
 function App() {
 
@@ -108,7 +109,9 @@ function App() {
         {/* Lathisana */}
         <Route path="/admin" element={<AdminDashboardHome />} />
         <Route path='/admin-book-management' element={<BookManagement />} />
-        
+        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
+        <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
+       
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
            TODO: 2 - create edit EditMember component
@@ -117,12 +120,7 @@ function App() {
                       * Confirmation Dialog for edit member
             TODO: 3 - forward to member Delete member page page
         */}
-        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
-        {/* 
-          TODO: create a new page to check articles view 
-          - option to delete comments
-          - option to delete articles
-        */}
+        
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
 

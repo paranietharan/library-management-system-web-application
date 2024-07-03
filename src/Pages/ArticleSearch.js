@@ -15,13 +15,22 @@ function ArticleSearch() {
             return;
         }
 
-        const url = query.startsWith('heading:')
-            ? `http://localhost:8080/article/search/heading/${query}`
-            : `http://localhost:8080/article/search/body/${query}`;
+        const headingUrl = `http://localhost:8080/article/search/heading/${query}`;
+        const bodyUrl = `http://localhost:8080/article/search/body/${query}`;
 
-        fetch(url)
-            .then((res) => res.json())
-            .then((d) => setData(d));
+        Promise.all([
+            fetch(headingUrl).then((res) => res.json()),
+            fetch(bodyUrl).then((res) => res.json())
+        ])
+            .then(([headingData, bodyData]) => {
+                // Merge the results, ensuring no duplicates if any
+                const combinedData = [...headingData, ...bodyData.filter(item => !headingData.some(h => h.articleID === item.articleID))];
+                setData(combinedData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                setData([]); // Set data to empty array in case of an error
+            });
     };
 
     const handleSearch = (query) => {
