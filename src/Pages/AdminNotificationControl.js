@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './style/AdminNotificationControl.module.css';
 import LibrarianTopNavBar from '../Components/LibrarianTopNavBar';
 import { TextField, Button, List } from '@mui/material';
@@ -10,44 +10,48 @@ function AdminNotificationControl() {
     const [newNotificationHeading, setNewNotificationHeading] = useState('');
     const [newNotificationBody, setNewNotificationBody] = useState('');
 
+    useEffect(() => {
+        // Fetch initial notifications from backend
+        fetch('http://localhost:8080/notice/all')
+            .then((response) => response.json())
+            .then((data) => setNotifications(data))
+            .catch((error) => console.error('Error fetching notifications:', error));
+    }, []);
+
     const handleAddNotification = () => {
         if (newNotificationBody.trim() !== '' && newNotificationHeading.trim() !== '') {
             const newNotificationItem = {
-                id: notifications.length + 1,
-                heading: newNotificationHeading.trim(), // Use the heading from input
-                message: newNotificationBody.trim(), // Use the message from input
+                title: newNotificationHeading.trim(),
+                message: newNotificationBody.trim(),
             };
-            setNotifications([...notifications, newNotificationItem]);
-            setNewNotificationHeading(''); // Clear heading input
-            setNewNotificationBody(''); // Clear body input
+
+            fetch('http://localhost:8080/notice/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newNotificationItem),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setNotifications([...notifications, data]);
+                    setNewNotificationHeading(''); // Clear heading input
+                    setNewNotificationBody(''); // Clear body input
+                })
+                .catch((error) => console.error('Error adding notification:', error));
         }
     };
 
     const handleDeleteNotification = (id) => {
-        const updatedNotifications = notifications.filter((notif) => notif.id !== id);
-        setNotifications(updatedNotifications);
+        fetch(`http://localhost:8080/notice/delete/${id}`, {
+            method: 'DELETE',
+        })
+            .then(() => {
+                const updatedNotifications = notifications.filter((notif) => notif.id !== id);
+                setNotifications(updatedNotifications);
+            })
+            .catch((error) => console.error('Error deleting notification:', error));
     };
-
-    // harcode some initial notifications
-    useState(() => {
-        setNotifications([
-            {
-                id: 1,
-                heading: 'Welcome to the Library',
-                message: 'We are glad to have you as a member of our library. Please feel free to ask any questions.',
-            },
-            {
-                id: 2,
-                heading: 'Library Closure Notice',
-                message: 'The library will be closed on the 25th of December due to the Christmas holiday.',
-            },
-            {
-                id: 3,
-                heading: 'Library Closure Notice',
-                message: 'The library will be closed on the 1st of January due to the New Year holiday.',
-            },
-        ]);
-    }, []);
 
     return (
         <div className={styles.AdminNotificationControl}>
@@ -95,9 +99,8 @@ function AdminNotificationControl() {
                         <div className={styles.list}>
                             <List>
                                 {notifications.map((notification) => (
-                                    <div className={styles.NotificationItem}>
+                                    <div className={styles.NotificationItem} key={notification.id}>
                                         <NotificationItem
-                                            key={notification.id}
                                             notification={notification}
                                             onDelete={handleDeleteNotification}
                                         />

@@ -12,10 +12,10 @@
 
 .notifications {
     width: 70%;
-    /* Adjust the width of the notifications container */
     max-width: 800px;
-    /* Maximum width to ensure readability */
     margin-left: 2vw;
+    min-height: 90vh;
+    /* max-height: 80vh; */
 }
 
 

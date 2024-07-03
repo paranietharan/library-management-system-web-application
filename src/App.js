@@ -94,6 +94,7 @@ function App() {
 
         {/* Yasothan */}
         <Route path="/message" element={<UserMessages />} />
+        
         <Route path="/fine" element={<FineManagement />} />
         <Route path='/mybooks' element={<MyBooks />} />
         <Route path='/edit-profile' element={<EditProfile />} />
@@ -110,6 +111,8 @@ function App() {
         <Route path='/admin-book-management' element={<BookManagement />} />
         <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
+
+        <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
        
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
@@ -121,7 +124,6 @@ function App() {
         */}
         
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-        <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
 
         {/* TODO: New pages to do */}
         <Route path='/admin-settings' element={<AdminSettings />} />
