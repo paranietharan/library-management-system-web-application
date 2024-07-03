@@ -2,6 +2,11 @@ import React from 'react';
 import styles from './style/SingleSearchResult.module.css';
 
 const SingleBookSearchResult = ({ book, onClick }) => {
+  // Check if book is undefined or null
+  if (!book) {
+    return null; // or render a placeholder or loading state
+  }
+
   return (
     <div className={styles.singleSearchResult} onClick={onClick}>
       <div className={styles.profilePicture}>
