@@ -8,37 +8,50 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import exampleImage from '../resources/bookImage.jpg';
+import axios from 'axios';
 
 function DeleteBooksComponent() {
-    const [books, setBooks] = useState([
-        {
-          id: 1,
-          profileImage: exampleImage,
-          name: 'John Doe',
-          bookName: 'The Great Gatsby',
-          Description: '$10',
-          isbn: '1234567890',
-          count: 5,
-        },
-        {
-          id: 2,
-          profileImage: exampleImage,
-          name: 'John Doe',
-          bookName: 'The Great Gatsby',
-          Description: '$10',
-          isbn: '1234567890',
-          count: 5,
-        },
-      ]);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false); // State to manage loading state
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    searchBooks(query);
+    console.log('Search Query:', query);
+  };
+
+  const searchBooks = (query) => {
+    setLoading(true); // Set loading to true while fetching data
+    axios.get('http://localhost:8080/resource/search', {
+      params: {
+        keyword: query
+      }
+    })
+      .then(response => {
+        console.log('Search Results:', response.data);
+        setSearchResults(response.data);
+        setLoading(false); // Set loading to false after data is fetched
+      })
+      .catch(error => {
+        console.error('Search Error:', error);
+        setLoading(false); // Set loading to false on error as well
+      });
+  };
 
   const handleDelete = () => {
-    setBooks(books.filter(book => book.id !== selectedBook.id));
-    setOpenDialog(false);
-    setSelectedBook(null);
+    axios.delete(`http://localhost:8080/resource/delete/${selectedBook.resourceId}`)
+      .then(response => {
+        console.log('Delete Response:', response.data);
+        setSearchResults(searchResults.filter(book => book.id !== selectedBook.id));
+        setOpenDialog(false);
+        setSelectedBook(null);
+      })
+      .catch(error => {
+        console.error('Delete Error:', error);
+      });
   };
 
   const handleCloseDialog = () => {
@@ -48,22 +61,29 @@ function DeleteBooksComponent() {
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
+    setOpenDialog(true);
   };
 
   return (
     <div className={styles.deleteBookComponent}>
       <div className={styles.searchBar}>
-        <SearchBar SearchBarPlaceholder="Search Books"/>
+        <SearchBar
+          placeholder="Search for books..."
+          width="100%"
+          onSearch={handleSearch}
+        />
       </div>
       <div className={styles.searchResults}>
-        {books.map((book) => (
-          <div key={book.id} onClick={() => handleBookClick(book)}>
-            <SingleBookSearchResult {...book}/>
-            <IconButton onClick={() => { setOpenDialog(true); }} aria-label="delete">
+        {loading && <p>Loading...</p>}
+        {!loading && searchResults.map((book) => (
+          <div key={book.resourceId} className={styles.bookItem} onClick={() => handleBookClick(book)}>
+            <SingleBookSearchResult book={book} />
+            <IconButton aria-label="delete">
               <DeleteIcon />
             </IconButton>
           </div>
         ))}
+        {!loading && searchResults.length === 0 && <p>No results found.</p>}
       </div>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Delete Book</DialogTitle>
