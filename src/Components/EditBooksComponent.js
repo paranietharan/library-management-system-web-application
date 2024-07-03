@@ -3,30 +3,35 @@ import styles from './style/EditBookComponent.module.css';
 import SearchBar from './SearchBarComponent';
 import SingleBookSearchResult from './SingleBookSearchResult';
 import BookDetailsEdit from './BookDetailsEdit';
-import exampleImage from '../resources/bookImage.jpg';
+import axios from 'axios';
+
 
 function EditBooksComponent() {
-  // Example book data array
-  const [books, setBooks] = useState([
-    {
-      id: 1,
-      profileImage: exampleImage,
-      name: 'John Doe',
-      bookName: 'The Great Gatsby',
-      Description: '$10',
-      isbn: '1234567890',
-      count: 5,
-    },
-    {
-      id: 2,
-      profileImage: exampleImage,
-      name: 'John Doe',
-      bookName: 'The Great Gatsby',
-      Description: '$10',
-      isbn: '1234567890',
-      count: 5,
-    },
-  ]);
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (query) => {
+    searchBooks(query);
+    setSearchQuery(query);
+    console.log('Search Query:', query);
+  };
+
+  // using axios search books
+  const searchBooks = (searchQuery) => {
+    axios.get('http://localhost:8080/resource/search', {
+      params: {
+        keyword: searchQuery
+      }
+    })
+      .then(response => {
+        //console.log('Search Results:', response.data);
+        setSearchResults(response.data);
+      })
+      .catch(error => {
+        console.error('Search Error:', error);
+      });
+  };
 
   //which component 2 display
   const [displayComponent, setDisplayComponent] = useState('search');
@@ -45,13 +50,17 @@ function EditBooksComponent() {
       {displayComponent === 'search' && (
         <div>
           <div className={styles.searchBar}>
-            <SearchBar SearchBarPlaceholder="Search Books" />
+            <SearchBar
+              SearchBarPlaceholder="Search for books..."
+              width="150%"
+              onSearch={handleSearch}
+            />
           </div>
           <div className={styles.searchResults}>
-            {books.map((book) => (
+            {searchResults.map((book) => (
               <SingleBookSearchResult
-                key={book.id}
-                {...book}
+                key={book.resourceId}
+                book={book}
                 onClick={() => handleBookClick(book)}
               />
             ))}
