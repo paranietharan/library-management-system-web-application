@@ -107,8 +107,8 @@ function App() {
 
         {/* Lathisana */}
         <Route path="/admin" element={<AdminDashboardHome />} />
-        
         <Route path='/admin-book-management' element={<BookManagement />} />
+        
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
            TODO: 2 - create edit EditMember component
