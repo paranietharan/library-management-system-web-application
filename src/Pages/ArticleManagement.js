@@ -3,36 +3,72 @@ import style from './style/ArticleManagement.module.css';
 import LibrarianTopNavBar from '../Components/LibrarianTopNavBar';
 import Footer from '../Components/LibraryFooter';
 import SearchBar from '../Components/SearchBarComponent';
-
 import ArticleReviewComponent from '../Components/ArticleReviewComponent';
+import styles from './style/ArticleManagement.module.css';
+import { useState } from 'react';
 
-function ArticleManagement({ articles }) {
+function ArticleManagement() {
+    const [data, setData] = useState([]);
+    const [query, setQuery] = useState("");
+
+    const fetchData = (query) => {
+        if (!query) {
+            setData([]);
+            return;
+        }
+
+        const headingUrl = `http://localhost:8080/article/search/heading/${query}`;
+        const bodyUrl = `http://localhost:8080/article/search/body/${query}`;
+
+        Promise.all([
+            fetch(headingUrl).then((res) => res.json()),
+            fetch(bodyUrl).then((res) => res.json())
+        ])
+            .then(([headingData, bodyData]) => {
+                // Merge the results, ensuring no duplicates if any
+                const combinedData = [...headingData, ...bodyData.filter(item => !headingData.some(h => h.articleID === item.articleID))];
+                setData(combinedData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                setData([]); // Set data to empty array in case of an error
+            });
+    };
+
+
+    const handleSearch = (query) => {
+        setQuery(query);
+        fetchData(query);
+    };
+
     return (
-        <div className={style.ArticleManagement}>
+        <div className={styles.ArticleManagement}>
             <LibrarianTopNavBar />
 
-            <div className={style.container}>
-                <div className={style.centerContent}>
-                    <h1>Articles</h1>
-
-                    <div className={style.search}>
-                        <SearchBar />
+            <div className={styles.container}>
+                <div className={styles.centerContent}>
+                    <div className={styles.search}>
+                        <SearchBar
+                            onSearch={handleSearch}
+                            className={styles.searchBar}
+                        />
                     </div>
                 </div>
 
-                <div className={style.articles}>
-                    {articles.map(article => (
+                <div className={styles.articles}>
+                    {data.map((article) => (
                         <Link
-                            key={article.id}
-                            to={`/article/${article.id}`}
+                            key={article.articleID}
+                            to={`/librarian-article-management/${article.articleID}`}
                             className={style.articleLink}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
+                            {console.log(article.title)}
                             <ArticleReviewComponent
-                                image={article.articleImage}
-                                author={article.authorDetails.name}
-                                description={article.contents.paragraphs[0]} // First paragraph as description
+                                image={article.articleImg}
+                                heading={article.title}
+                                description={article.body}
                             />
                         </Link>
                     ))}
