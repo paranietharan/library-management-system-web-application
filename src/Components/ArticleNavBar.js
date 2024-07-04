@@ -13,12 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
-//import { useLocation } from 'react-router-dom';
-
-// Search icon
 import SearchIcon from '@mui/icons-material/Search';
-// Notification icon
-// import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import http from '../http-common';
 
 const pages = ['Search', 'Home', 'About'];
 const links = ['article-search', 'article-home', 'about'];
@@ -37,8 +33,8 @@ function ArticleNavBar() {
         // Fetch user details from api
         const fetchUserDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/user/getUserProfile/${userID}`);
-                const data = await response.json();
+                const response = await http.get(`/user/getUserProfile/${userID}`);
+                const data = response.data;
                 console.log('User details:', data);
                 setUserDetails(data);
             } catch (error) {
@@ -63,12 +59,6 @@ function ArticleNavBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-
-    // const [showNotifications, setShowNotifications] = React.useState(false);
-
-    // const handleNotificationClick = () => {
-    //     setShowNotifications(!showNotifications);
-    // };
 
     const [searchText, setSearchText] = React.useState('');
     const [isSearchVisible, setIsSearchVisible] = React.useState(false);
@@ -137,9 +127,13 @@ function ArticleNavBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
+                            {pages.map((page, index) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography textAlign="center">
+                                        <Link to={appendCurrentPath(links[index])} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            {page}
+                                        </Link>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -193,15 +187,9 @@ function ArticleNavBar() {
                         </IconButton>
                     </div>
 
-                    {/* Notification Icon
-                    <NotificationsActiveIcon sx={{ mr: 2 }} onClick={handleNotificationClick} />
-                    {showNotifications && <NotificationList />} */}
-
-                    {/* Profile Icon */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Profile">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                {/* Display profile image if available, else display first letter of first name & lastname */}
                                 <Avatar alt="User Avatar" src={userDetails.profileImg ? `data:image/jpeg;base64,${userDetails.profileImg}` : null}>
                                     {
                                         !userDetails?.profileImg && userDetails?.firstName && userDetails?.lastName
@@ -227,7 +215,6 @@ function ArticleNavBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {/* Drop down menu when click profile */}
                             {settings.map((setting, index) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Link to={appendCurrentPath(settingslinks[index])} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -242,35 +229,5 @@ function ArticleNavBar() {
         </AppBar>
     );
 }
-
-// const NotificationList = () => {
-//     // Generate sample notifications
-//     const notifications = Array.from({ length: 10 }, (_, i) => `Notification ${i + 1}`);
-
-//     return (
-//         <div style={notificationListStyle}>
-//             {notifications.map((notification, index) => (
-//                 <div key={index} style={notificationStyle}>{notification}</div>
-//             ))}
-//         </div>
-//     );
-// };
-
-// Styles
-// const notificationListStyle = {
-//     position: 'absolute',
-//     top: '50px', // Adjust as needed
-//     right: '10px',
-//     backgroundColor: 'white',
-//     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-//     maxHeight: '200px',
-//     overflowY: 'auto',
-// };
-
-// const notificationStyle = {
-//     padding: '10px',
-//     borderBottom: '1px solid #ccc',
-//     color: 'black',
-// };
 
 export default ArticleNavBar;
