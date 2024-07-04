@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HomeIcon from '@mui/icons-material/Home';
@@ -51,6 +50,14 @@ export default function LibrarianTopNavBar() {
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <span style={{ color: 'black' }}>
                                     <LibraryBooksIcon />
+                                </span>
+                            </IconButton>
+                        </Link>
+
+                        <Link to="/book-lending">
+                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                                <span style={{ color: 'black' }}>
+                                    <AutoStoriesIcon />
                                 </span>
                             </IconButton>
                         </Link>
@@ -133,6 +140,6 @@ export default function LibrarianTopNavBar() {
                     </Box>
                 </Toolbar>
             </AppBar>
-        </Box>
+        </Box >
     );
 }

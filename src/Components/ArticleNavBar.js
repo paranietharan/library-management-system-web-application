@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import http from '../http-common';
+import http from '../service/http-common';
 
 const pages = ['Search', 'Home', 'About'];
 const links = ['article-search', 'article-home', 'about'];
