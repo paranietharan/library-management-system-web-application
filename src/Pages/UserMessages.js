@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PageMessage from "../Components/PageMessage";
-import styles from './style/UserMessagesStyle.module.css'; // Import the CSS module
-import UserNavBar from '../Components/UserNavBar'; // Import the UserNavBar component
+import styles from './style/UserMessagesStyle.module.css';
+import UserNavBar from '../Components/UserNavBar';
 import Footer from '../Components/LibraryFooter';
+import http from '../service/http-common';
 
 function UserMessages() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/notice/all')
-      .then(response => response.json())
-      .then(data => setMessages(data))
+    http.get('/notice/all')
+      .then(response => setMessages(response.data))
       .catch(error => console.error('Error fetching messages:', error));
   }, []);
 

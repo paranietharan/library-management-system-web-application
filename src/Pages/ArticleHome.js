@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import http from '../service/http-common'; // Import custom Axios instance
 import ArticleNavBar from "../Components/ArticleNavBar";
 import Footer from "../Components/LibraryFooter";
 import ArticleSummary from "../Components/ArticleSummary";
@@ -11,7 +11,7 @@ function ArticleHome() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/article/allArticles');
+                const response = await http.get('/article/allArticles');
                 setArticles(response.data); // Assuming your API returns an array of articles
             } catch (error) {
                 console.error('Error fetching articles:', error);

@@ -4,6 +4,7 @@ import LibrarianTopNavBar from '../Components/LibrarianTopNavBar';
 import { TextField, Button, List } from '@mui/material';
 import NotificationItem from '../Components/NotificationItem';
 import Footer from '../Components/LibraryFooter';
+import http from '../service/http-common';
 
 function AdminNotificationControl() {
     const [notifications, setNotifications] = useState([]);
@@ -12,9 +13,8 @@ function AdminNotificationControl() {
 
     useEffect(() => {
         // Fetch initial notifications from backend
-        fetch('http://localhost:8080/notice/all')
-            .then((response) => response.json())
-            .then((data) => setNotifications(data))
+        http.get('/notice/all')
+            .then((response) => setNotifications(response.data))
             .catch((error) => console.error('Error fetching notifications:', error));
     }, []);
 
@@ -25,16 +25,9 @@ function AdminNotificationControl() {
                 message: newNotificationBody.trim(),
             };
 
-            fetch('http://localhost:8080/notice/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newNotificationItem),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    setNotifications([...notifications, data]);
+            http.post('/notice/add', newNotificationItem)
+                .then((response) => {
+                    setNotifications([...notifications, response.data]);
                     setNewNotificationHeading(''); // Clear heading input
                     setNewNotificationBody(''); // Clear body input
                 })
@@ -43,9 +36,7 @@ function AdminNotificationControl() {
     };
 
     const handleDeleteNotification = (id) => {
-        fetch(`http://localhost:8080/notice/delete/${id}`, {
-            method: 'DELETE',
-        })
+        http.delete(`/notice/delete/${id}`)
             .then(() => {
                 const updatedNotifications = notifications.filter((notif) => notif.id !== id);
                 setNotifications(updatedNotifications);

@@ -7,7 +7,7 @@ import LibrarianTopNavBar from '../Components/LibrarianTopNavBar';
 import AdminArticleComments from '../Components/AdminArticleComments';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArticleDeleteAlertDialog from '../Components/ArticleDeleteAlert';
-import axios from 'axios';
+import http from '../service/http-common'; // Import custom Axios instance
 
 function LibrarianArticleManagement() {
     const { articleId } = useParams();
@@ -28,11 +28,10 @@ function LibrarianArticleManagement() {
 
     const handleDelete = () => {
         const userID = "adminId";
-        axios.delete(`http://localhost:8080/article/${userID}/delete/${article.id}`)
+        http.delete(`/article/${userID}/delete/${article.id}`)
             .then(response => {
                 console.log('Article deleted successfully');
                 setOpen(false);
-
                 // forward to the article management page
                 window.location.href = '/librarian-article-management';
             })
@@ -46,42 +45,26 @@ function LibrarianArticleManagement() {
         const fetchArticleDetails = async () => {
             try {
                 // Fetch article details
-                const articleResponse = await fetch(`http://localhost:8080/article/view/${articleId}`);
-                if (!articleResponse.ok) {
-                    const errorData = await articleResponse.json();
-                    throw new Error(errorData.error || 'Article not found');
-                }
-                const articleData = await articleResponse.json();
-                setArticle(articleData);
+                const articleResponse = await http.get(`/article/view/${articleId}`);
+                setArticle(articleResponse.data);
 
                 // Fetch comments
-                const commentsResponse = await fetch(`http://localhost:8080/article/${articleId}/comment`);
-                if (commentsResponse.ok) {
-                    const commentsData = await commentsResponse.json();
-                    setComments(commentsData);
-                } else {
-                    setComments([]);
-                }
+                const commentsResponse = await http.get(`/article/${articleId}/comment`);
+                setComments(commentsResponse.data);
 
                 // Fetch average rating
-                const ratingResponse = await fetch(`http://localhost:8080/article/${articleId}/rating`);
-                if (ratingResponse.ok) {
-                    const ratingData = await ratingResponse.json();
-                    setAverageRating(ratingData);
-                } else {
-                    setAverageRating(null);
-                }
+                const ratingResponse = await http.get(`/article/${articleId}/rating`);
+                setAverageRating(ratingResponse.data);
 
-                // fetch author details
-                const authorResponse = await fetch(`http://localhost:8080/user/getUserProfile/${articleData.userID}`);
-                if (authorResponse.ok) {
-                    const authorData = await authorResponse.json();
-                    setAuthorDetails(authorData);
-                } else {
-                    setAuthorDetails(null);
-                }
+                // Fetch author details
+                const authorResponse = await http.get(`/user/getUserProfile/${articleResponse.data.userID}`);
+                setAuthorDetails(authorResponse.data);
             } catch (error) {
                 console.error('Error fetching article details:', error);
+                setArticle(null);
+                setComments([]);
+                setAverageRating(null);
+                setAuthorDetails(null);
             } finally {
                 setIsLoading(false);
             }
@@ -98,7 +81,7 @@ function LibrarianArticleManagement() {
         return <div>Article not found!</div>;
     }
 
-    const { articleID, userID, title, body, articleImg } = article;
+    const { title, body, articleImg } = article;
 
     return (
         <>
@@ -106,25 +89,21 @@ function LibrarianArticleManagement() {
 
             <div className={styles.ViewArticle}>
                 <div className={styles.content}>
-                    {/* Details of the article */}
                     {articleImg && <img src={`data:image/png;base64,${articleImg}`} alt={title || "Article Image"} className={styles.articleImage} />}
 
                     <div className={styles.authorSection}>
                         <div className={styles.authorDetails}>
-                            {/* if author image avilable display that else display default image */}
                             {authorDetails?.profileImg && <img src={authorDetails.profileImg} alt="Author" className={styles.authorImage} />}
                             {!authorDetails?.profileImg && <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Author" className={styles.authorImage} />}
-
-                            {/*author name */}
-                            <p>{authorDetails.firstName + " " + authorDetails.lastName}</p>
+                            <p>{authorDetails?.firstName + " " + authorDetails?.lastName}</p>
                         </div>
                     </div>
 
                     <div className={styles.articleHeader}>
-                        <h1 className={styles.articleTitle}>{article.title}</h1>
+                        <h1 className={styles.articleTitle}>{title}</h1>
                         <DeleteIcon onClick={handleClickOpen} style={{ cursor: 'pointer' }} />
                     </div>
-                    {/* Article content goes here */}
+
                     <ArticleDeleteAlertDialog
                         open={open}
                         onClose={handleClose}
@@ -138,14 +117,12 @@ function LibrarianArticleManagement() {
                     </div>
                 </div>
 
-                {/* Details from comments and Rating */}
                 <div className={styles.RatingAndCommentSection}>
                     <div className={styles.ratingSection}>
                         <p>Average Rating: {averageRating}</p>
                     </div>
 
                     <div className={styles.commentSection}>
-                        {/* List all comments */}
                         <div className={styles.viewComments}>
                             <AdminArticleComments comments={comments || []} />
                         </div>
