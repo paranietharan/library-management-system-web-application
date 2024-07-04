@@ -4,7 +4,7 @@ import styles from './style/userHomeStyle.module.css'; // Import the CSS module
 import UserNavbar from '../Components/UserNavBar';
 import Footer from '../Components/LibraryFooter';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import http from '../service/http-common';
 
 function UserHome() {
     const [bookDetails, setBookDetails] = useState([]);
@@ -12,7 +12,7 @@ function UserHome() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/resource/all')
+        http.get('/resource/all')
             .then((response) => {
                 setBookDetails(response.data);
                 setLoading(false);
@@ -32,13 +32,11 @@ function UserHome() {
         return <div className={styles.error}>{error}</div>;
     }
 
-
     return (
         <div className={styles.home}>
             <UserNavbar />
             <div className={styles.userHome}>
                 <div className={styles.bookFrameItem}>
-
                     {bookDetails.map((book) => (
                         <Link to={`/book/${book.resourceId}`} key={book.resourceId}>
                             <div className={styles.bookFrame}>
@@ -46,13 +44,11 @@ function UserHome() {
                             </div>
                         </Link>
                     ))}
-
                 </div>
             </div>
             <Footer />
-        </div >
+        </div>
     );
 }
-
 
 export default UserHome;

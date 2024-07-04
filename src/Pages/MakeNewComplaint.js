@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './style/MakeNewComplaintStyle.module.css';
 import UserNavBar from '../Components/UserNavBar';
-import axios from 'axios';
+import http from '../service/http-common';
 
 function MakeNewComplaint() {
   const [complaintType, setComplaintType] = useState('');
@@ -25,10 +25,9 @@ function MakeNewComplaint() {
     //window.location.href = '/complaint';
   };
 
-  // axios function to send data to backend
+  // function to send data to backend using http
   const sendComplaint = () => {
-    axios.post('http://localhost:8080/complaint/new', {
-      //userID: localStorage.getItem('userID'),
+    http.post('/complaint/new', {
       userID: user_id,
       complaintType: complaintType,
       complaintDescription: complaintDescription,
@@ -62,12 +61,6 @@ function MakeNewComplaint() {
             <label htmlFor="complaintDescription">Complaint Description:</label>
             <textarea id="complaintDescription" value={complaintDescription} onChange={(event) => setComplaintDescription(event.target.value)}></textarea>
           </div>
-
-          {/* No need to add location detils */}          
-          {/* <div className={styles.complaintLocation}>
-            <label htmlFor="complaintLocation">Complaint Location:</label>
-            <input type="text" id="complaintLocation" value={complaintLocation} onChange={(event) => setComplaintLocation(event.target.value)} />
-          </div> */}
 
           <div className={styles.complaintDate}>
             <label htmlFor="complaintDate">Complaint Date:</label>

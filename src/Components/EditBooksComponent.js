@@ -3,8 +3,7 @@ import styles from './style/EditBookComponent.module.css';
 import SearchBar from './SearchBarComponent';
 import SingleBookSearchResult from './SingleBookSearchResult';
 import BookDetailsEdit from './BookDetailsEdit';
-import axios from 'axios';
-
+import http from '../service/http-common'; // Import http service
 
 function EditBooksComponent() {
 
@@ -17,9 +16,9 @@ function EditBooksComponent() {
     console.log('Search Query:', query);
   };
 
-  // using axios search books
+  // using http service to search books
   const searchBooks = (searchQuery) => {
-    axios.get('http://localhost:8080/resource/search', {
+    http.get('/resource/search', {
       params: {
         keyword: searchQuery
       }
@@ -33,16 +32,16 @@ function EditBooksComponent() {
       });
   };
 
-  //which component 2 display
+  // which component to display
   const [displayComponent, setDisplayComponent] = useState('search');
 
-  // State 2 hold the details of the selected book
-  const [selectedBook, setSelectedBook] = useState(null);
+  // State to hold the details of the selected book
+  const [selectedBook, setSelectedBook] = useState({});
 
-  // Function 2 handle click
+  // Function to handle click
   const handleBookClick = (book) => {
     setSelectedBook(book);
-    setDisplayComponent('details'); // Switch to displaying book details
+    setDisplayComponent('details');
   };
 
   return (

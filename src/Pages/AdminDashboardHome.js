@@ -1,12 +1,11 @@
+import React, { useState, useEffect } from 'react';
 import LibrarianTopNavBar from "../Components/LibrarianTopNavBar";
 import LibraryBookCount from "../Components/LibraryBookCount";
-import React from 'react';
-import styles from './style/AdminDashBoardHome.module.css';
 import SearchBar from '../Components/SearchBarComponent';
 import SingleSearchResult from "../Components/SingleSearchResult";
 import exampleImage from '../resources/sample-picture.jpg';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import styles from './style/AdminDashBoardHome.module.css';
+import http from '../service/http-common';
 import Footer from "../Components/LibraryFooter";
 
 function AdminDashboardHome() {
@@ -21,27 +20,25 @@ function AdminDashboardHome() {
     console.log('Search Query:', query);
   };
 
-  // using axios get the total number of books in the library
+  // using http get the total number of books in the library
   useEffect(() => {
-    axios.get('http://localhost:8080/resource/total')
+    http.get('/resource/total')
       .then(response => {
         setTotalAvilableBooks(response.data);
       })
       .catch(error => {
         console.log(error);
       });
-    setTotalAvilableBooks(100);
   }, []);
 
-  // using axios search books
+  // using http search books
   const searchBooks = (searchQuery) => {
-    axios.get('http://localhost:8080/resource/search', {
+    http.get('/resource/search', {
       params: {
         keyword: searchQuery
       }
     })
       .then(response => {
-        //console.log('Search Results:', response.data);
         setSearchResults(response.data);
       })
       .catch(error => {
@@ -83,8 +80,6 @@ function AdminDashboardHome() {
             }
           </div>
         </div>
-
-
       </div>
       <Footer />
     </div>
