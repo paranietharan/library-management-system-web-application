@@ -42,7 +42,7 @@ function EditBooksComponent() {
   // Function to handle click
   const handleBookClick = (book) => {
     setSelectedBook(book);
-    setDisplayComponent('details');
+    setDisplayComponent('detailsv');
 
     // reset search result
     setSearchResults([]);
