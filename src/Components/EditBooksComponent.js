@@ -28,7 +28,8 @@ function EditBooksComponent() {
         setSearchResults(response.data);
       })
       .catch(error => {
-        console.error('Search Error:', error);
+        //console.error('Search Error:', error);
+        setSearchResults([]);
       });
   };
 
@@ -56,13 +57,14 @@ function EditBooksComponent() {
             />
           </div>
           <div className={styles.searchResults}>
-            {searchResults.map((book) => (
-              <SingleBookSearchResult
-                key={book.resourceId}
-                book={book}
-                onClick={() => handleBookClick(book)}
-              />
-            ))}
+            {searchResults.length === 0 ? <h3>No search results found</h3> :
+              searchResults.map((book) => (
+                <SingleBookSearchResult
+                  key={book.resourceId}
+                  book={book}
+                  onClick={() => handleBookClick(book)}
+                />
+              ))}
           </div>
         </div>
       )}
