@@ -1,67 +1,56 @@
-/* .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    padding: 15px 0;
-    background-color: #4caf50;
-    color: white;
-} */
-
 .container {
     padding: 60px 20px 20px;
-    /* Add top padding to avoid content overlapping with navbar */
     background-color: #f9f9f9;
     min-height: 100vh;
 }
 
-.content {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-}
-
-.MemberSearch,
-.BookSearch {
-    flex: 1;
-    margin-right: 15px;
-    /* Add some space between the two search components */
-}
-
-.BookLendingForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f2f2f2;
-}
-
-.BookLendingForm h2 {
-    margin: 0 0 10px;
-    font-size: 20px;
-    color: #4caf50;
-}
-
-.BookLendingForm p {
-    margin: 0 0 10px;
-    font-size: 16px;
-    color: #333;
-}
-
-.BookLendingForm button {
+.lend,
+.get{
+    margin: 10px;
     padding: 10px 20px;
+    color: white;
     border: none;
     border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
-    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    background-color: #6666ff;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
 }
 
-.BookLendingForm button:hover {
-    background-color: #45a049;
+
+.lend:hover,
+.get:hover {
+    background-color: #5555cc;
+}
+
+
+.displayComponent {
+    margin-top: 7vh;
+}
+
+.menuItems {
+    display: flex;
+    /* Use flexbox 2 alignment*/
+    justify-content: center;
+    /* Allign items horizontally 2 the center */
+}
+
+.menuItems button {
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #6666ff;
+    display: flex;
+    /* Use flexbox 2 alignment */
+    align-items: center;
+    /* Align items vertically */
+}
+
+.menuItems button svg {
+    margin-right: 5px;
 }
