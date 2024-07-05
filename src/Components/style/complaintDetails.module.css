@@ -62,3 +62,15 @@
     font-family: var(--font-3);
     font-weight: 800;
 }
+
+.date{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.time{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}

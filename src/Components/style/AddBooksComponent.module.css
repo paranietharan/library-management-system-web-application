@@ -1,4 +1,3 @@
-/* Container for the component */
 .addBooksComponent {
     background-image: url('../../resources/bookImage.jpg');
     background-size: cover;
@@ -11,7 +10,6 @@
     align-items: center; /* Center the content vertically */
 }
 
-/* Form container */
 .addBooksForm {
     width: 80%; /* Adjust the width as needed */
     padding: 25px;
@@ -20,10 +18,9 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow effect */
 }
 
-/* Image preview container */
 .imagePreview {
     width: 100%;
-    max-width: 300px; /* Limit the image preview width */
+    max-width: 300px;
     max-height: 300px;
     overflow: hidden;
     margin-bottom: 20px;
@@ -37,7 +34,12 @@
     object-fit: cover; 
 }
 
-/* Input fields */
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form input,
 .form textarea {
     width: 100%;
@@ -48,15 +50,13 @@
     font-size: 16px;
 }
 
-/* Error messages */
 .errorMsg {
     color: red;
     margin-bottom: 10px;
 }
 
-/* Submit button */
 .form button {
-    width: 100%;
+    width: 20%;
     padding: 12px;
     border: none;
     border-radius: 5px;
