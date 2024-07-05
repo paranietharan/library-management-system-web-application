@@ -1,0 +1,58 @@
+.container {
+    padding: 60px 20px 20px;
+    /* Add top padding to avoid content overlapping with navbar */
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    border: 2px solid #333;
+    border-radius: 10px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.MemberSearch,
+.BookSearch {
+    flex: 1;
+    margin-right: 15px;
+    /* Add some space between the two search components */
+}
+
+.BookLendingForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+}
+
+.BookLendingForm h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #4caf50;
+}
+
+.BookLendingForm p {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.BookLendingForm button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.BookLendingForm button:hover {
+    background-color: #45a049;
+}

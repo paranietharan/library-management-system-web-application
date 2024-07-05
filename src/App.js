@@ -8,7 +8,6 @@ import ArticleHome from './Pages/ArticleHome';
 import PublishArticles from './Pages/PublishArticles';
 import MyProfile from './Pages/MyProfile';
 import ViewArticle from './Pages/ViewArticle';
-import articles from './articles';
 import ArticleSearch from './Pages/ArticleSearch';
 import ArticleEdit from './Pages/ArticleEdit';
 
@@ -24,7 +23,6 @@ import VerifyForgotPassword from './Pages/VerifyForgotPassword';
 
 // Mihunan
 import UserHome from './Pages/UserHome';
-import books from './book';
 import UserChat from './Pages/UserChat';
 import ViewBook from './Pages/ViewBook';
 import Complaint from './Pages/complaint';
@@ -49,10 +47,10 @@ import LibrarianChat from './Pages/LibrarianChat';
 import ArticleManagement from './Pages/ArticleManagement';
 import TermsAndPolicies from './Pages/TermsAndPolicies';
 import AdminFineManagement from './Pages/AdminFineManagement';
-import AdminSettings from './Pages/AdminSettings';
 import AdminProfileManagement from './Pages/AdminProfileManagement';
 import AdminNotificationControl from './Pages/AdminNotificationControl';
 import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
+import BookLending from './Pages/BookLending';
 
 function App() {
 
@@ -86,6 +84,7 @@ function App() {
         <Route path="/book/:id" element={<ViewBook/>} />
         <Route path='/complaint' element={<Complaint />} />
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
+        
         {/* TODO: Librarian Chat */}
         <Route path='/user-chat' element={<UserChat />} />
         <Route path='/librarian-chat' element={<LibrarianChat />} />
@@ -94,8 +93,9 @@ function App() {
 
         {/* Yasothan */}
         <Route path="/message" element={<UserMessages />} />
-        <Route path="/fine" element={<FineManagement />} />
         <Route path='/mybooks' element={<MyBooks />} />
+
+        <Route path="/fine" element={<FineManagement />} />
         <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
@@ -108,27 +108,20 @@ function App() {
         {/* Lathisana */}
         <Route path="/admin" element={<AdminDashboardHome />} />
         <Route path='/admin-book-management' element={<BookManagement />} />
-        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
+        <Route path='/librarian-article-management' element={<ArticleManagement/>} />
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
+        <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
+        <Route path="/book-lending" element={<BookLending />} />
+        {/*TODO: Get book return page */}
+        {/*TDOD: Get complaint page */}
+
+        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
        
         <Route path='/membership-management' element={<MembershipManagement />} />
-        {/*
-           TODO: 2 - create edit EditMember component
-                      * Search bar for search member
-                      * Filter for search member : by membername, by memberid, by email, by phone number
-                      * Confirmation Dialog for edit member
-            TODO: 3 - forward to member Delete member page page
-        */}
-        
-        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-        <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
+        {/*TODO: Complete membership management as book management */}
 
         {/* TODO: New pages to do */}
-        <Route path='/admin-settings' element={<AdminSettings />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
-
-        {/* TODO: Create a new page to search delete member */}
-        {/* TODO: Create a new page to display all member details */}
 
 
         {/* Sample code for test */}

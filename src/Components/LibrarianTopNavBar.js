@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HomeIcon from '@mui/icons-material/Home';
@@ -16,7 +15,6 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import ArticleIcon from '@mui/icons-material/Article';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
-import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function LibrarianTopNavBar() {
@@ -51,6 +49,14 @@ export default function LibrarianTopNavBar() {
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <span style={{ color: 'black' }}>
                                     <LibraryBooksIcon />
+                                </span>
+                            </IconButton>
+                        </Link>
+
+                        <Link to="/book-lending">
+                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                                <span style={{ color: 'black' }}>
+                                    <AutoStoriesIcon />
                                 </span>
                             </IconButton>
                         </Link>
@@ -91,15 +97,6 @@ export default function LibrarianTopNavBar() {
                             </IconButton>
                         </Link>
 
-                        {/*Settings */}
-                        <Link to="/admin-settings">
-                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <span style={{ color: 'black' }}>
-                                    <SettingsIcon />
-                                </span>
-                            </IconButton>
-                        </Link>
-
                         {/* Notification Control */}
                         <Link to="/admin-notification-control">
                             <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
@@ -133,6 +130,6 @@ export default function LibrarianTopNavBar() {
                     </Box>
                 </Toolbar>
             </AppBar>
-        </Box>
+        </Box >
     );
 }

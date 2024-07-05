@@ -1,5 +1,5 @@
 import React from 'react';
-import AlertMessage from './AlertMessage';
+import AlertMessage from '../Components/AlertMessage';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 

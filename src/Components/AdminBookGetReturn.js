@@ -1,0 +1,65 @@
+import React, { useState, useEffect } from 'react';
+import MemberSearchComponent from './MemberSearchComponent';
+import style from './style/AdminBookGetReturn.module.css';
+import http from '../service/http-common';
+
+function AdminBookGetReturn() {
+    const [selectedMember, setSelectedMember] = useState({});
+    const [issue, setIssue] = useState({});
+
+    const handleSelectMember = (member) => {
+        setSelectedMember(member);
+        getLendingDetails(member.userID); // Call getLendingDetails when a member is selected
+    };
+
+    // get lending details
+    const getLendingDetails = async (userId) => {
+        try {
+            const response = await http.get(`/issues/check?memberId=${userId}`);
+            setIssue(response.data);
+        } catch (error) {
+            console.error("Error getting lending details:", error);
+        }
+    }
+
+    const handleReturnBook = async () => {
+        try {
+            const response = await http.post(`/issues/return?memberId=${selectedMember.userID}`);
+            console.log("Book returned successfully:", response.data);
+            // Reset the issue status
+            setIssue({});
+            setSelectedMember({});
+            alert("Book returned successfully!");
+        } catch (error) {
+            console.error("Error returning book:", error);
+        }
+    }
+
+    return (
+        <div className={style.container}>
+            <div className={style.MemberSearch}>
+                <MemberSearchComponent onSelectMember={handleSelectMember} />
+            </div>
+
+            <div className={style.LendBookDetails}>
+                {selectedMember.userID && (
+                    <div className={style.issueDetails}>
+                        <p>Issue ID: {issue.issueId}</p>
+                        <p>Resource ID: {issue.resourceId}</p>
+                        <p>Date: {issue.date}</p>
+                    </div>
+                )}
+            </div>
+
+            <div className={style.returnButton}>
+                {
+                    issue.issueId && (
+                        <button onClick={handleReturnBook}>Return Book</button>
+                    )
+                }
+            </div>
+        </div>
+    );
+}
+
+export default AdminBookGetReturn;

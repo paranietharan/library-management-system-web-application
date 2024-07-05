@@ -4,6 +4,7 @@ import Footer from "../Components/LibraryFooter";
 import SearchBar from '../Components/SearchBarComponent';
 import styles from './style/ArticleTag.module.css';
 import SearchResultsList from '../Components/SearchResultsList';
+import http from '../service/http-common';
 
 function ArticleSearch() {
     const [data, setData] = useState([]);
@@ -15,12 +16,12 @@ function ArticleSearch() {
             return;
         }
 
-        const headingUrl = `http://localhost:8080/article/search/heading/${query}`;
-        const bodyUrl = `http://localhost:8080/article/search/body/${query}`;
+        const headingUrl = `/article/search/heading/${query}`;
+        const bodyUrl = `/article/search/body/${query}`;
 
         Promise.all([
-            fetch(headingUrl).then((res) => res.json()),
-            fetch(bodyUrl).then((res) => res.json())
+            http.get(headingUrl).then((res) => res.data),
+            http.get(bodyUrl).then((res) => res.data)
         ])
             .then(([headingData, bodyData]) => {
                 // Merge the results, ensuring no duplicates if any
