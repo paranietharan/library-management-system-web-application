@@ -8,7 +8,6 @@ import ArticleHome from './Pages/ArticleHome';
 import PublishArticles from './Pages/PublishArticles';
 import MyProfile from './Pages/MyProfile';
 import ViewArticle from './Pages/ViewArticle';
-import articles from './articles';
 import ArticleSearch from './Pages/ArticleSearch';
 import ArticleEdit from './Pages/ArticleEdit';
 
@@ -24,7 +23,6 @@ import VerifyForgotPassword from './Pages/VerifyForgotPassword';
 
 // Mihunan
 import UserHome from './Pages/UserHome';
-import books from './book';
 import UserChat from './Pages/UserChat';
 import ViewBook from './Pages/ViewBook';
 import Complaint from './Pages/complaint';
@@ -53,6 +51,7 @@ import AdminSettings from './Pages/AdminSettings';
 import AdminProfileManagement from './Pages/AdminProfileManagement';
 import AdminNotificationControl from './Pages/AdminNotificationControl';
 import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
+import BookLending from './Pages/BookLending';
 
 function App() {
 
@@ -110,9 +109,12 @@ function App() {
         {/* Lathisana */}
         <Route path="/admin" element={<AdminDashboardHome />} />
         <Route path='/admin-book-management' element={<BookManagement />} />
-        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
+        <Route path='/librarian-article-management' element={<ArticleManagement/>} />
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
+
+        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
+        <Route path="/book-lending" element={BookLending} />
        
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
@@ -122,8 +124,6 @@ function App() {
                       * Confirmation Dialog for edit member
             TODO: 3 - forward to member Delete member page page
         */}
-        
-        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
 
         {/* TODO: New pages to do */}
         <Route path='/admin-settings' element={<AdminSettings />} />
