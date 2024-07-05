@@ -3,8 +3,7 @@ import styles from './style/EditBookComponent.module.css';
 import SearchBar from './SearchBarComponent';
 import SingleBookSearchResult from './SingleBookSearchResult';
 import BookDetailsEdit from './BookDetailsEdit';
-import axios from 'axios';
-
+import http from '../service/http-common'; // Import http service
 
 function EditBooksComponent() {
 
@@ -14,12 +13,12 @@ function EditBooksComponent() {
   const handleSearch = (query) => {
     searchBooks(query);
     setSearchQuery(query);
-    console.log('Search Query:', query);
+    //console.log('Search Query:', query);
   };
 
-  // using axios search books
+  // using http service to search books
   const searchBooks = (searchQuery) => {
-    axios.get('http://localhost:8080/resource/search', {
+    http.get('/resource/search', {
       params: {
         keyword: searchQuery
       }
@@ -29,20 +28,24 @@ function EditBooksComponent() {
         setSearchResults(response.data);
       })
       .catch(error => {
-        console.error('Search Error:', error);
+        //console.error('Search Error:', error);
+        setSearchResults([]);
       });
   };
 
-  //which component 2 display
+  // which component to display
   const [displayComponent, setDisplayComponent] = useState('search');
 
-  // State 2 hold the details of the selected book
-  const [selectedBook, setSelectedBook] = useState(null);
+  // State to hold the details of the selected book
+  const [selectedBook, setSelectedBook] = useState({});
 
-  // Function 2 handle click
+  // Function to handle click
   const handleBookClick = (book) => {
     setSelectedBook(book);
-    setDisplayComponent('details'); // Switch to displaying book details
+    setDisplayComponent('details');
+
+    // reset search result
+    setSearchResults([]);
   };
 
   return (
@@ -57,13 +60,14 @@ function EditBooksComponent() {
             />
           </div>
           <div className={styles.searchResults}>
-            {searchResults.map((book) => (
-              <SingleBookSearchResult
-                key={book.resourceId}
-                book={book}
-                onClick={() => handleBookClick(book)}
-              />
-            ))}
+            {searchResults.length === 0 ? <h3>No search results found</h3> :
+              searchResults.map((book) => (
+                <SingleBookSearchResult
+                  key={book.resourceId}
+                  book={book}
+                  onClick={() => handleBookClick(book)}
+                />
+              ))}
           </div>
         </div>
       )}
