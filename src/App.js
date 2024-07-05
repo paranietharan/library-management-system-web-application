@@ -114,7 +114,7 @@ function App() {
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
 
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-        <Route path="/book-lending" element={BookLending} />
+        <Route path="/book-lending" element={<BookLending />} />
        
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
