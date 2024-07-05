@@ -94,9 +94,9 @@ function App() {
 
         {/* Yasothan */}
         <Route path="/message" element={<UserMessages />} />
+        <Route path='/mybooks' element={<MyBooks />} />
 
         <Route path="/fine" element={<FineManagement />} />
-        <Route path='/mybooks' element={<MyBooks />} />
         <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
