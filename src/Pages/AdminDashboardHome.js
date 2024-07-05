@@ -74,7 +74,6 @@ function AdminDashboardHome() {
                     book.bookImg === null ? exampleImage : `data:image/jpeg;base64,${book.bookImg}`
                   }
                   isbn={book.isbn}
-                  id={book.id}
                 />
               ))
             }
