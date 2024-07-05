@@ -12,17 +12,17 @@
 
 .search {
     margin-top: 20px;
-    /* Adjust margin as needed */
+    margin-bottom: 20px;
 }
 
 .articles {
-    margin-top: 10px;
+    margin-top: 50px;
     margin-bottom: 100px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Adjust minmax value as needed */
     grid-gap: 20px;
-    /* Adjust gap between items as needed */
+    margin: 0px 20vw;
+    min-height: 80vh;
 }
 
 .articles a{

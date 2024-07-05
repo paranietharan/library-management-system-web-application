@@ -29,7 +29,7 @@ function ArticleForm() {
 
         if (image) {
             formData.append('articleImg', image);
-        } else{
+        } else {
             formData.append('articleImg', null);
         }
 
@@ -39,9 +39,15 @@ function ArticleForm() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(formData)
+            //console.log(formData)
+            //console.log(response.data);
 
-            console.log(response.data);
+            // forward to home page
+            // Wait for 2 seconds before redirecting
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000); // 2000 milliseconds = 2 seconds
+
 
             // set editor to default values
             setHeading('');

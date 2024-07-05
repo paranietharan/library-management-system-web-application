@@ -1,32 +1,45 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
 
-export default function TextRating({ onRatingChange }) {
-    const [value, setValue] = useState(3.5); // State to manage the rating value
+export default function TextRating({ ratingValue, onRatingChange }) {
+    const [value, setValue] = React.useState(ratingValue);
+    const [hover, setHover] = React.useState(-1);
+
+    React.useEffect(() => {
+        setValue(Math.round(ratingValue)); // Update state when the prop changes
+    }, [ratingValue]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        onRatingChange(newValue); // Call the callback function with the new rating value
+        onRatingChange(newValue);
     };
 
     return (
         <Box
             sx={{
-                width: 200,
-                display: 'flex',
-                alignItems: 'center',
+                '& > legend': { mt: 2 },
             }}
         >
+            {console.log('Rating:', value)}
             <Rating
-                name="text-feedback"
+                name="simple-controlled"
                 value={value}
-                onChange={handleChange} // Handle change in rating value
-                precision={0.5}
-                // emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                emptyIcon={<StarIcon style={{ opacity: 0.55, fontSize: 60 }} />} // Adjust fontSize for empty stars
-                icon={<StarIcon style={{ color: '#FFD700', fontSize: 60 }} />} // Adjust fontSize for filled stars and change color to golden
+                onChange={handleChange}
+                onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                }}
+                sx={{
+                    '& .MuiRating-iconFilled': {
+                        fontSize: '60px', // Adjust the size for filled stars
+                    },
+                    '& .MuiRating-iconHover': {
+                        fontSize: '60px', // Adjust the size for hover effect
+                    },
+                    '& .MuiRating-iconEmpty': {
+                        fontSize: '60px', // Adjust the size for empty stars
+                    },
+                }}
             />
         </Box>
     );
