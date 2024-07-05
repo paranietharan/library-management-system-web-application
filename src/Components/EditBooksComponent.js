@@ -13,7 +13,7 @@ function EditBooksComponent() {
   const handleSearch = (query) => {
     searchBooks(query);
     setSearchQuery(query);
-    console.log('Search Query:', query);
+    //console.log('Search Query:', query);
   };
 
   // using http service to search books
@@ -43,6 +43,9 @@ function EditBooksComponent() {
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setDisplayComponent('details');
+
+    // reset search result
+    setSearchResults([]);
   };
 
   return (

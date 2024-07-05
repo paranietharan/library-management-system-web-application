@@ -15,7 +15,6 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import ArticleIcon from '@mui/icons-material/Article';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
-import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function LibrarianTopNavBar() {
@@ -94,15 +93,6 @@ export default function LibrarianTopNavBar() {
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <span style={{ color: 'black' }}>
                                     <RequestQuoteIcon />
-                                </span>
-                            </IconButton>
-                        </Link>
-
-                        {/*Settings */}
-                        <Link to="/admin-settings">
-                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <span style={{ color: 'black' }}>
-                                    <SettingsIcon />
                                 </span>
                             </IconButton>
                         </Link>
