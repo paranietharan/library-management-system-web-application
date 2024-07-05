@@ -112,23 +112,16 @@ function App() {
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
         <Route path="/book-lending" element={<BookLending />} />
+        {/*TODO: Get book return page */}
+        {/*TDOD: Get complaint page */}
 
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
        
         <Route path='/membership-management' element={<MembershipManagement />} />
-        {/*
-           TODO: 2 - create edit EditMember component
-                      * Search bar for search member
-                      * Filter for search member : by membername, by memberid, by email, by phone number
-                      * Confirmation Dialog for edit member
-            TODO: 3 - forward to member Delete member page page
-        */}
+        {/*TODO: Complete membership management as book management */}
 
         {/* TODO: New pages to do */}
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
-
-        {/* TODO: Create a new page to search delete member */}
-        {/* TODO: Create a new page to display all member details */}
 
 
         {/* Sample code for test */}
