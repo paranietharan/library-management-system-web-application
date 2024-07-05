@@ -47,7 +47,6 @@ import LibrarianChat from './Pages/LibrarianChat';
 import ArticleManagement from './Pages/ArticleManagement';
 import TermsAndPolicies from './Pages/TermsAndPolicies';
 import AdminFineManagement from './Pages/AdminFineManagement';
-import AdminSettings from './Pages/AdminSettings';
 import AdminProfileManagement from './Pages/AdminProfileManagement';
 import AdminNotificationControl from './Pages/AdminNotificationControl';
 import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
@@ -112,9 +111,9 @@ function App() {
         <Route path='/librarian-article-management' element={<ArticleManagement/>} />
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
+        <Route path="/book-lending" element={<BookLending />} />
 
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-        <Route path="/book-lending" element={<BookLending />} />
        
         <Route path='/membership-management' element={<MembershipManagement />} />
         {/*
@@ -126,7 +125,6 @@ function App() {
         */}
 
         {/* TODO: New pages to do */}
-        <Route path='/admin-settings' element={<AdminSettings />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
 
         {/* TODO: Create a new page to search delete member */}
