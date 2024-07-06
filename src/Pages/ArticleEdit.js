@@ -105,7 +105,7 @@ function EditArticle() {
             ) : (
               <h1>{article.title}</h1>
             )}
-            <button onClick={() => setEditMode({ ...editMode, title: !editMode.title })}>
+            <button className={style.button} onClick={() => setEditMode({ ...editMode, title: !editMode.title })}>
               {editMode.title ? 'Save' : 'Change'}
             </button>
           </div>
@@ -114,7 +114,7 @@ function EditArticle() {
             {editMode.image ? (
               <div className={style.deleteImageAndEditImage}>
                 <input type="file" onChange={handleImageChange} />
-                <button onClick={handleDeleteImage}>Delete Image</button>
+                <button className={style.button} onClick={handleDeleteImage}>Delete Image</button>
               </div>
             ) : (
               <div className={style.imageContainer}>
@@ -123,7 +123,7 @@ function EditArticle() {
                   alt="Article" />
               </div>
             )}
-            <button onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
+            <button className={style.button} onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
               {editMode.image ? 'Save' : 'Change'}
             </button>
           </div>
@@ -137,12 +137,12 @@ function EditArticle() {
             ) : (
               <p>{article.body}</p>
             )}
-            <button onClick={() => setEditMode({ ...editMode, body: !editMode.body })}>
+            <button className={style.button} onClick={() => setEditMode({ ...editMode, body: !editMode.body })}>
               {editMode.body ? 'Save' : 'Change'}
             </button>
           </div>
 
-          <button onClick={handleSave}>Submit</button>
+          <button className={style.button} onClick={handleSave}>Submit</button>
         </div>
       </div>
     </>

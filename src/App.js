@@ -95,8 +95,8 @@ function App() {
         {/* Yasothan */}
         <Route path="/message" element={<UserMessages />} />
         <Route path='/mybooks' element={<MyBooks />} />
-
         <Route path="/fine" element={<FineManagement />} />
+  
         <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
@@ -114,10 +114,9 @@ function App() {
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
         <Route path="/book-lending" element={<BookLending />} />
         <Route path='/admin-complaint' element={<AdminComplaintPage />} />
-
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
+
         <Route path='/membership-management' element={<MembershipManagement />} />
-        {/* TODO: New pages to do */}
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
 
 
