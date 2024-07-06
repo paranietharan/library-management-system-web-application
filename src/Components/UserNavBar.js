@@ -69,20 +69,16 @@ export default function MemberTopNavBar() {
                                 aria-label="show 17 new notifications"
                                 color="inherit"
                             >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon style={{ color: 'black' }} />
-                                </Badge>
+                                <NotificationsIcon style={{ color: 'black' }} />
                             </IconButton>
                         </Link>
 
                         {/* Mail icon count */}
                         <Link to="/user-chat" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <Badge badgeContent={4} color="error" badgeContentColor="red">
-                                    <span style={{ color: 'black' }}>
-                                        <MailIcon />
-                                    </span>
-                                </Badge>
+                                <span style={{ color: 'black' }}>
+                                    <MailIcon />
+                                </span>
                             </IconButton>
                         </Link>
 
