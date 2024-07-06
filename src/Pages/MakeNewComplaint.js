@@ -70,7 +70,7 @@ function MakeNewComplaint() {
             <label htmlFor="complaintTime">Complaint Time:</label>
             <input type="time" id="complaintTime" value={complaintTime} onChange={(event) => setComplaintTime(event.target.value)} />
           </div>
-          <button type="submit">Submit Complaint</button>
+          <button type="submit" className={styles.button}>Submit Complaint</button>
         </form>
       </div>
     </>

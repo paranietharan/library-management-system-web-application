@@ -16,6 +16,7 @@ import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import ArticleIcon from '@mui/icons-material/Article';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import LogoutIcon from '@mui/icons-material/Logout';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
 
 export default function LibrarianTopNavBar() {
 
@@ -102,6 +103,15 @@ export default function LibrarianTopNavBar() {
                             <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
                                 <span style={{ color: 'black' }}>
                                     <NotificationsIcon />
+                                </span>
+                            </IconButton>
+                        </Link>
+
+                        {/* Complaint */}
+                        <Link to="/admin-complaint">
+                            <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+                                <span style={{ color: 'black' }}>
+                                    <NewReleasesIcon />
                                 </span>
                             </IconButton>
                         </Link>
