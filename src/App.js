@@ -51,6 +51,7 @@ import AdminProfileManagement from './Pages/AdminProfileManagement';
 import AdminNotificationControl from './Pages/AdminNotificationControl';
 import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
 import BookLending from './Pages/BookLending';
+import AdminComplaintPage from './Pages/AdminComplaintPage';
 
 function App() {
 
@@ -112,14 +113,10 @@ function App() {
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
         <Route path="/book-lending" element={<BookLending />} />
-        {/*TODO: Get book return page */}
-        {/*TDOD: Get complaint page */}
+        <Route path='/admin-complaint' element={<AdminComplaintPage />} />
 
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-       
         <Route path='/membership-management' element={<MembershipManagement />} />
-        {/*TODO: Complete membership management as book management */}
-
         {/* TODO: New pages to do */}
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
 
