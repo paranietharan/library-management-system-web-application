@@ -1,0 +1,61 @@
+.LibrarianBookReservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.LibrarianBookReservation h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.LibrarianBookReservation .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.LibrarianBookReservation .error {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #d32f2f;
+    margin: 0;
+}
+
+.LibrarianBookReservation table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.LibrarianBookReservation th,
+.LibrarianBookReservation td {
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.LibrarianBookReservation th {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: #f5f5f5;
+}
+
+.LibrarianBookReservation td {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.LibrarianBookReservation tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.LibrarianBookReservation tr:hover {
+    background-color: #f0f0f0;
+}
