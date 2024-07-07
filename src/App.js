@@ -98,12 +98,12 @@ function App() {
         <Route path='/mybooks' element={<MyBooks />} />
         <Route path="/fine" element={<FineManagement />} />
         <Route path='/book-reservation' element={<BookReservation />} />
+        <Route path='/lending-history' element={<LendingHistory />} />
   
         <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
         <Route path='/terms' element={<TermsAndPolicies />} />
-        <Route path='/lending-history' element={<LendingHistory />} />
         <Route path='/fine-history' element={<FineHistory />} />
 
 
