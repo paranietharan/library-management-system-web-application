@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
@@ -52,6 +53,12 @@ export default function MemberTopNavBar() {
                         <Link to="/mybooks" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <IconButton size="large" color="inherit">
                                 <span style={{ color: 'black' }}><AutoStoriesIcon /></span>
+                            </IconButton>
+                        </Link>
+
+                        <Link to="/book-reservation" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <IconButton size="large" color="inherit">
+                                <span style={{ color: 'black' }}><BookOnlineIcon /></span>
                             </IconButton>
                         </Link>
 

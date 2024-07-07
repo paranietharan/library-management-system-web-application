@@ -52,6 +52,7 @@ import AdminNotificationControl from './Pages/AdminNotificationControl';
 import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
 import BookLending from './Pages/BookLending';
 import AdminComplaintPage from './Pages/AdminComplaintPage';
+import BookReservation from './Pages/BookReservation';
 
 function App() {
 
@@ -96,6 +97,7 @@ function App() {
         <Route path="/message" element={<UserMessages />} />
         <Route path='/mybooks' element={<MyBooks />} />
         <Route path="/fine" element={<FineManagement />} />
+        <Route path='/book-reservation' element={<BookReservation />} />
   
         <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/security' element={<SecurityPage />} />
