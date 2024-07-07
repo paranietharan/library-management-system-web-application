@@ -17,6 +17,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
 
 export default function LibrarianTopNavBar() {
 
@@ -58,6 +59,14 @@ export default function LibrarianTopNavBar() {
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <span style={{ color: 'black' }}>
                                     <AutoStoriesIcon />
+                                </span>
+                            </IconButton>
+                        </Link>
+
+                        <Link to="/librarian-book-reservation">
+                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                                <span style={{ color: 'black' }}>
+                                    <FolderSpecialIcon />
                                 </span>
                             </IconButton>
                         </Link>
