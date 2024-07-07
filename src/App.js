@@ -53,6 +53,7 @@ import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
 import BookLending from './Pages/BookLending';
 import AdminComplaintPage from './Pages/AdminComplaintPage';
 import BookReservation from './Pages/BookReservation';
+import LibrarianBookReservation from './Pages/LibrarianBookReservation';
 
 function App() {
 
@@ -99,12 +100,12 @@ function App() {
         <Route path="/fine" element={<FineManagement />} />
         <Route path='/book-reservation' element={<BookReservation />} />
         <Route path='/lending-history' element={<LendingHistory />} />
+        <Route path='/terms' element={<TermsAndPolicies />} />
+        <Route path='/fine-history' element={<FineHistory />} />
   
         <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
-        <Route path='/terms' element={<TermsAndPolicies />} />
-        <Route path='/fine-history' element={<FineHistory />} />
 
 
 
@@ -117,6 +118,7 @@ function App() {
         <Route path="/book-lending" element={<BookLending />} />
         <Route path='/admin-complaint' element={<AdminComplaintPage />} />
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
+        <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
 
         <Route path='/membership-management' element={<MembershipManagement />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
