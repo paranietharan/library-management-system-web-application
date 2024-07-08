@@ -62,17 +62,19 @@ function BookReservation() {
     };
 
     const handleCancelReservation = async () => {
-        if (reservationStatus) {
+        if (reservationStatus.reservationId) {
             try {
-                await http.post(`/reservations/cancel`, null, {
-                    params: { reservationId: reservationStatus.id }
-                });
-                //alert('Reservation cancelled successfully!');
+                await http.post(`/reservations/cancel?reservationId=${reservationStatus.reservationId}`);
                 setReservationStatus(null);
+                setReservationBookDetails(null);
+                alert('Reservation cancelled successfully!');
             } catch (error) {
                 console.error("Error cancelling reservation:", error);
                 setError("Failed to cancel the reservation.");
             }
+        } else {
+            console.error("No reservation ID available");
+            setError("Unable to cancel reservation: No reservation ID found.");
         }
     };
 
