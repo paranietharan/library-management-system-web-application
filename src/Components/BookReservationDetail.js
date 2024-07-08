@@ -5,23 +5,11 @@ import CategoryIcon from '@mui/icons-material/Category'; // for category
 import InfoIcon from '@mui/icons-material/Info'; // about
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline'; // title
 import FingerprintIcon from '@mui/icons-material/Fingerprint'; // isbn
-import CancelIcon from '@mui/icons-material/Cancel'; // cancel reservation icon
-import http from '../service/http-common';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 function BookReservationDetail({ book, onCancelReservation }) {
-    const handleCancelReservation = async () => {
-        try {
-            const response = await http.post(`/reservations/cancel`, null, {
-                params: { reservationId: book.reservationId }
-            });
-            alert('Reservation cancelled successfully!');
-            if (onCancelReservation) {
-                onCancelReservation();
-            }
-        } catch (error) {
-            console.error("Error cancelling reservation:", error);
-            alert("Failed to cancel the reservation.");
-        }
+    const handleCancelReservation = () => {
+        onCancelReservation();
     };
 
     return (

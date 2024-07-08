@@ -54,6 +54,7 @@ import BookLending from './Pages/BookLending';
 import AdminComplaintPage from './Pages/AdminComplaintPage';
 import BookReservation from './Pages/BookReservation';
 import LibrarianBookReservation from './Pages/LibrarianBookReservation';
+import ToDoListPage from './Pages/ToDoListPage';
 
 function App() {
 
@@ -81,17 +82,14 @@ function App() {
         <Route path='/verifyMailForgotPassword' element={<VerifyForgotPassword />} />
 
 
-
         {/* Mihunan */}
         <Route path="/" element={<UserHome/>} />
         <Route path="/book/:id" element={<ViewBook/>} />
         <Route path='/complaint' element={<Complaint />} />
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
-        
         {/* TODO: Librarian Chat */}
         <Route path='/user-chat' element={<UserChat />} />
         <Route path='/librarian-chat' element={<LibrarianChat />} />
-
 
 
         {/* Yasothan */}
@@ -103,7 +101,7 @@ function App() {
         <Route path='/terms' element={<TermsAndPolicies />} />
         <Route path='/fine-history' element={<FineHistory />} />
         <Route path='/edit-profile' element={<EditProfile />} />
-        
+        {/*TODO: Do security page connection */}
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
 
@@ -119,9 +117,12 @@ function App() {
         <Route path='/admin-complaint' element={<AdminComplaintPage />} />
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
         <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
-
+        {/* TODO: Membership management */}
         <Route path='/membership-management' element={<MembershipManagement />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
+
+        {/*Added Features */}
+        <Route path='/todo-list' element={<ToDoListPage />} />
 
 
         {/* Sample code for test */}

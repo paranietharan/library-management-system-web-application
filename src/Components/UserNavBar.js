@@ -17,6 +17,7 @@ import BookOnlineIcon from '@mui/icons-material/BookOnline';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 export default function MemberTopNavBar() {
 
@@ -97,6 +98,13 @@ export default function MemberTopNavBar() {
                                         <ReportGmailerrorredIcon />
                                     </span>
                                 </Badge>
+                            </IconButton>
+                        </Link>
+
+                        {/* List icon */}
+                        <Link to="/todo-list" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <IconButton size="large" color="inherit">
+                                <span style={{ color: 'black' }}><ListAltIcon /></span>
                             </IconButton>
                         </Link>
 
