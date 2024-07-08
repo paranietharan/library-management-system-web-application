@@ -102,8 +102,8 @@ function App() {
         <Route path='/lending-history' element={<LendingHistory />} />
         <Route path='/terms' element={<TermsAndPolicies />} />
         <Route path='/fine-history' element={<FineHistory />} />
-  
         <Route path='/edit-profile' element={<EditProfile />} />
+        
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
 

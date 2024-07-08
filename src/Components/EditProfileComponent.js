@@ -1,38 +1,66 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styles from './style/EditProfileComponentStyle.module.css';
 import Button from '@mui/material/Button';
-
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import SchoolIcon from '@mui/icons-material/School';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 
-function EditProfileComponent({ oldProfilePicture, oldName, oldEmail, oldPhoneNumber, oldIndexNo }) {
+function EditProfileComponent({ profilePicture, firstName, lastName, email, phoneNumber, userId }) {
   const [editMode, setEditMode] = useState(false);
-  const [profilePicture, setProfilePicture] = useState('');
-  const [email, setEmail] = useState(oldEmail);
-  const [phoneNumber, setPhoneNumber] = useState(oldPhoneNumber);
+  const [newProfilePicture, setNewProfilePicture] = useState(null);
+  const [newFirstName, setNewFirstName] = useState(firstName);
+  const [newLastName, setNewLastName] = useState(lastName);
+  const [newEmail, setNewEmail] = useState(email);
+  const [newPhoneNumber, setNewPhoneNumber] = useState(phoneNumber);
 
   const handleProfilePictureChange = (e) => {
-    setProfilePicture(e.target.value);
+    setNewProfilePicture(e.target.files[0]);
+  };
+
+  const handleFirstNameChange = (e) => {
+    setNewFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setNewLastName(e.target.value);
   };
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    setNewEmail(e.target.value);
   };
 
   const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+    setNewPhoneNumber(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., send data to server
-    console.log('Profile Picture:', profilePicture);
-    console.log('Email:', email);
-    console.log('Phone Number:', phoneNumber);
-    setEditMode(false); // Turn off edit mode after submission
+
+    try {
+      const formData = new FormData();
+      formData.append('firstName', newFirstName);
+      formData.append('lastName', newLastName);
+      formData.append('Email', newEmail);
+      formData.append('phoneNumber', newPhoneNumber);
+
+      if (newProfilePicture) {
+        formData.append('profileImg', newProfilePicture);
+      }
+
+      const response = await axios.put(`http://localhost:8080/user/updateUserProfile/${userId}`, formData);
+
+      if (response.status === 200) {
+        console.log('User profile updated successfully');
+        // You may want to update the user details in the parent component here
+      }
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
+
+    setEditMode(false);
   };
 
   return (
@@ -41,38 +69,41 @@ function EditProfileComponent({ oldProfilePicture, oldName, oldEmail, oldPhoneNu
       {!editMode ? (
         <>
           <div className={styles.OldProfileImage}>
-            <img src={oldProfilePicture} alt="Old Profile" className={styles.profilePicture} />
+            <img src={`data:image/png;base64,${profilePicture}`} alt="Old Profile" className={styles.profilePicture} />
           </div>
 
           <div className={styles.editProfileItems}>
-            <p><AccountCircleIcon />{oldName}</p>
-          </div>
-
-          <div className={styles.editProfileItems}>
-            <label><SchoolIcon />Index No:</label>
-            <span>{oldIndexNo}</span>
+            <p><AccountCircleIcon />{firstName} {lastName}</p>
           </div>
 
           <div className={styles.editProfileItems}>
             <label><MailOutlineIcon />Email: </label>
-            <span>{oldEmail}</span>
+            <span>{email}</span>
           </div>
 
           <div className={styles.editProfileItems}>
             <label><PhoneAndroidIcon />Phone Number: </label>
-            <span>{oldPhoneNumber}</span>
+            <span>{phoneNumber}</span>
           </div>
           <Button onClick={() => setEditMode(true)} variant="contained" color="primary" className={styles.button}>Edit</Button>
         </>
       ) : (
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
+            <label>First Name:</label>
+            <input type="text" value={newFirstName} onChange={handleFirstNameChange} className={styles.input} />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Last Name:</label>
+            <input type="text" value={newLastName} onChange={handleLastNameChange} className={styles.input} />
+          </div>
+          <div className={styles.formGroup}>
             <label>Email:</label>
-            <input type="email" value={email} onChange={handleEmailChange} className={styles.input} />
+            <input type="email" value={newEmail} onChange={handleEmailChange} className={styles.input} />
           </div>
           <div className={styles.formGroup}>
             <label>Phone Number:</label>
-            <input type="text" value={phoneNumber} onChange={handlePhoneNumberChange} className={styles.input} />
+            <input type="text" value={newPhoneNumber} onChange={handlePhoneNumberChange} className={styles.input} />
           </div>
           <div className={styles.formGroup}>
             <label>Profile Picture:</label>
