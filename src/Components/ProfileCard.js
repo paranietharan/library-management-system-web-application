@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ProfileCard.module.css";
+import Avatar from '@mui/material/Avatar';
 
 function ProfileCard({ authorDetails }) {
   return (
@@ -9,7 +10,7 @@ function ProfileCard({ authorDetails }) {
         style={{ backgroundImage: `url(${authorDetails.wallpaper || 'default_wallpaper_url'})` }}
       >
         <img
-          src={authorDetails.profileImg || 'https://www.w3schools.com/howto/img_avatar.png'}
+          src={authorDetails.profileImg ? `data:image/png;base64,${authorDetails.profileImg}` : 'https://www.w3schools.com/howto/img_avatar.png'}
           alt={`${authorDetails.firstName} ${authorDetails.lastName}`}
           className={styles.profileImage}
         />

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './style/BookDetailsEdit.module.css';
 import { Button, TextField } from '@mui/material';
-import axios from 'axios';
+import http from '../service/http-common'; // Import general http service
+import httpMultipart from '../service/http-multipart'; // Import multipart http service
 
 function BookDetailsEdit({ book, onBack }) {
   const [editing, setEditing] = useState(false);
@@ -30,7 +31,7 @@ function BookDetailsEdit({ book, onBack }) {
     formData.append('no_of_copies', editedBook.no_of_copies);
     formData.append('category', editedBook.category);
     formData.append('about', editedBook.about);
-    
+
     if (newPhoto) {
       formData.append('bookImg', newPhoto);
     } else if (deletePhoto) {
@@ -40,7 +41,7 @@ function BookDetailsEdit({ book, onBack }) {
       formData.append('bookImg', imageBlob, 'original_image.jpg');
     }
 
-    axios.put(`http://localhost:8080/resource/update/${editedBook.resourceId}`, formData)
+    httpMultipart.put(`/resource/update/${editedBook.resourceId}`, formData)
       .then(response => {
         console.log('Book details saved:', response.data);
         setEditing(false);

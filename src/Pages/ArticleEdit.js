@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from './style/EditArticleStyle.module.css';
 import { useParams } from "react-router";
 import ArticleNavBar from "../Components/ArticleNavBar";
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import http from '../service/http-common';
+import httpMultipart from '../service/http-multipart';
 
 function EditArticle() {
   const { articleId } = useParams();
@@ -16,13 +16,12 @@ function EditArticle() {
   const author_id = 'sampleUserID'; // Example author ID
 
   useEffect(() => {
-    fetch(`http://localhost:8080/article/viewFull/${articleId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setArticle(data);
-        setOriginalArticle(data);
-      });
-
+    http.get(`/article/viewFull/${articleId}`)
+      .then((res) => {
+        setArticle(res.data);
+        setOriginalArticle(res.data);
+      })
+      .catch((error) => console.error('Error fetching article:', error));
   }, [articleId]);
 
   const handleImageChange = (e) => {
@@ -78,13 +77,8 @@ function EditArticle() {
     }
 
     // Axios PUT request
-    axios.put(`http://localhost:8080/article/editArticle/${articleId}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    httpMultipart.put(`/article/editArticle/${articleId}`, formData)
       .then((response) => {
-        //console.log('Success:', response.data);
         if (response.data.success) {
           alert('Article updated successfully');
           setOriginalArticle(article);
@@ -111,7 +105,7 @@ function EditArticle() {
             ) : (
               <h1>{article.title}</h1>
             )}
-            <button onClick={() => setEditMode({ ...editMode, title: !editMode.title })}>
+            <button className={style.button} onClick={() => setEditMode({ ...editMode, title: !editMode.title })}>
               {editMode.title ? 'Save' : 'Change'}
             </button>
           </div>
@@ -120,7 +114,7 @@ function EditArticle() {
             {editMode.image ? (
               <div className={style.deleteImageAndEditImage}>
                 <input type="file" onChange={handleImageChange} />
-                <button onClick={handleDeleteImage}>Delete Image</button>
+                <button className={style.button} onClick={handleDeleteImage}>Delete Image</button>
               </div>
             ) : (
               <div className={style.imageContainer}>
@@ -129,7 +123,7 @@ function EditArticle() {
                   alt="Article" />
               </div>
             )}
-            <button onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
+            <button className={style.button} onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
               {editMode.image ? 'Save' : 'Change'}
             </button>
           </div>
@@ -143,12 +137,12 @@ function EditArticle() {
             ) : (
               <p>{article.body}</p>
             )}
-            <button onClick={() => setEditMode({ ...editMode, body: !editMode.body })}>
+            <button className={style.button} onClick={() => setEditMode({ ...editMode, body: !editMode.body })}>
               {editMode.body ? 'Save' : 'Change'}
             </button>
           </div>
 
-          <button onClick={handleSave}>Submit</button>
+          <button className={style.button} onClick={handleSave}>Submit</button>
         </div>
       </div>
     </>

@@ -4,7 +4,7 @@ import CustomFooter from "../Components/CustomFooter"; // Import the custom foot
 import ProfileCard from "../Components/ProfileCard";
 import ArticleSummaryProfile from "../Components/ArticleSummaryProfile";
 import styles from "./style/MyProfile.module.css";
-import axios from "axios";
+import http from '../service/http-common'; // Import custom Axios instance
 import Footer from "../Components/LibraryFooter";
 
 function MyProfile() {
@@ -13,9 +13,10 @@ function MyProfile() {
 
   useEffect(() => {
     const authorId = 'sampleUserID';
+
     const fetchArticles = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/article/getByUserID/${authorId}`);
+        const response = await http.get(`/article/getByUserID/${authorId}`);
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -24,7 +25,7 @@ function MyProfile() {
 
     const fetchAuthorDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/user/getUserProfile/${authorId}`);
+        const response = await http.get(`/user/getUserProfile/${authorId}`);
         setAuthorDetails(response.data);
       } catch (error) {
         console.error('Error fetching author details:', error);

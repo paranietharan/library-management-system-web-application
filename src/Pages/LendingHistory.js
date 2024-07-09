@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UserProfileLeftSideNavBar from '../Components/UserProfileLeftSideNavBar';
 import styles from './style/LendingHistory.module.css';
 import BookView from '../Components/BookView'; // Import the BookView component
+import http from '../service/http-common'; // Import your HTTP service instance
 
 function LendingHistory() {
-    // Dummy lending history data (array of books with borrowed dates)
-    const lendingHistory = [
-        {
-            book: {
-                bookImage: 'https://images.pexels.com/photos/4245048/pexels-photo-4245048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                description: 'Description of Book 1',
-            },
-            borrowedDate: '2023-01-15',
-        },
-        {
-            book: {
-                bookImage: 'https://images.pexels.com/photos/4217009/pexels-photo-4217009.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=s',
-                description: 'Description of Book 2',
-            },
-            borrowedDate: '2023-02-20',
-        },
-        // Add more lending history items as needed
-    ];
+    const [lendingHistory, setLendingHistory] = useState([]);
+    const [error, setError] = useState(null);
+
+    // Fetch lending history data from backend
+    useEffect(() => {
+        const memberId = 'sampleUserID'; // Replace with actual logic to get memberId
+        fetchLendingHistory(memberId);
+    }, []);
+
+    const fetchLendingHistory = async (memberId) => {
+        try {
+            const response = await http.get(`/issues/history/${memberId}`);
+            // Assuming response.data is an array of lending history items
+            setLendingHistory(response.data);
+        } catch (error) {
+            console.error("Error fetching lending history:", error);
+            setError("Failed to fetch lending history.");
+        }
+    };
 
     return (
         <>
@@ -30,10 +32,12 @@ function LendingHistory() {
                 <div className={styles.contents}>
                     <h1 className={styles.heading}>Lending history</h1>
 
+                    {error && <div className={styles.error}>{error}</div>}
+
                     <div className={styles.bookList}>
-                        {lendingHistory.map((item, index) => (
-                            <div className={styles.listItem}>
-                                <BookView key={index} book={item.book} borrowedDate={item.borrowedDate} />
+                        {lendingHistory && lendingHistory.map((issue) => (
+                            <div className={styles.listItem} key={issue.issueId}>
+                                <BookView issue={issue} />
                             </div>
                         ))}
                     </div>

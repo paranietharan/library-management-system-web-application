@@ -1,9 +1,71 @@
-.searchSection{
-    width: 40vw;
-    margin-left: 30vw;
+.Container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.contents {
+    flex: 1;
+    padding: 20px;
+}
+
+.MemberSearch {
+    margin-bottom: 20px;
+}
+
+.searchResults {
     margin-top: 20px;
 }
 
-.FineManagementTable{
-    margin: 10px 5vw;
+.fineTable {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.fineTableHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.fineTableBodyHeader {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: #ddd;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.fineTableBodyContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.fineTableBodyContentRow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.fineTableBodyContentItem {
+    padding: 10px;
+}
+
+.viewAllButton,
+.payButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.viewAllButton:hover,
+.payButton:hover {
+    background-color: #45a049;
 }
