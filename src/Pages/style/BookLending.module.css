@@ -1,0 +1,56 @@
+.container {
+    padding: 60px 20px 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+.lend,
+.get{
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #6666ff;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+}
+
+
+.lend:hover,
+.get:hover {
+    background-color: #5555cc;
+}
+
+
+.displayComponent {
+    margin-top: 7vh;
+}
+
+.menuItems {
+    display: flex;
+    /* Use flexbox 2 alignment*/
+    justify-content: center;
+    /* Allign items horizontally 2 the center */
+}
+
+.menuItems button {
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #6666ff;
+    display: flex;
+    /* Use flexbox 2 alignment */
+    align-items: center;
+    /* Align items vertically */
+}
+
+.menuItems button svg {
+    margin-right: 5px;
+}

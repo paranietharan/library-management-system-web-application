@@ -11,7 +11,6 @@ const SingleSearchResult = ({ image, title, author, isbn, id }) => {
         <p><strong>Title:</strong> {title}</p>
         <p><strong>Author:</strong> {author}</p>
         <p><strong>ISBN:</strong> {isbn}</p>
-        <p><strong>ID:</strong> {id}</p>
       </div>
     </div>
   );

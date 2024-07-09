@@ -32,7 +32,7 @@ input[type="time"] {
     width: 500px;
 }
 
-button {
+.button {
     background-color: #4caf50;
     color: white;
     border: none;
@@ -44,6 +44,6 @@ button {
     margin-left: 100px;
 }
 
-button:hover {
+.button:hover {
     background-color: #3e8e41;
 }

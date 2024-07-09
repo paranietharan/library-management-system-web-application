@@ -1,10 +1,11 @@
 .container {
   display: flex;
   justify-content: center;
-  background-color: #f2f2f2;
+  background-color: #d9d9d9;
   border-radius: 10px 10px 10px 10px;
   margin: 10px 0px 10px 0px;
   width: 60vw;
+  height: 100px;
 }
 
 /* .message-container {
@@ -19,8 +20,8 @@
 
 .message-container {
   display: flex;
-  flex-direction: column; /* Set flex direction to column */
-  align-items: flex-start; /* Align items to the start of the column */
+  flex-direction: column;
+  align-items: flex-start;
   padding: 10px;
 }
 
@@ -46,7 +47,7 @@
 }
 
 .heading {
-  font-size: 20px; /* Adjust the font size of the heading */
+  font-size: 10px; /* Adjust the font size of the heading */
   font-weight: bold; /* Make the heading bold */
   margin-left: 10px; /* Add left margin to separate it from the icon */
 }
