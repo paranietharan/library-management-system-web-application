@@ -8,14 +8,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import http from '../service/http-common';
 
 function DeleteBooksComponent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-  const [loading, setLoading] = useState(false); // State to manage loading state
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -24,8 +24,8 @@ function DeleteBooksComponent() {
   };
 
   const searchBooks = (query) => {
-    setLoading(true); // Set loading to true while fetching data
-    axios.get('http://localhost:8080/resource/search', {
+    setLoading(true);
+    http.get('/resource/search', {
       params: {
         keyword: query
       }
@@ -33,19 +33,19 @@ function DeleteBooksComponent() {
       .then(response => {
         console.log('Search Results:', response.data);
         setSearchResults(response.data);
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false);
       })
       .catch(error => {
         console.error('Search Error:', error);
-        setLoading(false); // Set loading to false on error as well
+        setLoading(false);
       });
   };
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:8080/resource/delete/${selectedBook.resourceId}`)
+    http.delete(`/resource/delete/${selectedBook.resourceId}`)
       .then(response => {
         console.log('Delete Response:', response.data);
-        setSearchResults(searchResults.filter(book => book.id !== selectedBook.id));
+        setSearchResults(searchResults.filter(book => book.resourceId !== selectedBook.resourceId));
         setOpenDialog(false);
         setSelectedBook(null);
       })

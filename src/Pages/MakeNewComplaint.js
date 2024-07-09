@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './style/MakeNewComplaintStyle.module.css';
 import UserNavBar from '../Components/UserNavBar';
-import axios from 'axios';
+import http from '../service/http-common';
 
 function MakeNewComplaint() {
   const [complaintType, setComplaintType] = useState('');
@@ -25,10 +25,9 @@ function MakeNewComplaint() {
     //window.location.href = '/complaint';
   };
 
-  // axios function to send data to backend
+  // function to send data to backend using http
   const sendComplaint = () => {
-    axios.post('http://localhost:8080/complaint/new', {
-      //userID: localStorage.getItem('userID'),
+    http.post('/complaint/new', {
       userID: user_id,
       complaintType: complaintType,
       complaintDescription: complaintDescription,
@@ -63,12 +62,6 @@ function MakeNewComplaint() {
             <textarea id="complaintDescription" value={complaintDescription} onChange={(event) => setComplaintDescription(event.target.value)}></textarea>
           </div>
 
-          {/* No need to add location detils */}          
-          {/* <div className={styles.complaintLocation}>
-            <label htmlFor="complaintLocation">Complaint Location:</label>
-            <input type="text" id="complaintLocation" value={complaintLocation} onChange={(event) => setComplaintLocation(event.target.value)} />
-          </div> */}
-
           <div className={styles.complaintDate}>
             <label htmlFor="complaintDate">Complaint Date:</label>
             <input type="date" id="complaintDate" value={complaintDate} onChange={(event) => setComplaintDate(event.target.value)} />
@@ -77,7 +70,7 @@ function MakeNewComplaint() {
             <label htmlFor="complaintTime">Complaint Time:</label>
             <input type="time" id="complaintTime" value={complaintTime} onChange={(event) => setComplaintTime(event.target.value)} />
           </div>
-          <button type="submit">Submit Complaint</button>
+          <button type="submit" className={styles.button}>Submit Complaint</button>
         </form>
       </div>
     </>

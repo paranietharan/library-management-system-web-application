@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './style/AddBooksComponent.module.css';
-import axios from 'axios';
+import http from '../service/http-common';
 import BookAddAlertDialog from './BookAddAlertDialog';
 
 function AddBooksComponent({ onAdd }) {
@@ -67,14 +67,11 @@ function AddBooksComponent({ onAdd }) {
         setDialogOpen(false);
 
         try {
-            const response = await axios.post('http://localhost:8080/resource/addResource', formData, {
+            const response = await http.post('/resource/addResource', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
-            //console.log(response.data);
-            //onAdd(response.data);
 
             setIsbn('');
             setBookName('');

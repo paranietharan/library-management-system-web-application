@@ -13,9 +13,11 @@ import { Link } from 'react-router-dom';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 export default function MemberTopNavBar() {
 
@@ -55,6 +57,12 @@ export default function MemberTopNavBar() {
                             </IconButton>
                         </Link>
 
+                        <Link to="/book-reservation" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <IconButton size="large" color="inherit">
+                                <span style={{ color: 'black' }}><BookOnlineIcon /></span>
+                            </IconButton>
+                        </Link>
+
                         {/* Fine icon */}
                         <Link to="/fine" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <IconButton size="large" olor="inherit">
@@ -69,20 +77,16 @@ export default function MemberTopNavBar() {
                                 aria-label="show 17 new notifications"
                                 color="inherit"
                             >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon style={{ color: 'black' }} />
-                                </Badge>
+                                <NotificationsIcon style={{ color: 'black' }} />
                             </IconButton>
                         </Link>
 
                         {/* Mail icon count */}
                         <Link to="/user-chat" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <Badge badgeContent={4} color="error" badgeContentColor="red">
-                                    <span style={{ color: 'black' }}>
-                                        <MailIcon />
-                                    </span>
-                                </Badge>
+                                <span style={{ color: 'black' }}>
+                                    <MailIcon />
+                                </span>
                             </IconButton>
                         </Link>
 
@@ -94,6 +98,13 @@ export default function MemberTopNavBar() {
                                         <ReportGmailerrorredIcon />
                                     </span>
                                 </Badge>
+                            </IconButton>
+                        </Link>
+
+                        {/* List icon */}
+                        <Link to="/todo-list" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <IconButton size="large" color="inherit">
+                                <span style={{ color: 'black' }}><ListAltIcon /></span>
                             </IconButton>
                         </Link>
 

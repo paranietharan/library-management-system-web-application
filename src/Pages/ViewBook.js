@@ -6,31 +6,24 @@ import UserNavBar from '../Components/UserNavBar';
 import TextRating from '../Components/TextRating';
 import Footer from '../Components/LibraryFooter';
 import ViewBookComments from '../Components/ViewBookComments';
+import http from '../service/http-common';
 
 function ViewBook() {
     const { id } = useParams();
     const [book, setBook] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-
     const [ratingValue, setRatingValue] = useState(0);
     const [avgRating, setAvgRating] = useState(0);
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     const userId = 'sampleUserID';
 
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/resource/get/id/${id}`);
-                const data = await response.json();
-                if (response.ok) {
-                    setBook(data);
-                } else {
-                    throw new Error(data.error || 'Failed to fetch book details');
-                }
+                const response = await http.get(`/resource/get/id/${id}`);
+                setBook(response.data);
             } catch (error) {
                 console.error('Error fetching book details:', error);
                 setError(error.message);
@@ -41,13 +34,8 @@ function ViewBook() {
 
         const fetchComments = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/resource/${id}/comment`);
-                const data = await response.json();
-                if (response.ok) {
-                    setComments(data || []);
-                } else {
-                    throw new Error(data.error || 'Failed to fetch comments');
-                }
+                const response = await http.get(`/resource/${id}/comment`);
+                setComments(response.data || []);
             } catch (error) {
                 console.error('Error fetching comments:', error);
                 setError(error.message);
@@ -56,13 +44,8 @@ function ViewBook() {
 
         const fetchRating = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/resource/${id}/rating/${userId}`);
-                const data = await response.json();
-                if (response.ok) {
-                    setRatingValue(data || 0);
-                } else {
-                    throw new Error(data.error || 'Failed to fetch rating');
-                }
+                const response = await http.get(`/resource/${id}/rating/${userId}`);
+                setRatingValue(response.data || 0);
             } catch (error) {
                 console.error('Error fetching rating:', error);
                 setError(error.message);
@@ -71,13 +54,8 @@ function ViewBook() {
 
         const fetchAvgRating = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/resource/${id}/rating`);
-                const data = await response.json();
-                if (response.ok) {
-                    setAvgRating(data || 0);
-                } else {
-                    throw new Error(data.error || 'Failed to fetch average rating');
-                }
+                const response = await http.get(`/resource/${id}/rating`);
+                setAvgRating(response.data || 0);
             } catch (error) {
                 console.error('Error fetching average rating:', error);
                 setError(error.message);
@@ -92,24 +70,12 @@ function ViewBook() {
 
     const handleAddComment = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/resource/${id}/comment`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userID: userId,
-                    comment: newComment
-                })
+            const response = await http.post(`/resource/${id}/comment`, {
+                userID: userId,
+                comment: newComment
             });
-
-            const newCommentData = await response.json();
-            if (response.ok) {
-                setComments([...comments, newCommentData]);
-                setNewComment('');
-            } else {
-                throw new Error(newCommentData.error || 'Failed to add comment');
-            }
+            setComments([...comments, response.data]);
+            setNewComment('');
         } catch (error) {
             console.error('Error adding comment:', error);
             setError(error.message);
@@ -118,24 +84,11 @@ function ViewBook() {
 
     const handleRatingChange = async (newRating) => {
         try {
-            const response = await fetch(`http://localhost:8080/resource/${id}/rating`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userID: userId,
-                    rating: newRating
-                })
+            await http.post(`/resource/${id}/rating`, {
+                userID: userId,
+                rating: newRating
             });
-
-            if (response.ok) {
-                console.log('Rating updated successfully');
-                setRatingValue(newRating);
-            } else {
-                const data = await response.json();
-                throw new Error(data.error || 'Failed to update rating');
-            }
+            setRatingValue(newRating);
         } catch (error) {
             console.error('Error updating rating:', error);
             setError(error.message);
@@ -157,8 +110,6 @@ function ViewBook() {
                 <div className={styles.bookDetails}>
                     <div className={styles.bookImage}>
                         <img
-                            // src={book.bookImg ? `data:image/png;base64,${book.bookImg}`
-                            //     : `https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200-1024x672.png`}
                             src={`data:image/png;base64,${book.bookImg}`}
                             alt={book.title || "Book Image"}
                             className={styles.book_image}

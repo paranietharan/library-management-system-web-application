@@ -8,7 +8,6 @@ import ArticleHome from './Pages/ArticleHome';
 import PublishArticles from './Pages/PublishArticles';
 import MyProfile from './Pages/MyProfile';
 import ViewArticle from './Pages/ViewArticle';
-import articles from './articles';
 import ArticleSearch from './Pages/ArticleSearch';
 import ArticleEdit from './Pages/ArticleEdit';
 
@@ -24,7 +23,6 @@ import VerifyForgotPassword from './Pages/VerifyForgotPassword';
 
 // Mihunan
 import UserHome from './Pages/UserHome';
-import books from './book';
 import UserChat from './Pages/UserChat';
 import ViewBook from './Pages/ViewBook';
 import Complaint from './Pages/complaint';
@@ -49,10 +47,14 @@ import LibrarianChat from './Pages/LibrarianChat';
 import ArticleManagement from './Pages/ArticleManagement';
 import TermsAndPolicies from './Pages/TermsAndPolicies';
 import AdminFineManagement from './Pages/AdminFineManagement';
-import AdminSettings from './Pages/AdminSettings';
 import AdminProfileManagement from './Pages/AdminProfileManagement';
 import AdminNotificationControl from './Pages/AdminNotificationControl';
 import LibrarianArticleManagement from './Pages/LibrarianArticleManagementView';
+import BookLending from './Pages/BookLending';
+import AdminComplaintPage from './Pages/AdminComplaintPage';
+import BookReservation from './Pages/BookReservation';
+import LibrarianBookReservation from './Pages/LibrarianBookReservation';
+import ToDoListPage from './Pages/ToDoListPage';
 
 function App() {
 
@@ -80,7 +82,6 @@ function App() {
         <Route path='/verifyMailForgotPassword' element={<VerifyForgotPassword />} />
 
 
-
         {/* Mihunan */}
         <Route path="/" element={<UserHome/>} />
         <Route path="/book/:id" element={<ViewBook/>} />
@@ -91,44 +92,37 @@ function App() {
         <Route path='/librarian-chat' element={<LibrarianChat />} />
 
 
-
         {/* Yasothan */}
         <Route path="/message" element={<UserMessages />} />
-        <Route path="/fine" element={<FineManagement />} />
         <Route path='/mybooks' element={<MyBooks />} />
+        <Route path="/fine" element={<FineManagement />} />
+        <Route path='/book-reservation' element={<BookReservation />} />
+        <Route path='/lending-history' element={<LendingHistory />} />
+        <Route path='/terms' element={<TermsAndPolicies />} />
+        <Route path='/fine-history' element={<FineHistory />} />
         <Route path='/edit-profile' element={<EditProfile />} />
+        {/*TODO: Do security page connection */}
         <Route path='/security' element={<SecurityPage />} />
         <Route path='/notifications' element={<Notifications />} />
-        <Route path='/terms' element={<TermsAndPolicies />} />
-        <Route path='/lending-history' element={<LendingHistory />} />
-        <Route path='/fine-history' element={<FineHistory />} />
 
 
 
         {/* Lathisana */}
         <Route path="/admin" element={<AdminDashboardHome />} />
         <Route path='/admin-book-management' element={<BookManagement />} />
-        <Route path='/librarian-article-management' element={<ArticleManagement articles={articles} />} />
+        <Route path='/librarian-article-management' element={<ArticleManagement/>} />
         <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
-       
-        <Route path='/membership-management' element={<MembershipManagement />} />
-        {/*
-           TODO: 2 - create edit EditMember component
-                      * Search bar for search member
-                      * Filter for search member : by membername, by memberid, by email, by phone number
-                      * Confirmation Dialog for edit member
-            TODO: 3 - forward to member Delete member page page
-        */}
-        
-        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
         <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
-
-        {/* TODO: New pages to do */}
-        <Route path='/admin-settings' element={<AdminSettings />} />
+        <Route path="/book-lending" element={<BookLending />} />
+        <Route path='/admin-complaint' element={<AdminComplaintPage />} />
+        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
+        <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
+        {/* TODO: Membership management */}
+        <Route path='/membership-management' element={<MembershipManagement />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
 
-        {/* TODO: Create a new page to search delete member */}
-        {/* TODO: Create a new page to display all member details */}
+        {/*Added Features */}
+        <Route path='/todo-list' element={<ToDoListPage />} />
 
 
         {/* Sample code for test */}
