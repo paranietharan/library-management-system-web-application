@@ -2,10 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './style/DetailsFillingStyle.module.css';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { baseURL } from './service/BaseUrl';
 import 'font-awesome/css/font-awesome.min.css';
 
+
 function DetailsFilling() {
+
+    const URL = `${baseURL}/user/checkDetails`;
 
     // for connecting to the backend
     const [user, setUser] = useState({
@@ -29,7 +32,7 @@ function DetailsFilling() {
         }
         try {
             console.log('User:', user);
-            const response = await axios.post('http://localhost:8080/user/checkDetails', user);            
+            const response = await axios.post(URL, user);            
             console.log(response.data);
             if (!response.data.isUserExists) {
                 localStorage.setItem('user', JSON.stringify(user));
