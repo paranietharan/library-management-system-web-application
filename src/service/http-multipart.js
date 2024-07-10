@@ -1,8 +1,9 @@
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; 
 import dayjs from "dayjs";
-import { useNavigate } from "react-router-dom";
-import { baseURL } from "./baseURL";
+import { baseURL } from "./BaseUrl"; 
+import LogoutUser from "./LogoutUser";
+
 
 const httpMultipart = axios.create({
     baseURL: baseURL,
@@ -20,7 +21,7 @@ httpMultipart.interceptors.request.use(
             if (isExpired) {
                 LogoutUser(); // Token is expired, logout the user.
             } else {
-            config.headers.Authorization = `Bearer ${token}`;
+                config.headers.Authorization = `Bearer ${token}`;
             }
         }
         else {
@@ -35,10 +36,5 @@ httpMultipart.interceptors.request.use(
 
 export default httpMultipart;
 
-const navigate = useNavigate();
 
-export const LogoutUser = () => {
-    localStorage.removeItem('token');
-    navigate('/login')
-}
 

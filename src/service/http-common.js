@@ -1,8 +1,8 @@
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
-import { useNavigate } from "react-router-dom";
-import { baseURL } from "./baseURL";
+import { baseURL } from "./BaseUrl";
+import LogoutUser from "./LogoutUser";
 
 
 
@@ -37,9 +37,3 @@ httpCommon.interceptors.request.use(
 
 export default httpCommon;
 
-const navigate = useNavigate();
-
-export const LogoutUser = () => {
-    localStorage.removeItem('token');
-    navigate('/login')
-}
