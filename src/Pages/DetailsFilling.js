@@ -36,6 +36,12 @@ function DetailsFilling() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!emailValid || !phoneNumberValid || !isValid || !passwordMatch) {
+            console.log(
+                'Email:', emailValid,
+                'Phone Number:', phoneNumberValid,
+                'Password:', isValid,
+                'Password Match:', passwordMatch
+            );
             console.error('Form validation failed');
             return;
         }
@@ -43,7 +49,7 @@ function DetailsFilling() {
             console.log('User:', user);
             const response = await axios.post( URL, user);            
             console.log(response.data);
-            if (!response.data.message === 'User found') {
+            if (response.data.message === 'User found') {
                 localStorage.setItem('user', JSON.stringify(user));
             // Redirect to confirmation page with response data
             navigate('/details-confirmation', { state: { data: response.data} });

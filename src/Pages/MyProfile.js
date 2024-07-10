@@ -4,15 +4,23 @@ import CustomFooter from "../Components/CustomFooter"; // Import the custom foot
 import ProfileCard from "../Components/ProfileCard";
 import ArticleSummaryProfile from "../Components/ArticleSummaryProfile";
 import styles from "./style/MyProfile.module.css";
-import http from '../service/http-common'; // Import custom Axios instance
+import http from '../service/http-common';
 import Footer from "../Components/LibraryFooter";
+import getUserID from "../service/GetUserID";
 
 function MyProfile() {
   const [articles, setArticles] = useState([]);
   const [authorDetails, setAuthorDetails] = useState({});
+  const [authorId, setAuthorId] = useState();
 
   useEffect(() => {
-    const authorId = 'sampleUserID';
+    const userID = getUserID();
+    setAuthorId(userID);
+  }, []);
+
+  useEffect(() => {
+    //const authorId = userId;
+    console.log(authorId)
 
     const fetchArticles = async () => {
       try {
