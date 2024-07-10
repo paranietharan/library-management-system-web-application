@@ -55,6 +55,7 @@ import AdminComplaintPage from './Pages/AdminComplaintPage';
 import BookReservation from './Pages/BookReservation';
 import LibrarianBookReservation from './Pages/LibrarianBookReservation';
 import ToDoListPage from './Pages/ToDoListPage';
+import Notes from './Pages/Notes';
 
 function App() {
 
@@ -123,6 +124,7 @@ function App() {
 
         {/*Added Features */}
         <Route path='/todo-list' element={<ToDoListPage />} />
+        <Route path='/notes' element={<Notes />} />
 
 
         {/* Sample code for test */}
