@@ -7,6 +7,7 @@ import ViewComments from '../Components/ViewComments';
 import ArticleBreadCrumbs from '../Components/ArticleBreadCrumbs';
 import Footer from '../Components/LibraryFooter';
 import http from '../service/http-common'; // Import custom Axios instance
+import getUserID from "../service/GetUserID";
 
 function ViewArticle() {
     const { articleId } = useParams();
@@ -17,7 +18,22 @@ function ViewArticle() {
     const [authorDetails, setAuthorDetails] = useState(null);
     const [comment, setComment] = useState('');
     const [userRating, setUserRating] = useState(5.0);
-    const userId = "sampleUserID"; // Hardcoded user ID for now, replace with actual user ID
+    const [userId, setuserId] = useState();
+
+    useEffect(() => {
+        const userID = getUserID();
+        setuserId(userID);
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchArticleDetails();
+            await fetchComments();
+            await fetchAverageRating();
+            await fetchUserRating();
+        };
+        fetchData();
+    }, [articleId]);
 
     // Function to handle comment submission
     const handleSubmit = async () => {
@@ -97,13 +113,6 @@ function ViewArticle() {
         }
     };
 
-    useEffect(() => {
-        fetchArticleDetails();
-        fetchComments();
-        fetchAverageRating();
-        fetchUserRating();
-    }, [articleId]);
-
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -125,7 +134,7 @@ function ViewArticle() {
                     <div className={styles.authorSection}>
                         <div className={styles.authorDetails}>
                             {authorDetails?.profileImg
-                                ? <img src={authorDetails.profileImg} alt="Author" className={styles.authorImage} />
+                                ? <img src={`data:image/png;base64,${authorDetails.profileImg}`} alt="Author" className={styles.authorImage} />
                                 : <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Author" className={styles.authorImage} />}
                             <p>{authorDetails.firstName + " " + authorDetails.lastName}</p>
                         </div>

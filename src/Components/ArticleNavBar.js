@@ -15,6 +15,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import http from '../service/http-common';
+import getUserID from "../service/GetUserID";
+import { useEffect, useState } from 'react';
 
 const pages = ['Search', 'Home', 'About'];
 const links = ['article-search', 'article-home', 'about'];
@@ -29,7 +31,9 @@ function ArticleNavBar() {
 
     // Get user details from api
     React.useEffect(() => {
-        const userID = 'sampleUserID'; // Replace 'sampleUserID' with actual user id from 'localStorage.getItem('userID')
+        //const userID = 'sampleUserID'; // Replace 'sampleUserID' with actual user id from 'localStorage.getItem('userID')
+        const userID = getUserID();
+
         // Fetch user details from api
         const fetchUserDetails = async () => {
             try {

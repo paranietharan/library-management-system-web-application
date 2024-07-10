@@ -25,6 +25,19 @@ function Comment({ comment }) {
     return (
         <>
             <div style={{ padding: "20px 10px", display: "flex", alignItems: "center" }}>
+            {commenter.profileImg ? (
+                    <img
+                        src={`data:image/png;base64,${commenter.profileImg}`}
+                        alt={`${commenter.firstName} ${commenter.lastName}`}
+                        style={{ width: 50, height: 50, borderRadius: "50%", marginRight: 10 }}
+                    />
+                ) : (
+                    <img
+                        src="https://www.w3schools.com/howto/img_avatar.png" // Placeholder image or default avatar
+                        alt="Default Avatar"
+                        style={{ width: 50, height: 50, borderRadius: "50%", marginRight: 10 }}
+                    />
+                )}
                 <div style={{ flex: "1", minWidth: "0" }}>
                     <p style={{ textAlign: "left" }}>{content}</p>
                     <p style={{ textAlign: "left", color: "gray" }}>

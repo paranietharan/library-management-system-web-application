@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ArticleNavBar from '../Components/ArticleNavBar';
 import Footer from '../Components/LibraryFooter';
 import httpMultipart from '../service/http-multipart';
+import getUserID from "../service/GetUserID";
 
 function ArticleForm() {
     const [image, setImage] = useState(null);
     const [heading, setHeading] = useState('');
     const [body, setBody] = useState('');
+    const [authorId, setAuthorId] = useState();
 
-    const authorId = 'sampleUserID'; // Example author ID
+    useEffect(() => {
+        const userID = getUserID();
+        setAuthorId(userID);
+    }, []);
 
+    //const authorId = 'sampleUserID'; // Example a
     const handleImageChange = (e) => {
         const selectedImage = e.target.files[0];
         setImage(selectedImage);
