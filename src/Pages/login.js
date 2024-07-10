@@ -7,9 +7,20 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import { baseURL } from '../service/BaseUrl';
+import AlertMessage from '../Components/AlertMessage';
 
 function Login() {
 
+    const URL = `${baseURL}/user/login`;
+
+    // for alert message
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const handleClose = () => {
+        setShowAlert(false);
+    };
    
     const [showPassword, setShowPassword] = useState(false);
 
@@ -42,7 +53,7 @@ function Login() {
 
         try {
             console.log('cleanRequest:', cleanRequest);
-            const response = await axios.post('http://localhost:8080/user/login', cleanRequest);
+            const response = await axios.post( URL, cleanRequest);
             console.log(response.data);
             if (response.data.loginSuccess) {
                 // Save the token to local storage
@@ -57,10 +68,13 @@ function Login() {
                 } else if (role === ' LIBRARIAN') {
                     navigate('/admin');
                 } else {
-                    console.error('Unknown user role:', role);
+                    console.log('Unknown user role:', role);
+                   
                 }
             } else {
-                console.error('Login failed:', response.data.message);
+                console.log('Login failed:', response.data.message);
+                setShowAlert(true);
+                setMessage(response.data.message);
             }
         } catch (error) {
             console.error('Error logging in:', error);
@@ -133,6 +147,11 @@ function Login() {
             <div className={styles['img-container']}>
                 <img src={imgSrc} alt='background' className={styles['background-img']} />
             </div>
+            <AlertMessage 
+                show={showAlert}
+                message={message}
+                onClose={handleClose}
+            />
         </div>
     )
 }

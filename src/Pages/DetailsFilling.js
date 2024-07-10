@@ -2,13 +2,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './style/DetailsFillingStyle.module.css';
 import { useState } from 'react';
 import axios from 'axios';
-import { baseURL } from './service/BaseUrl';
+import { baseURL } from '../service/BaseUrl';
 import 'font-awesome/css/font-awesome.min.css';
+import AlertMessage from '../Components/AlertMessage';
 
 
 function DetailsFilling() {
 
     const URL = `${baseURL}/user/checkDetails`;
+
+    // for alert message
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const handleClose = () => {
+        setShowAlert(false);
+    };
 
     // for connecting to the backend
     const [user, setUser] = useState({
@@ -32,14 +41,20 @@ function DetailsFilling() {
         }
         try {
             console.log('User:', user);
-            const response = await axios.post(URL, user);            
+            const response = await axios.post( URL, user);            
             console.log(response.data);
-            if (!response.data.isUserExists) {
+            if (!response.data.message === 'User found') {
                 localStorage.setItem('user', JSON.stringify(user));
             // Redirect to confirmation page with response data
             navigate('/details-confirmation', { state: { data: response.data} });
-            } else {
+            } else if (response.data.message === 'User already exists') {
                 console.error('Registration failed:', response.data.message);
+                setShowAlert(true);
+                setMessage(response.data.message);
+            } else {
+                console.error('Registration failed:');
+                setShowAlert(true);
+                setMessage("User data does not match our records. Please check your details.");
             }
         } catch (error) {
             console.error('Error registering user:', error);
@@ -216,6 +231,11 @@ function DetailsFilling() {
                     </div>
                 </div>
             </div>
+            <AlertMessage
+                show={showAlert}
+                message={message}
+                onClose={handleClose}
+            />
         </div>
     );
 }
