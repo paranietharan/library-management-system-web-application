@@ -3,7 +3,20 @@ import styles from './style/VerifyForgotPassword.module.css';
 import { Link , useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import { baseURL } from '../service/BaseUrl';
+import AlertMessage from '../Components/AlertMessage';
+
 function VerifyForgotPassword() {
+
+    const URL = `${baseURL}/user/verifyOTP`;
+
+    // for alert message
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const handleClose = () => {
+        setShowAlert(false);
+    };
     
     const [otpValue, setOtpValue] = useState();   
 
@@ -20,13 +33,15 @@ function VerifyForgotPassword() {
         event.preventDefault();
         try {
             console.log(combinedObject)
-            const response = await axios.post('http://localhost:8080/user/verifyOTP', combinedObject);
+            const response = await axios.post( URL, combinedObject);
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data
                 navigate('/change-forgot-password');
             } else {
                 console.error('Verification failed:');
+                setShowAlert(true);
+                setMessage("OTP verification failed");
             }
         } catch (error) {
             console.error('Error verifying email:', error);
@@ -58,8 +73,12 @@ function VerifyForgotPassword() {
                         </form>
                     </div>
                 </div>
-
             </div>
+            <AlertMessage
+                show={showAlert}
+                message={message}
+                onClose={handleClose}
+            />
         </div>
     );
 }

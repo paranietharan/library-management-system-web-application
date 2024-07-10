@@ -4,8 +4,12 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from './style/ChangeForgotPassword.module.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../service/BaseUrl';
 
 function ChangeForgotPassword() {
+
+    const URL = `${baseURL}/user/changePassword`;
+
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +26,7 @@ function ChangeForgotPassword() {
         }
         try {
             console.log(combinedObject);
-            const response = await axios.post('http://localhost:8080/user/changePassword', combinedObject);
+            const response = await axios.post( URL, combinedObject);
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data

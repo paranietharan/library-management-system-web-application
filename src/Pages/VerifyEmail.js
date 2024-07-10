@@ -5,9 +5,21 @@ import OtpInput from '../Components/OtpInput';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../service/BaseUrl';
+import AlertMessage from '../Components/AlertMessage';
 
 
 function VerifyEmail() {
+
+    const URL = `${baseURL}/user/saveUser`;
+
+    // for alert message
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const handleClose = () => {
+        setShowAlert(false);
+    };
    
     // 1 state for otp value
     const [otpValue, setOtpValue] = useState(new Array(6).fill(''));
@@ -32,13 +44,15 @@ function VerifyEmail() {
         event.preventDefault();
         try {
             console.log('User:', combinedObject);
-            const response = await axios.post('http://localhost:8080/user/saveUser', combinedObject);
+            const response = await axios.post( URL, combinedObject);
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data
                 navigate('/verification-success');
             } else {
                 console.error('Verification failed:');
+                setShowAlert(true);
+                setMessage("OTP verification failed");
             }
         } catch (error) {
             console.error('Error verifying email:', error);
@@ -73,6 +87,11 @@ function VerifyEmail() {
 
                 </div>
             </div>
+            <AlertMessage 
+                show={showAlert}
+                message={message}
+                onClose={handleClose}
+            />
         </div>
     );
 }
