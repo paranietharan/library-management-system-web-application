@@ -18,7 +18,7 @@ function getUserID() {
     // Access the userId from the parsed payload
     const userId = parsedPayload.userId;
 
-    console.log('UserId:', userId);
+    console.log('UserId from get file : ', userId);
 
     return userId;
 }

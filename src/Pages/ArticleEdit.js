@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import ArticleNavBar from "../Components/ArticleNavBar";
 import http from '../service/http-common';
 import httpMultipart from '../service/http-multipart';
+import getUserID from "../service/GetUserID";
 
 function EditArticle() {
   const { articleId } = useParams();
@@ -12,8 +13,14 @@ function EditArticle() {
   const [editMode, setEditMode] = useState({ title: false, image: false, body: false });
   const [newImage, setNewImage] = useState(null);
   const [deleteImage, setDeleteImage] = useState(false);
+  const [author_id, setauthor_id] = useState();
 
-  const author_id = 'sampleUserID'; // Example author ID
+  useEffect(() => {
+    const userID = getUserID();
+    setauthor_id(userID);
+  }, []);
+
+  //const author_id = 'sampleUserID'; // Example author ID
 
   useEffect(() => {
     http.get(`/article/viewFull/${articleId}`)
