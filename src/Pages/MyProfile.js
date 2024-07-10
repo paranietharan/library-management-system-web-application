@@ -11,16 +11,12 @@ import getUserID from "../service/GetUserID";
 function MyProfile() {
   const [articles, setArticles] = useState([]);
   const [authorDetails, setAuthorDetails] = useState({});
-  const [authorId, setAuthorId] = useState();
 
   useEffect(() => {
-    const userID = getUserID();
-    setAuthorId(userID);
-  }, []);
+    const authorId = getUserID();
 
-  useEffect(() => {
     //const authorId = userId;
-    console.log(authorId)
+    console.log("Author id from : " + authorId)
 
     const fetchArticles = async () => {
       try {
