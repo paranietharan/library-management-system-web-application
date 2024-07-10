@@ -4,10 +4,21 @@ import { Link ,useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
+import { baseURL } from '../service/BaseUrl';
+import AlertMessage from '../Components/AlertMessage';
 
 function SearchAccount() {
-    const [isWrong, setIsWrong] = useState(false);
-    const [showInvalidEmail, setShowInvalidEmail] = useState(false);
+    const URL = `${baseURL}/user/forgotPassword`;
+
+    // for alert message
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const handleClose = () => {
+        setShowAlert(false);
+    };
+        
+
     const navigate = useNavigate();
 
     //for connecting to the backend
@@ -15,12 +26,13 @@ function SearchAccount() {
         event.preventDefault();
         const email = event.target.elements.email.value;
         if(email == null ){
-            setIsWrong(false);
-            setShowInvalidEmail(true);
+            console.error('Form validation failed');
+            return;
+    
         }
         try {
             console.log(email);
-            const response = await axios.post('http://localhost:8080/user/forgotPassword', {emailAddress :email});
+            const response = await axios.post( URL, {emailAddress :email});
             console.log(response.data);
             if (response.data) {
                 localStorage.setItem('email', email)
@@ -28,8 +40,8 @@ function SearchAccount() {
                 navigate('/verifyMailForgotPassword');
             } else {
                 console.error('Search failed:');
-                setIsWrong(false);
-                setShowInvalidEmail(true);
+                setShowAlert(true);
+                setMessage("User not found");
             }
         } catch (error) {
             console.error('Error searching user:', error);
@@ -44,8 +56,7 @@ function SearchAccount() {
             </div>
 
             <div className={styles['container']}>
-                <div className={`${styles['login-form']} ${isWrong && styles['wrong-login']}`}>
-                    {showInvalidEmail && <p className={styles['invalid-email']}>Invalid email. Try again</p>}
+                <div className={styles['login-form']}>
                     <form className={styles['form']} onSubmit={handleSubmit}>
                         <div className={styles['input-container']}>
                             <div className={styles['input-wrapper']}>
@@ -74,6 +85,11 @@ function SearchAccount() {
             <div className={styles['img-container']}>
                 <img src={imgSrc} alt='background' className={styles['background-img']} />
             </div>
+            <AlertMessage 
+                show={showAlert}
+                message={message}
+                onClose={handleClose}
+            />
         </div>
     )
 }

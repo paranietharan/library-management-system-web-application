@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { baseURL } from '../service/BaseUrl';
 
 function DetailsConfirmation() {
+
+    const URL = `${baseURL}/user/sendOtp`;
 
     const location = useLocation();
     const { data } = location.state;
@@ -18,7 +21,7 @@ function DetailsConfirmation() {
         event.preventDefault();
         console.log('Email:', emailAddress);
         try {
-            const response = await axios.post('http://localhost:8080/user/sendOtp',{emailAddress: emailAddress});
+            const response = await axios.post( URL,{emailAddress: emailAddress});
             console.log(response.data);
             if (response.data) {
                 // Redirect to confirmation page with response data

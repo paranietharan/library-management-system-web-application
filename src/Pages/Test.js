@@ -5,9 +5,11 @@ import Button from '@mui/material/Button';
 
 function Test() {
   const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState('This is a warning message!');
 
   const handleClick = () => {
     setShowAlert(true);
+    setMessage('This is a success message!');
   };
 
   const handleClose = () => {
@@ -21,7 +23,7 @@ function Test() {
       </Button>
       <AlertMessage
         show={showAlert}
-        message="This is a warning message!"
+        message={message}
         onClose={handleClose}
       />
     </div>
