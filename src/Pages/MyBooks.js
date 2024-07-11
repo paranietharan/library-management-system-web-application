@@ -3,16 +3,19 @@ import UserNavBar from '../Components/UserNavBar';
 import IssueHistoryComponent from '../Components/IssueHistoryComponent';
 import styles from './style/MyBooks.module.css';
 import http from '../service/http-common';
-import bgImage from '../resources/bgImage_01.jpg';
+import getUserID from '../service/GetUserID';
 
 function MyBooks() {
     const [issueHistory, setIssueHistory] = useState([]);
     const [unreturnbook, setunreturnBook] = useState(null);
+    const[userId, setUserId] = useState('');
 
-    const userId = 'sampleUserID'; // Replace 'SampleUserId' with actual user ID or use authentication context to get user ID
+    //const userId = 'sampleUserID';
 
     useEffect(() => {
-        fetchIssueHistory(); // Fetch issue history on component mount
+        const userId = getUserID();
+        setUserId(userId);
+        fetchIssueHistory();
         fetchUserBook();
     }, []);
 

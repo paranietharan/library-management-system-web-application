@@ -4,19 +4,23 @@ import BookSearchComponent from '../Components/BookSearchComponent';
 import BookReservationDetail from '../Components/BookReservationDetail';
 import { useState, useEffect } from 'react';
 import http from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function BookReservation() {
-    const userId = 'sampleUserId'; // This should be dynamically fetched in a real application
+    //const userId = 'sampleUserId';
     const [selectedBook, setSelectedBook] = useState(null);
     const [reservationStatus, setReservationStatus] = useState(null);
     const [reservationBookDetails, setReservationBookDetails] = useState(null);
     const [error, setError] = useState(null);
+    const[userId, setUserId] = useState('');
 
     const handleSelectBook = (book) => {
         setSelectedBook(book);
     };
 
     useEffect(() => {
+        const userId = getUserID();
+        setUserId(userId);
         checkUserReservationStatus(userId);
     }, [userId]);
 

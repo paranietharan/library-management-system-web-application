@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import styles from './style/FineManagementStyle.module.css';
 import UserNavBar from '../Components/UserNavBar';
 import httpCommon from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function FineManagement() {
     const [fineDetails, setFineDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [bookDetails, setBookDetails] = useState(null);
+    const [userId, setUserId] = useState('sampleUserID');
 
-    const userId = 'sampleUserID'; // Replace this with the actual user ID
+    //const userId = 'sampleUserID'; // Replace this with the actual user ID
 
     useEffect(() => {
+        const userId = getUserID();
+        setUserId(userId);
         const fetchFineDetails = async () => {
             try {
                 const response = await httpCommon.get(`/fine/unpaid/${userId}`);
