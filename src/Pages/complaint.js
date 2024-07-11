@@ -4,13 +4,17 @@ import ComplaintDetails from '../Components/ComplaintDetails';
 import MakeComplaint from '../Components/MakeComplaint';
 import { useEffect, useState } from 'react';
 import http from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function Complaint() {
     const [complaints, setComplaints] = useState([]);
-    const userId = "sampleUserID";
+    const [userId, setUserId] = useState('');
+    //const userId = "sampleUserID";
 
     // get complaints raised by the user
     useEffect(() => {
+        const userId = getUserID();
+        setUserId(userId);
         http.get(`/complaint/get?userID=${userId}`)
             .then((response) => {
                 setComplaints(response.data);

@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style/MakeNewComplaintStyle.module.css';
 import UserNavBar from '../Components/UserNavBar';
 import http from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function MakeNewComplaint() {
   const [complaintType, setComplaintType] = useState('');
   const [complaintDescription, setComplaintDescription] = useState('');
   const [complaintDate, setComplaintDate] = useState('');
   const [complaintTime, setComplaintTime] = useState('');
+  const [user_id, setUserID] = useState('');
 
-  const user_id = "sampleUserID";
+  //const user_id = "sampleUserID";
+  useEffect(() => {
+    const userId = getUserID();
+    setUserID(userId);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
