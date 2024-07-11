@@ -3,38 +3,41 @@ import styles from './style/ToDoListPageStyle.module.css';
 import UserNavBar from '../Components/UserNavBar';
 import ToDoItem from '../Components/ToDoItem';
 import httpCommon from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function ToDoListPage() {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState({ title: '', description: '', targetDate: '' });
     const [filter, setFilter] = useState('all'); // 'all', 'active', or 'completed'
     const [showDone, setShowDone] = useState(false);
-
-    const sampleUserId = 'sampleUserID';
+    const [userId, setuserId] = useState(null);
 
     useEffect(() => {
-        fetchTodos();
+        const userID = getUserID();
+        setuserId(userID);
+        fetchTodos(userID);
     }, []);
 
-    const fetchTodos = () => {
-        httpCommon.get(`/todo/get/user?userId=${sampleUserId}`)
+    const fetchTodos = (userID) => {
+        console.log("Fetch todo from user: " + userID);
+        httpCommon.get(`/todo/get/user?userId=${userID}`)
             .then(response => setTodos(response.data))
             .catch(error => console.log(error));
     };
 
     const createTodo = (e) => {
         e.preventDefault();
-        httpCommon.post(`/todo/create/${sampleUserId}`, newTodo)
+        httpCommon.post(`/todo/create/${userId}`, newTodo)
             .then(() => {
                 setNewTodo({ title: '', description: '', targetDate: '' });
-                fetchTodos();
+                fetchTodos(userId);
             })
             .catch(error => console.log(error));
     };
 
     const deleteTodo = (id) => {
         httpCommon.delete(`/todo/delete/${id}`)
-            .then(() => fetchTodos())
+            .then(() => fetchTodos(userId))
             .catch(error => console.log(error));
     };
 
@@ -43,7 +46,7 @@ function ToDoListPage() {
         if (todoToToggle) {
             const newStatus = !todoToToggle.completed;
             httpCommon.put(`/todo/${newStatus ? 'mark' : 'unmark'}/${id}`)
-                .then(() => fetchTodos())
+                .then(() => fetchTodos(userId))
                 .catch(error => console.log(error));
         }
     };
@@ -53,6 +56,7 @@ function ToDoListPage() {
         if (filter === 'completed') return todo.done;
         return true;
     });
+
 
     return (
         <>
@@ -97,7 +101,7 @@ function ToDoListPage() {
                                 todo={todo}
                                 onDelete={deleteTodo}
                                 onToggleStatus={toggleTodoStatus}
-                                userId={sampleUserId}
+                                userId={userId}
                             />
                         ))}
                     </div>
