@@ -119,10 +119,8 @@ function App() {
         <Route path='/admin-complaint' element={<AdminComplaintPage />} />
         <Route path='/admin-fine-management' element={<AdminFineManagement />} />
         <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
-        {/* TODO: Membership management for add new accounts */}
         <Route path='/membership-management' element={<MembershipManagement />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
-        {/*TODO: Create a page for upload csv files */}
 
         {/*Added Features */}
         <Route path='/todo-list' element={<ToDoListPage />} />
