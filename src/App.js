@@ -101,7 +101,7 @@ function App() {
         <Route path='/lending-history' element={<LendingHistory />} />
         <Route path='/terms' element={<TermsAndPolicies />} />
         <Route path='/fine-history' element={<FineHistory />} />
-        {/*TODO: do validation to eddit profile page */}
+        {/*TODO: do validation to edit profile page */}
         <Route path='/edit-profile' element={<EditProfile />} />
         {/*TODO: Do security page connection */}
         <Route path='/security' element={<SecurityPage />} />
@@ -122,6 +122,7 @@ function App() {
         {/* TODO: Membership management */}
         <Route path='/membership-management' element={<MembershipManagement />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
+        {/*TODO: Create a page for upload csv files */}
 
         {/*Added Features */}
         <Route path='/todo-list' element={<ToDoListPage />} />

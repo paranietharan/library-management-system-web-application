@@ -1,4 +1,3 @@
-// logout.js
 const LogoutUser = () => {
     localStorage.removeItem('token');
     // Redirect to login page. Adjust the path as necessary.
