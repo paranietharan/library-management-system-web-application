@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './style/ViewBookCommentsStyle.module.css';
 import SendIcon from '@mui/icons-material/Send';
+import httpCommon from '../service/http-common';
 
 function ViewBookComments({ comments, newComment, setNewComment, handleAddComment }) {
     const [profiles, setProfiles] = useState({});
@@ -9,8 +10,8 @@ function ViewBookComments({ comments, newComment, setNewComment, handleAddCommen
         const fetchCommenterProfiles = async () => {
             const profilePromises = comments.map(async (comment) => {
                 try {
-                    const response = await fetch(`http://localhost:8080/user/getUserProfile/${comment.userID}`);
-                    const data = await response.json();
+                    const response = await httpCommon.get(`/user/getUserProfile/${comment.userID}`);
+                    const data = response.data;
                     return { userID: comment.userID, profile: data };
                 } catch (error) {
                     console.error('Error fetching commenter profile:', error);
@@ -53,7 +54,9 @@ function ViewBookComments({ comments, newComment, setNewComment, handleAddCommen
                         {comments.map(comment => (
                             <div key={comment.resourceCommentId} className={styles.comment}>
                                 <img
-                                    src={profiles[comment.userID]?.profileImg || 'https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account'}
+                                    src={profiles[comment.userID].profileImg ?
+                                         `data:image/png;base64,${profiles[comment.userID].profileImg}`: 
+                                         'https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account'}
                                     alt={profiles[comment.userID]?.username || 'Unknown'}
                                 />
                                 <div>

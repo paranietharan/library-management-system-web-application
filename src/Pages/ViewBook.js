@@ -7,6 +7,7 @@ import TextRating from '../Components/TextRating';
 import Footer from '../Components/LibraryFooter';
 import ViewBookComments from '../Components/ViewBookComments';
 import http from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function ViewBook() {
     const { id } = useParams();
@@ -17,9 +18,12 @@ function ViewBook() {
     const [avgRating, setAvgRating] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const userId = 'sampleUserID';
+    const[userId, setUserId] = useState('');
+    //const userId = 'sampleUserID';
 
     useEffect(() => {
+        const userId = getUserID();
+        setUserId(userId);
         const fetchBookDetails = async () => {
             try {
                 const response = await http.get(`/resource/get/id/${id}`);
