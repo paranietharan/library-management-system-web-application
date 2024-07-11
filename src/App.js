@@ -101,6 +101,7 @@ function App() {
         <Route path='/lending-history' element={<LendingHistory />} />
         <Route path='/terms' element={<TermsAndPolicies />} />
         <Route path='/fine-history' element={<FineHistory />} />
+        {/*TODO: do validation to eddit profile page */}
         <Route path='/edit-profile' element={<EditProfile />} />
         {/*TODO: Do security page connection */}
         <Route path='/security' element={<SecurityPage />} />

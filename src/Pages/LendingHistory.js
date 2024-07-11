@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import UserProfileLeftSideNavBar from '../Components/UserProfileLeftSideNavBar';
 import styles from './style/LendingHistory.module.css';
-import BookView from '../Components/BookView'; // Import the BookView component
-import http from '../service/http-common'; // Import your HTTP service instance
+import BookView from '../Components/BookView';
+import http from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function LendingHistory() {
     const [lendingHistory, setLendingHistory] = useState([]);
@@ -10,7 +11,7 @@ function LendingHistory() {
 
     // Fetch lending history data from backend
     useEffect(() => {
-        const memberId = 'sampleUserID'; // Replace with actual logic to get memberId
+        const memberId = getUserID(); // Replace with actual logic to get memberId
         fetchLendingHistory(memberId);
     }, []);
 

@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './style/EditProfileComponentStyle.module.css';
 import Button from '@mui/material/Button';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import SchoolIcon from '@mui/icons-material/School';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
+import httpCommon from '../service/http-common';
 
 function EditProfileComponent({ profilePicture, firstName, lastName, email, phoneNumber, userId }) {
   const [editMode, setEditMode] = useState(false);
   const [newProfilePicture, setNewProfilePicture] = useState(null);
-  const [newFirstName, setNewFirstName] = useState(firstName);
-  const [newLastName, setNewLastName] = useState(lastName);
-  const [newEmail, setNewEmail] = useState(email);
-  const [newPhoneNumber, setNewPhoneNumber] = useState(phoneNumber);
+  const [formValues, setFormValues] = useState({
+    firstName: firstName || '',
+    lastName: lastName || '',
+    email: email || '',
+    phoneNumber: phoneNumber || ''
+  });
+
+  useEffect(() => {
+    setFormValues({
+      firstName: firstName || '',
+      lastName: lastName || '',
+      email: email || '',
+      phoneNumber: phoneNumber || ''
+    });
+  }, [firstName, lastName, email, phoneNumber]);
 
   const handleProfilePictureChange = (e) => {
     setNewProfilePicture(e.target.files[0]);
   };
 
-  const handleFirstNameChange = (e) => {
-    setNewFirstName(e.target.value);
-  };
-
-  const handleLastNameChange = (e) => {
-    setNewLastName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setNewEmail(e.target.value);
-  };
-
-  const handlePhoneNumberChange = (e) => {
-    setNewPhoneNumber(e.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -41,16 +41,16 @@ function EditProfileComponent({ profilePicture, firstName, lastName, email, phon
 
     try {
       const formData = new FormData();
-      formData.append('firstName', newFirstName);
-      formData.append('lastName', newLastName);
-      formData.append('Email', newEmail);
-      formData.append('phoneNumber', newPhoneNumber);
+      formData.append('firstName', formValues.firstName);
+      formData.append('lastName', formValues.lastName);
+      formData.append('Email', formValues.email);
+      formData.append('phoneNumber', formValues.phoneNumber);
 
       if (newProfilePicture) {
         formData.append('profileImg', newProfilePicture);
       }
 
-      const response = await axios.put(`http://localhost:8080/user/updateUserProfile/${userId}`, formData);
+      const response = await httpCommon.put(`/user/updateUserProfile/${userId}`, formData);
 
       if (response.status === 200) {
         console.log('User profile updated successfully');
@@ -91,19 +91,43 @@ function EditProfileComponent({ profilePicture, firstName, lastName, email, phon
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
             <label>First Name:</label>
-            <input type="text" value={newFirstName} onChange={handleFirstNameChange} className={styles.input} />
+            <input
+              type="text"
+              name="firstName"
+              value={formValues.firstName}
+              onChange={handleInputChange}
+              className={styles.input}
+            />
           </div>
           <div className={styles.formGroup}>
             <label>Last Name:</label>
-            <input type="text" value={newLastName} onChange={handleLastNameChange} className={styles.input} />
+            <input
+              type="text"
+              name="lastName"
+              value={formValues.lastName}
+              onChange={handleInputChange}
+              className={styles.input}
+            />
           </div>
           <div className={styles.formGroup}>
             <label>Email:</label>
-            <input type="email" value={newEmail} onChange={handleEmailChange} className={styles.input} />
+            <input
+              type="email"
+              name="email"
+              value={formValues.email}
+              onChange={handleInputChange}
+              className={styles.input}
+            />
           </div>
           <div className={styles.formGroup}>
             <label>Phone Number:</label>
-            <input type="text" value={newPhoneNumber} onChange={handlePhoneNumberChange} className={styles.input} />
+            <input
+              type="text"
+              name="phoneNumber"
+              value={formValues.phoneNumber}
+              onChange={handleInputChange}
+              className={styles.input}
+            />
           </div>
           <div className={styles.formGroup}>
             <label>Profile Picture:</label>
