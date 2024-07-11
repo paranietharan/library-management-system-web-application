@@ -3,6 +3,8 @@ import axios from 'axios';
 import UserProfileLeftSideNavBar from '../Components/UserProfileLeftSideNavBar';
 import styles from './style/FineHistory.module.css';
 import FineTable from '../Components/FineTable';
+import httpCommon from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
 function FineHistory() {
     const [fineHistory, setFineHistory] = useState([]);
@@ -10,9 +12,10 @@ function FineHistory() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const userID = getUserID();
         const fetchFineHistory = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/fine/history/sampleUserID');
+                const response = await httpCommon.get(`/fine/history/${userID}`);
                 setFineHistory(response.data);
                 setLoading(false);
             } catch (err) {
