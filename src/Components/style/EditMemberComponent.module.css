@@ -1,8 +1,8 @@
 .EditMemberComponent {
     padding: 20px;
-    max-width: 60vw;
+    max-width: 800px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -13,6 +13,85 @@
 }
 
 .userSearch {
+    margin-bottom: 20px;
+}
+
+.userDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 20px;
-    margin-left: 5vw;
+}
+
+.userDetail {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 600px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.userDetail:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profileImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.userInfo h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.userInfo p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="tel"],
+.formGroup input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.button {
+    margin: 10px 5px;
 }
