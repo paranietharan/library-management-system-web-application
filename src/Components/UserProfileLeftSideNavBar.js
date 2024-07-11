@@ -14,6 +14,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import styles from './style/UserProfileLeftSideNavBar.module.css';
+import LogOutUser from '../service/LogoutUser';
 
 function UserProfileLeftSideNavBar() {
   return (
@@ -68,15 +69,8 @@ function UserProfileLeftSideNavBar() {
         </Link>
       </div>
 
-      {/* <div className={styles.navItem}>
-        <Link to="/report" className={styles.navLink}>
-          <ReportIcon />
-          <span className={styles.navText}>Complain</span>
-        </Link>
-      </div> */}
-
       <div className={styles.navItem}>
-        <Link to="/logout" className={styles.navLink}>
+        <Link onClick={LogOutUser} className={styles.navLink}>
           <LogoutIcon />
           <span className={styles.navText}>Logout</span>
         </Link>

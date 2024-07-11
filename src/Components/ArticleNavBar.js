@@ -17,12 +17,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import http from '../service/http-common';
 import getUserID from "../service/GetUserID";
 import { useEffect, useState } from 'react';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutUser from '../service/LogoutUser';
 
 const pages = ['Search', 'Home', 'About'];
 const links = ['article-search', 'article-home', 'about'];
 
-const settings = ['Profile', 'Library book', 'About', 'Publish Articles', 'Logout'];
-const settingslinks = ['my-profile', '', 'about', 'publish-articles', 'logout'];
+const settings = ['Profile', 'Library book', 'About', 'Publish Articles'];
+const settingslinks = ['my-profile', '', 'about', 'publish-articles'];
 
 function ArticleNavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -174,23 +176,6 @@ function ArticleNavBar() {
                         ))}
                     </Box>
 
-                    {/* Search Icon */}
-                    <div>
-                        {isSearchVisible && (
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                value={searchText}
-                                onChange={(e) => setSearchText(e.target.value)}
-                                onKeyDown={handleKeyDown}
-                                style={{ display: 'inline-block', width: '200px' }}
-                            />
-                        )}
-                        <IconButton onClick={handleSearchIconClickVisible}>
-                            <SearchIcon sx={{ mr: 2 }} />
-                        </IconButton>
-                    </div>
-
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Profile">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -226,6 +211,12 @@ function ArticleNavBar() {
                                     </Link>
                                 </MenuItem>
                             ))}
+                            <MenuItem onClick={LogoutUser}>
+                                    <Link style={{ textDecoration: 'none', color: 'inherit', display: 'flex' }}>
+                                        <LogoutIcon />
+                                        <Typography textAlign="center">Logout</Typography>
+                                    </Link>
+                                </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

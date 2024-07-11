@@ -18,6 +18,7 @@ import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import HomeIcon from '@mui/icons-material/Home';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 export default function MemberTopNavBar() {
 
@@ -105,6 +106,15 @@ export default function MemberTopNavBar() {
                         <Link to="/todo-list" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <IconButton size="large" color="inherit">
                                 <span style={{ color: 'black' }}><ListAltIcon /></span>
+                            </IconButton>
+                        </Link>
+
+                        {/* for Notes icon */}
+                        <Link to="/notes" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <IconButton size="large" color="inherit">
+                                <span style={{ color: 'black' }}>
+                                    <NoteAddIcon />
+                                </span>
                             </IconButton>
                         </Link>
 
