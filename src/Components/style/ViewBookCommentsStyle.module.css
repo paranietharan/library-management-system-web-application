@@ -1,5 +1,4 @@
-/* ViewBookCommentsStyle.module.css */
-
+/* 
 .writeComment {
     display: flex;
     flex-direction: column;
@@ -29,17 +28,71 @@
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 20px 10px 20px;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .addComment button:hover {
     background-color: #0056b3;
+}*/
+.writeComment {
+    margin-left: 30vw;
+    width: 40vw;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.addComment {
+    display: flex;
+    align-items: center;
+}
+
+.addComment textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-right: 10px;
+}
+
+.addComment button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.addComment button:hover {
+    background-color: #0056b3;
+}
+
+.addComment button:active {
+    background-color: #004085;
+}
+
+.addComment button svg {
+    font-size: 20px;
+}
+/******************/
 
 .commentList {
     margin-top: 20px;
+    max-height: 30vh;
+    overflow-y: auto;
 }
 
 .comments {
