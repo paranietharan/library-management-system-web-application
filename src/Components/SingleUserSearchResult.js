@@ -5,13 +5,13 @@ function SingleUserSearchResult({ user, onSelectUser }) {
     return (
         <>
             <div className={style.result} onClick={() => onSelectUser(user)}>
-                <img src={
-                    user.profileImg ?
-                        `data:image/png;base64,${user.profileImg}` :
-                        "https://www.gravatar.com/avatar/"
-                } alt="Profile" />
+                {user.profileImg && (
+                    <img src={`data:image/png;base64,${user.profileImg}`} alt="Profile" className={style.profileImg} />
+                )}
 
-                <h3>{user.firstName + " " + user.lastName}</h3>
+                {user.firstName && user.lastName && (
+                    <h3>{user.firstName + " " + user.lastName}</h3>
+                )}
             </div>
         </>
     );

@@ -50,7 +50,7 @@ function MembershipManagement() {
                 </div>
             </div>
 
-            <Footer />
+            
         </div>
     );
 }
