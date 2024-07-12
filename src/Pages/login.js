@@ -20,7 +20,7 @@ function Login() {
 
     const handleClose = () => {
         setShowAlert(false);
-    };
+    };    
    
     const [showPassword, setShowPassword] = useState(false);
 
@@ -62,6 +62,16 @@ function Login() {
                 const decodedToken = jwtDecode(response.data.token);
                 // Get the role from the decoded token
                 const role = decodedToken.role;
+                console.log('Role:', role);
+
+                const userDetails = {
+                    isAuthenticated: true,
+                    role: role
+                };
+                console.log('User Details:', userDetails);
+                // Save the user details to local storage
+                localStorage.setItem('user', JSON.stringify(userDetails));      
+                
                 // Redirect based on user role
                 if (role === 'MEMBER') {
                     navigate('/');

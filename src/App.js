@@ -2,6 +2,12 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React from 'react';
 
+import UnauthorizedPage from './Pages/UnauthorizedPage';
+
+//AuthContext
+import { AuthProvider } from './service/AuthContext';
+import ProtectedRoute from './service/ProtectedRoute';
+
 // Paranie
 import AboutPage from './Pages/About';
 import ArticleHome from './Pages/ArticleHome';
@@ -60,77 +66,92 @@ import Notes from './Pages/Notes';
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        {/* Paranietharan */}
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/article-home" element={<ArticleHome />} />
-        <Route path="/article/:articleId" element={<ViewArticle />} />
-        <Route path='/my-profile' element={<MyProfile />} />
-        <Route path='/publish-articles' element={<PublishArticles />} />
-        <Route path='/article-edit/:articleId' element={<ArticleEdit />} />
-        <Route path='/article-search' element={<ArticleSearch />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Paranietharan */}
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/article-home" element={<ArticleHome />} />
+          <Route path="/article/:articleId" element={<ViewArticle />} />
+          <Route path='/my-profile' element={<MyProfile />} />
+          <Route path='/publish-articles' element={<PublishArticles />} />
+          <Route path='/article-edit/:articleId' element={<ArticleEdit />} />
+          <Route path='/article-search' element={<ArticleSearch />} />
 
 
-        {/*Shobikan */}
-        <Route path="/login" element={<Login />} />
-        <Route path='/details-fill' element={<DetailsFilling />} />
-        <Route path='/details-confirmation' element={<DetailsConfirmation />} />
-        <Route path='/verify-email' element={<VerifyEmail />} />
-        <Route path='/verification-success' element={<VerificationSuccess />} />
-        <Route path='/search-account' element={<SearchAccount />} />
-        <Route path='/change-forgot-password' element={<ChangeForgotPassword />} />
-        <Route path='/verifyMailForgotPassword' element={<VerifyForgotPassword />} />
+          {/*Shobikan */}
+          <Route path="/login" element={<Login />} />
+          <Route path='/details-fill' element={<DetailsFilling />} />
+          <Route path='/details-confirmation' element={<DetailsConfirmation />} />
+          <Route path='/verify-email' element={<VerifyEmail />} />
+          <Route path='/verification-success' element={<VerificationSuccess />} />
+          <Route path='/search-account' element={<SearchAccount />} />
+          <Route path='/change-forgot-password' element={<ChangeForgotPassword />} />
+          <Route path='/verifyMailForgotPassword' element={<VerifyForgotPassword />} />
+          <Route path='/unauthorized' element={<UnauthorizedPage />} />
 
 
-        {/* Mihunan */}
-        <Route path="/" element={<UserHome/>} />
-        <Route path="/book/:id" element={<ViewBook/>} />
-        <Route path='/complaint' element={<Complaint />} />
-        <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
-        {/* TODO: Librarian Chat */}
-        <Route path='/user-chat' element={<UserChat />} />
-        <Route path='/librarian-chat' element={<LibrarianChat />} />
+          {/* Mihunan */}
+          <Route path="/" element={<UserHome/>} />
+          <Route path="/book/:id" element={<ViewBook/>} />
+          <Route path='/complaint' element={<Complaint />} />
+          <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
+          {/* TODO: Librarian Chat */}
+          <Route path='/user-chat' element={<UserChat />} />
+          <Route path='/librarian-chat' element={<LibrarianChat />} />
 
 
-        {/* Yasothan */}
-        <Route path="/message" element={<UserMessages />} />
-        <Route path='/mybooks' element={<MyBooks />} />
-        <Route path="/fine" element={<FineManagement />} />
-        <Route path='/book-reservation' element={<BookReservation />} />
-        <Route path='/lending-history' element={<LendingHistory />} />
-        <Route path='/terms' element={<TermsAndPolicies />} />
-        <Route path='/fine-history' element={<FineHistory />} />
-        <Route path='/edit-profile' element={<EditProfile />} />
-        {/*TODO: Do security page connection */}
-        <Route path='/security' element={<SecurityPage />} />
-        <Route path='/notifications' element={<Notifications />} />
+          {/* Yasothan */}
+          <Route path="/message" element={<UserMessages />} />
+          <Route path='/mybooks' element={<MyBooks />} />
+          <Route path="/fine" element={
+            <ProtectedRoute roles={['MEMBER']}>
+              <FineManagement />
+            </ProtectedRoute>
+            } />
+          <Route path='/book-reservation' element={<BookReservation />} />
+          <Route path='/lending-history' element={<LendingHistory />} />
+          <Route path='/terms' element={<TermsAndPolicies />} />
+          <Route path='/fine-history' element={<FineHistory />} />
+          <Route path='/edit-profile' element={<EditProfile />} />
+          {/*TODO: Do security page connection */}
+          <Route path='/security' element={<SecurityPage />} />
+          <Route path='/notifications' element={<Notifications />} />
 
 
 
-        {/* Lathisana */}
-        <Route path="/admin" element={<AdminDashboardHome />} />
-        <Route path='/admin-book-management' element={<BookManagement />} />
-        <Route path='/librarian-article-management' element={<ArticleManagement/>} />
-        <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
-        <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
-        <Route path="/book-lending" element={<BookLending />} />
-        <Route path='/admin-complaint' element={<AdminComplaintPage />} />
-        <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-        <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
-        {/* TODO: Membership management */}
-        <Route path='/membership-management' element={<MembershipManagement />} />
-        <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
+          {/* Lathisana */}
+          <Route path="/admin" element={
+            <ProtectedRoute roles={['admin']}>
+              <AdminDashboardHome />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin-book-management' element={
+            <ProtectedRoute roles={['admin']}>
+              <BookManagement />
+            </ProtectedRoute>
+          } />
+          <Route path='/librarian-article-management' element={<ArticleManagement/>} />
+          <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
+          <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
+          <Route path="/book-lending" element={<BookLending />} />
+          <Route path='/admin-complaint' element={<AdminComplaintPage />} />
+          <Route path='/admin-fine-management' element={<AdminFineManagement />} />
+          <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
+          {/* TODO: Membership management */}
+          <Route path='/membership-management' element={<MembershipManagement />} />
+          <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
 
-        {/*Added Features */}
-        <Route path='/todo-list' element={<ToDoListPage />} />
-        <Route path='/notes' element={<Notes />} />
+          {/*Added Features */}
+          <Route path='/todo-list' element={<ToDoListPage />} />
+          <Route path='/notes' element={<Notes />} />
 
 
-        {/* Sample code for test */}
-        <Route path='/test' element={<Test />} />
-      </Routes>
-    </Router>
+          {/* Sample code for test */}
+          <Route path='/test' element={<Test />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
