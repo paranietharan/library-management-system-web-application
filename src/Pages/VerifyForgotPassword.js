@@ -36,6 +36,7 @@ function VerifyForgotPassword() {
             const response = await axios.post( URL, combinedObject);
             console.log(response.data);
             if (response.data) {
+                localStorage.setItem('isVerified', true);
                 // Redirect to confirmation page with response data
                 navigate('/change-forgot-password');
             } else {
