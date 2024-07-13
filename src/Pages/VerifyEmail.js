@@ -47,6 +47,7 @@ function VerifyEmail() {
             const response = await axios.post( URL, combinedObject);
             console.log(response.data);
             if (response.data) {
+                localStorage.removeItem('user');
                 // Redirect to confirmation page with response data
                 navigate('/verification-success');
             } else {
