@@ -7,7 +7,7 @@ import LibrarianTopNavBar from '../Components/LibrarianTopNavBar';
 import AdminArticleComments from '../Components/AdminArticleComments';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArticleDeleteAlertDialog from '../Components/ArticleDeleteAlert';
-import http from '../service/http-common'; // Import custom Axios instance
+import http from '../service/http-common';
 
 function LibrarianArticleManagement() {
     const { articleId } = useParams();
@@ -42,36 +42,45 @@ function LibrarianArticleManagement() {
     };
 
     useEffect(() => {
-        const fetchArticleDetails = async () => {
-            try {
-                // Fetch article details
-                const articleResponse = await http.get(`/article/view/${articleId}`);
-                setArticle(articleResponse.data);
-
-                // Fetch comments
-                const commentsResponse = await http.get(`/article/${articleId}/comment`);
-                setComments(commentsResponse.data);
-
-                // Fetch average rating
-                const ratingResponse = await http.get(`/article/${articleId}/rating`);
-                setAverageRating(ratingResponse.data);
-
-                // Fetch author details
-                const authorResponse = await http.get(`/user/getUserProfile/${articleResponse.data.userID}`);
-                setAuthorDetails(authorResponse.data);
-            } catch (error) {
-                console.error('Error fetching article details:', error);
-                setArticle(null);
-                setComments([]);
-                setAverageRating(null);
-                setAuthorDetails(null);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
         fetchArticleDetails();
-    }, [articleId]);
+        fetchComments();
+        fetchAverageRating();
+    }, []);
+
+    const fetchArticleDetails = async () => {
+        try {
+            const { data: articleData } = await http.get(`/article/view/${articleId}`);
+            setArticle(articleData);
+
+            const { data: authorData } = await http.get(`/user/getUserProfile/${articleData.userID}`);
+            setAuthorDetails(authorData);
+        } catch (error) {
+            console.error('Error fetching article details:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const fetchComments = async () => {
+        try {
+            const { data: commentsData } = await http.get(`/article/${articleId}/comment`);
+            setComments(commentsData);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            setComments([]);
+        }
+    };
+
+     // Fetch average rating
+     const fetchAverageRating = async () => {
+        try {
+            const { data: ratingData } = await http.get(`/article/${articleId}/rating`);
+            setAverageRating(ratingData);
+        } catch (error) {
+            console.error('Error fetching average rating:', error);
+            setAverageRating(null);
+        }
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;
