@@ -75,15 +75,15 @@ function DeleteBooksComponent() {
       </div>
       <div className={styles.searchResults}>
         {loading && <p>Loading...</p>}
-        {!loading && searchResults.map((book) => (
-          <div key={book.resourceId} className={styles.bookItem} onClick={() => handleBookClick(book)}>
-            <SingleBookSearchResult book={book} />
-            <IconButton aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        ))}
-        {!loading && searchResults.length === 0 && <p>No results found.</p>}
+        {searchResults.length === 0 ? <h3>No search results found</h3> :
+          searchResults.map((book) => (
+            <div key={book.resourceId} className={styles.bookItem} onClick={() => handleBookClick(book)}>
+              <SingleBookSearchResult book={book} />
+              <IconButton aria-label="delete">
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          ))}
       </div>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Delete Book</DialogTitle>
