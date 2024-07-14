@@ -6,10 +6,14 @@ import http from '../service/http-common';
 function AdminBookGetReturn() {
     const [selectedMember, setSelectedMember] = useState({});
     const [issue, setIssue] = useState({});
+    const [book, setBookData] = useState({});
 
     const handleSelectMember = (member) => {
         setSelectedMember(member);
         getLendingDetails(member.userID); // Call getLendingDetails when a member is selected
+        if(issue){
+            getBookDetailsID(issue.resourceId)
+        }
     };
 
     // get lending details
@@ -35,6 +39,16 @@ function AdminBookGetReturn() {
         }
     }
 
+    // Get book details by id
+    const getBookDetailsID = async (id) => {
+        try{
+            const response = await http.get(`/resource/get/id/${id}`)
+            setBookData(response.data);
+        }catch (error) {
+            console.error('Error fetching book details:', error);
+        }
+    }
+
     return (
         <div className={style.container}>
             <div className={style.MemberSearch}>
@@ -47,6 +61,7 @@ function AdminBookGetReturn() {
                     (<div className={style.issueDetails}>
                         <p>Issue ID: {issue.issueId}</p>
                         <p>Resource ID: {issue.resourceId}</p>
+                        <p>Book Name: {book.title}</p>
                         <p>Date: {issue.date}</p>
                     </div>) :
                     <p>This user don't have any Lended Books</p>
