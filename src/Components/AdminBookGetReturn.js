@@ -43,11 +43,13 @@ function AdminBookGetReturn() {
 
             <div className={style.LendBookDetails}>
                 {selectedMember.userID && (
-                    <div className={style.issueDetails}>
+                    issue ?
+                    (<div className={style.issueDetails}>
                         <p>Issue ID: {issue.issueId}</p>
                         <p>Resource ID: {issue.resourceId}</p>
                         <p>Date: {issue.date}</p>
-                    </div>
+                    </div>) :
+                    <p>This user don't have any Lended Books</p>
                 )}
             </div>
 
