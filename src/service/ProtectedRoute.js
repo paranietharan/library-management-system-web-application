@@ -5,7 +5,7 @@ import { useAuth } from './AuthContext'; // Adjust the import path according to 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
 
-  console.log('ProtectedRoute:', user);
+  console.log('Protected', user);
 
   if (!user || !user.isAuthenticated) {
     console.log('ProtectedRoute: User not authenticated');

@@ -121,17 +121,15 @@ function App() {
 
           {/* Lathisana */}
           <Route path="/admin" element={
-            <ProtectedRoute roles={['admin']}>
+            <ProtectedRoute roles={['LIBRARIAN']}>
               <AdminDashboardHome />
             </ProtectedRoute>
           } />
           <Route path='/admin-book-management' element={
-            <ProtectedRoute roles={['admin']}>
+            <ProtectedRoute roles={['LIBRARIAN']}>
               <BookManagement />
             </ProtectedRoute>
           } />
-          {/* <Route path="/admin" element={<AdminDashboardHome />} />
-          <Route path='/admin-book-management' element={<BookManagement />} /> */}
           <Route path='/librarian-article-management' element={<ArticleManagement />} />
           <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
           <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
