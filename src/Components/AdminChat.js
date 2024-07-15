@@ -4,6 +4,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import styled from 'styled-components';
 import Chat from './Chat';
 import GroupIcon from '@mui/icons-material/Group';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD4byuiSTU9LkuTAiQMJ2pNrJlQtp3BjV8",
@@ -55,7 +56,19 @@ const AdminChat = () => {
           <GroupIcon style={{ marginRight: '8px' }} /> Users
         </h3>
         {userList.map(user => (
-          <UserListItem key={user} onClick={() => setSelectedUser(user)}>
+          <UserListItem
+            key={user}
+            onClick={() => setSelectedUser(user)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '8px',
+              backgroundColor: selectedUser === user ? '#cccccc' : '#e6e6e6',
+              borderRadius: '5px',
+              border: '1px solid #808080',
+            }}>
+            <AccountCircleIcon style={{ marginRight: '8px' }} />
             {user}
           </UserListItem>
         ))}
