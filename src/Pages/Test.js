@@ -1,33 +1,16 @@
 import React from 'react';
-import AlertMessage from '../Components/AlertMessage';
-import { useState } from 'react';
-import Button from '@mui/material/Button';
+import Chat from '../Components/Chat';
 
 function Test() {
-  const [showAlert, setShowAlert] = useState(false);
-  const [message, setMessage] = useState('This is a warning message!');
 
-  const handleClick = () => {
-    setShowAlert(true);
-    setMessage('This is a success message!');
-  };
-
-  const handleClose = () => {
-    setShowAlert(false);
-  };
+  const username = "JohnDoexyx";  // or "Admin" for admin user
+  const isAdmin = false;  // or true for admin user
 
   return (
-    <div className="App">
-      <Button variant="outlined" onClick={handleClick}>
-        Show Alert
-      </Button>
-      <AlertMessage
-        show={showAlert}
-        message={message}
-        onClose={handleClose}
-      />
+    <div>
+      <h1>My Chat Application</h1>
+      <Chat username={username} isAdmin={false} />
     </div>
   );
 }
-
 export default Test;
