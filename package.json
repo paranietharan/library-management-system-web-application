@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@firebase/database": "^1.0.6",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.10",
@@ -15,13 +16,16 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
+    "firebase": "^10.12.3",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^6.1.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
