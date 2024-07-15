@@ -68,6 +68,23 @@ const Chat = ({ username, isAdmin, selectedUser }) => {
   const chatPartner = isAdmin ? selectedUser : 'Librarian';
   const messagesRef = ref(database, `chats/${isAdmin ? selectedUser : username}`); // user-specific chat room
 
+  // useEffect(() => {
+  //   const unsubscribe = onValue(messagesRef, (snapshot) => {
+  //     const messagesArray = [];
+  //     snapshot.forEach((childSnapshot) => {
+  //       messagesArray.push(childSnapshot.val());
+  //     });
+  //     console.log('Fetched messages:', messagesArray); // Log fetched messages for debugging
+  //     setMessages(messagesArray);
+  //   }, {
+  //     onlyOnce: true // Ensure the listener fires only once initially
+  //   });
+
+  //   return () => {
+  //     // Clean up the listener on component unmount
+  //     unsubscribe();
+  //   };
+  // }, [isAdmin, selectedUser, username]);
   useEffect(() => {
     const unsubscribe = onValue(messagesRef, (snapshot) => {
       const messagesArray = [];
@@ -76,8 +93,6 @@ const Chat = ({ username, isAdmin, selectedUser }) => {
       });
       console.log('Fetched messages:', messagesArray); // Log fetched messages for debugging
       setMessages(messagesArray);
-    }, {
-      onlyOnce: true // Ensure the listener fires only once initially
     });
 
     return () => {
