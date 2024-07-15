@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, push, onValue } from 'firebase/database';
-import { getAuth } from 'firebase/auth';
 import styled from 'styled-components';
 import { serverTimestamp } from 'firebase/database';
 
@@ -16,11 +15,9 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp, 'https://librararymanagementsystemchat-default-rtdb.asia-southeast1.firebasedatabase.app/');
-const auth = getAuth(firebaseApp);
-
 const ChatContainer = styled.div`
   max-width: 600px;
-  margin: 20px 5vw;
+  margin: 20px auto;
   padding: 20px;
   border: 1px solid #999999;
   border-radius: 5px;
@@ -72,7 +69,26 @@ const Chat = ({ username, isAdmin, selectedUser }) => {
   const messagesRef = ref(database, `chats/${isAdmin ? selectedUser : username}`); // user-specific chat room
 
   useEffect(() => {
-    if (messageListRef.current && messages.length > 0) {
+    const unsubscribe = onValue(messagesRef, (snapshot) => {
+      const messagesArray = [];
+      snapshot.forEach((childSnapshot) => {
+        messagesArray.push(childSnapshot.val());
+      });
+      console.log('Fetched messages:', messagesArray); // Log fetched messages for debugging
+      setMessages(messagesArray);
+    }, {
+      onlyOnce: true // Ensure the listener fires only once initially
+    });
+
+    return () => {
+      // Clean up the listener on component unmount
+      unsubscribe();
+    };
+  }, [isAdmin, selectedUser, username]);
+
+  useEffect(() => {
+    // Scroll to bottom of message list on update
+    if (messageListRef.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
   }, [messages]);
@@ -94,17 +110,6 @@ const Chat = ({ username, isAdmin, selectedUser }) => {
       sendMessage();
     }
   };
-
-  useEffect(() => {
-    const unsubscribe = onValue(messagesRef, (snapshot) => {
-      const messagesArray = [];
-      snapshot.forEach((childSnapshot) => {
-        messagesArray.push(childSnapshot.val());
-      });
-      setMessages(messagesArray);
-    });
-    return () => unsubscribe();
-  }, [selectedUser]);
 
   return (
     <ChatContainer>
