@@ -8,14 +8,15 @@ import { baseURL } from '../service/BaseUrl';
 
 function ChangeForgotPassword() {
 
-    const URL = `${baseURL}/user/changePassword`;
+    const URL = `${baseURL}/user/resetPassword`;
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
     const email = localStorage.getItem('email');
-    const combinedObject = {emailAddress: email, password: password};
+    const isVerified = localStorage.getItem('isVerified');
+    const combinedObject = {emailAddress: email, password: password, isVerified: isVerified};
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -29,6 +30,8 @@ function ChangeForgotPassword() {
             const response = await axios.post( URL, combinedObject);
             console.log(response.data);
             if (response.data) {
+                localStorage.removeItem('email');
+                localStorage.removeItem('isVerified');
                 // Redirect to confirmation page with response data
                 navigate('/verification-success');
             } else {

@@ -14,7 +14,6 @@ function BookFrame({ book }) {
                 src={`data:image/jpeg;base64,${book.bookImg}`}
                 alt={book.title}
             /> */}
-            {console.log(book.resourceId + ' ' + book.bookImg)}
             <CardMedia
                 component="img"
                 height="140"
