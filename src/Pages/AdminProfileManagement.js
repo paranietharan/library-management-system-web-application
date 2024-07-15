@@ -11,7 +11,6 @@ import httpMultipart from '../service/http-multipart';
 import httpCommon from '../service/http-common';
 import getUserID from '../service/GetUserID';
 
-
 function AdminProfileManagement() {
     const [adminDetails, setAdminDetails] = useState({
         userID: '',
@@ -51,23 +50,49 @@ function AdminProfileManagement() {
 
     const handleProfileSubmit = async (e) => {
         e.preventDefault();
-        const profileUpdateRequest = {
-            ...adminDetails,
-            currentPassword,
-            newPassword,
-            profileImg: profileImg ? await toBase64(profileImg) : adminDetails.profileImg
-        };
+        const formData = new FormData();
+        formData.append('firstName', adminDetails.firstName);
+        formData.append('lastName', adminDetails.lastName);
+        formData.append('email', adminDetails.email);
+        formData.append('phoneNumber', adminDetails.phoneNumber);
+        if (profileImg) {
+            formData.append('profileImg', profileImg);
+        }
 
         try {
-            const response = await httpCommon.post('admin/updateProfile', profileUpdateRequest);
+            const response = await httpMultipart.put(`user/updateUserProfile/${userID}`, formData);
             if (response.data) {
                 alert('Profile updated successfully!');
             } else {
-                alert('Failed to update profile. Please check your current password.');
+                alert('Failed to update profile.');
             }
         } catch (error) {
             console.error('There was an error updating the profile!', error);
             alert('Error updating profile, please try again later.');
+        }
+    };
+
+    const handlePasswordSubmit = async (e) => {
+        e.preventDefault();
+        const passwordChangeRequest = {
+            oldPassword: currentPassword,
+            newPassword: newPassword,
+        };
+
+        try {
+            const response = await httpCommon.post(`user/changePassword/${userID}`, passwordChangeRequest);
+            if (response.data) {
+                alert('Password changed successfully!');
+
+                // clear the fields
+                setCurrentPassword('');
+                setNewPassword('');
+            } else {
+                alert('Failed to change password. Please check your current password.');
+            }
+        } catch (error) {
+            console.error('There was an error changing the password!', error);
+            alert('Error changing password, please try again later.');
         }
     };
 
@@ -100,13 +125,6 @@ function AdminProfileManagement() {
     const handleToggleNewPasswordVisibility = () => {
         setShowNewPassword(!showNewPassword);
     };
-
-    const toBase64 = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
 
     return (
         <div className={styles.container}>
@@ -147,6 +165,13 @@ function AdminProfileManagement() {
                         onChange={(e) => handleProfileChange('phoneNumber', e.target.value)}
                         className={styles.profileFormItem}
                     />
+                    <Button type="submit" variant="contained" className={styles.submitBtn}>
+                        Update Profile
+                    </Button>
+                </form>
+
+                <h2>Change Password</h2>
+                <form className={styles.profileForm} onSubmit={handlePasswordSubmit}>
                     <TextField
                         label="Current Password"
                         type={showCurrentPassword ? 'text' : 'password'}
@@ -182,7 +207,7 @@ function AdminProfileManagement() {
                         }}
                     />
                     <Button type="submit" variant="contained" className={styles.submitBtn}>
-                        Update Profile
+                        Change Password
                     </Button>
                 </form>
 
