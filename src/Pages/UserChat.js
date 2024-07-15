@@ -1,70 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserNavBar from '../Components/UserNavBar';
-import { MessageLeft, MessageRight } from '../Components/Message';
 import styles from './style/userChat.module.css';
-import SendIcon from '@mui/icons-material/Send';
+import Chat from '../Components/Chat';
+import Footer from '../Components/LibraryFooter';
+import getUserID from '../service/GetUserID';
+import http from '../service/http-common';
 
 function UserChat() {
-    const [messageInput, setMessageInput] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [username, setUsername] = useState('');
 
-    const handleMessageSubmit = () => {
-        if (messageInput.trim() !== '') {
-            // Add the message to the messages array
-            setMessages(prevMessages => [
-                ...prevMessages,
-                {
-                    content: messageInput,
-                    sender: 'user', // Assuming current user is the sender
-                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // Get current time
-                }
-            ]);
-            // Clear the message input field
-            setMessageInput('');
-            console.log(messages);
-        }
+    const getUserProfileDetails = async (userId) => {
+      try {
+        // Get user profile details from the server
+        const response = await http.get(`/user/getUserProfileDetails/${userId}`);
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching user profile details:", error);
+        return null;
+      }
     };
 
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const userId = getUserID();
+            const userDetails = await getUserProfileDetails(userId);
+            if (userDetails) {
+                setUsername(userDetails.firstName);
+            }
+        };
+        
+        fetchUserProfile();
+    }, []);
+
     return (
-        <>
+        <div className={styles.userChatContainer}>
             <UserNavBar />
-
-            <div className={styles.userChatContainer}>
-                <div className={styles.chatBox}>
-                    <MessageLeft
-                        message="Hello, how are you?"
-                        timestamp="10:00 AM"
-                        photoURL="https://via.placeholder.com/150"
-                        displayName="John"
-                    />
-                    <MessageRight
-                        message="I'm good, thanks! How about you?"
-                        timestamp="10:05 AM"
-                    />
-                    <MessageLeft
-                        message="I'm doing great, thanks for asking."
-                        timestamp="10:10 AM"
-                        photoURL="https://via.placeholder.com/150"
-                        displayName="John"
-                    />
-                </div>
-
+            <div className={styles.chatComponentContainer}>
+                <Chat username={username} isAdmin={false} />
             </div>
-
-            <div className={styles.messageInputContainer}>
-                <input
-                    type="text"
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.target.value)}
-                    placeholder="Type your message..."
-                    className={styles.messageInput}
-                />
-                <button onClick={handleMessageSubmit} className={styles.sendMessageButton}>
-                    <SendIcon />
-                </button>
-            </div>
-        </>
-    );
+            <Footer />
+        </div>
+    )
 }
 
 export default UserChat;
