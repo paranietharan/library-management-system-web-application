@@ -6,7 +6,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
-import httpCommon from '../service/http-common';
+import httpMultipart from '../service/http-multipart';
 
 function EditProfileComponent({ profilePicture, firstName, lastName, email, phoneNumber, userId }) {
   const [editMode, setEditMode] = useState(false);
@@ -43,14 +43,14 @@ function EditProfileComponent({ profilePicture, firstName, lastName, email, phon
       const formData = new FormData();
       formData.append('firstName', formValues.firstName);
       formData.append('lastName', formValues.lastName);
-      formData.append('Email', formValues.email);
+      formData.append('email', formValues.email);
       formData.append('phoneNumber', formValues.phoneNumber);
 
       if (newProfilePicture) {
         formData.append('profileImg', newProfilePicture);
       }
 
-      const response = await httpCommon.put(`/user/updateUserProfile/${userId}`, formData);
+      const response = await httpMultipart.put(`/user/updateUserProfile/${userId}`, formData);
 
       if (response.status === 200) {
         console.log('User profile updated successfully');
