@@ -27,6 +27,12 @@ function EditProfile() {
         }
     };
 
+    const handleProfileUpdate = async () => {
+        if (userID) {
+            await getUserProfileDetails(userID);
+        }
+    };
+
     return (
         <>
             <UserProfileLeftSideNavBar />
@@ -38,6 +44,7 @@ function EditProfile() {
                     email={userDetails.email}
                     phoneNumber={userDetails.phoneNumber}
                     userId={userID}
+                    onProfileUpdate={handleProfileUpdate}
                 />
             </div>
         </>
