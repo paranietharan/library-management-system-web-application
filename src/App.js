@@ -35,7 +35,6 @@ import UserMessages from './Pages/UserMessages';
 import MyBooks from './Pages/MyBooks';
 import EditProfile from './Pages/EditProfile';
 import SecurityPage from './Pages/SecurityPage';
-import Notifications from './Pages/Notifications';
 import LendingHistory from './Pages/LendingHistory';
 import FineHistory from './Pages/FineHistory';
 
@@ -56,10 +55,6 @@ import BookReservation from './Pages/BookReservation';
 import LibrarianBookReservation from './Pages/LibrarianBookReservation';
 import ToDoListPage from './Pages/ToDoListPage';
 import Notes from './Pages/Notes';
-
-// Added Features
-import Chat from './Components/Chat';
-import AdminChat from './Components/AdminChat';
 
 function App() {
 
@@ -94,6 +89,8 @@ function App() {
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
         <Route path='/user-chat' element={<UserChat />} />
         <Route path='/librarian-chat' element={<LibrarianChat />} />
+        <Route path='/todo-list' element={<ToDoListPage />} />
+        <Route path='/notes' element={<Notes />} />
 
 
         {/* Yasothan */}
@@ -104,11 +101,9 @@ function App() {
         <Route path='/lending-history' element={<LendingHistory />} />
         <Route path='/terms' element={<TermsAndPolicies />} />
         <Route path='/fine-history' element={<FineHistory />} />
-        {/*TODO: do validation to edit profile page */}
         <Route path='/edit-profile' element={<EditProfile />} />
         {/*TODO: Do security page connection */}
         <Route path='/security' element={<SecurityPage />} />
-        <Route path='/notifications' element={<Notifications />} />
 
 
 
@@ -125,16 +120,8 @@ function App() {
         <Route path='/membership-management' element={<MembershipManagement />} />
         <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
 
-        {/*Added Features */}
-        <Route path='/todo-list' element={<ToDoListPage />} />
-        <Route path='/notes' element={<Notes />} />
-
-
         {/* Sample code for test */}
         <Route path='/test' element={<Test />} />
-
-        <Route path="/adminchat" element={<AdminChat />} />
-        <Route path="/chat" element={<Chat username={'Paranie'} isAdmin={false} /> }/>
       </Routes>
     </Router>
   );
