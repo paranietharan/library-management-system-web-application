@@ -9,8 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { baseURL } from '../service/BaseUrl';
 import AlertMessage from '../Components/AlertMessage';
+import { useAuth } from '../service/AuthContext';
 
 function Login() {
+
+    const { login } = useAuth();
 
     const URL = `${baseURL}/user/login`;
 
@@ -70,12 +73,13 @@ function Login() {
                 };
                 console.log('User Details:', userDetails);
                 // Save the user details to local storage
-                localStorage.setItem('user', JSON.stringify(userDetails));      
+                localStorage.setItem('user', JSON.stringify(userDetails));
+                login(userDetails);    
                 
                 // Redirect based on user role
                 if (role === 'MEMBER') {
                     navigate('/');
-                } else if (role === ' LIBRARIAN') {
+                } else if (role === 'LIBRARIAN') {
                     navigate('/admin');
                 } else {
                     console.log('Unknown user role:', role);
