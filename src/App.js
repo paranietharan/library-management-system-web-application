@@ -57,6 +57,10 @@ import LibrarianBookReservation from './Pages/LibrarianBookReservation';
 import ToDoListPage from './Pages/ToDoListPage';
 import Notes from './Pages/Notes';
 
+// Added Features
+import Chat from './Components/Chat';
+import AdminChat from './Components/AdminChat';
+
 function App() {
 
   return (
@@ -88,7 +92,6 @@ function App() {
         <Route path="/book/:id" element={<ViewBook/>} />
         <Route path='/complaint' element={<Complaint />} />
         <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
-        {/* TODO: Librarian Chat */}
         <Route path='/user-chat' element={<UserChat />} />
         <Route path='/librarian-chat' element={<LibrarianChat />} />
 
@@ -129,6 +132,9 @@ function App() {
 
         {/* Sample code for test */}
         <Route path='/test' element={<Test />} />
+
+        <Route path="/adminchat" element={<AdminChat />} />
+        <Route path="/chat" element={<Chat username={'Paranie'} isAdmin={false} /> }/>
       </Routes>
     </Router>
   );
