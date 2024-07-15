@@ -69,13 +69,13 @@ function App() {
       <Router>
         <Routes>
           {/* Paranietharan */}
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/article-home" element={<ArticleHome />} />
-          <Route path="/article/:articleId" element={<ViewArticle />} />
-          <Route path='/my-profile' element={<MyProfile />} />
-          <Route path='/publish-articles' element={<PublishArticles />} />
-          <Route path='/article-edit/:articleId' element={<ArticleEdit />} />
-          <Route path='/article-search' element={<ArticleSearch />} />
+          <Route path="/about" element={<ProtectedRoute roles={['MEMBER']}><AboutPage /></ProtectedRoute>} />
+          <Route path="/article-home" element={<ProtectedRoute roles={['MEMBER']}><ArticleHome /></ProtectedRoute>} />
+          <Route path="/article/:articleId" element={<ProtectedRoute roles={['MEMBER']}><ViewArticle /></ProtectedRoute>} />
+          <Route path='/my-profile' element={<ProtectedRoute roles={['MEMBER']}><MyProfile /></ProtectedRoute>} />
+          <Route path='/publish-articles' element={<ProtectedRoute roles={['MEMBER']}><PublishArticles /></ProtectedRoute>} />
+          <Route path='/article-edit/:articleId' element={<ProtectedRoute roles={['MEMBER']}><ArticleEdit /></ProtectedRoute>} />
+          <Route path='/article-search' element={<ProtectedRoute roles={['MEMBER']}><ArticleSearch /></ProtectedRoute>} />
 
 
           {/*Shobikan */}
@@ -91,31 +91,26 @@ function App() {
 
 
           {/* Mihunan */}
-          <Route path="/" element={<UserHome />} />
-          <Route path="/book/:id" element={<ViewBook />} />
-          <Route path='/complaint' element={<Complaint />} />
-          <Route path='/make-new-complaint' element={<MakeNewComplaint />} />
-          <Route path='/user-chat' element={<UserChat />} />
-          <Route path='/librarian-chat' element={<LibrarianChat />} />
-          <Route path='/todo-list' element={<ToDoListPage />} />
-          <Route path='/notes' element={<Notes />} />
-
+          <Route path="/" element={<ProtectedRoute roles={['MEMBER']}><UserHome /></ProtectedRoute>} />
+          <Route path="/book/:id" element={<ProtectedRoute roles={['MEMBER']}><ViewBook /></ProtectedRoute>} />
+          <Route path='/complaint' element={<ProtectedRoute roles={['MEMBER']}><Complaint /></ProtectedRoute>} />
+          <Route path='/make-new-complaint' element={<ProtectedRoute roles={['MEMBER']}><MakeNewComplaint /></ProtectedRoute>} />
+          <Route path='/user-chat' element={<ProtectedRoute roles={['MEMBER']}><UserChat /></ProtectedRoute>} />
+          <Route path='/todo-list' element={<ProtectedRoute roles={['MEMBER']}><ToDoListPage /></ProtectedRoute>} />
+          <Route path='/notes' element={<ProtectedRoute roles={['MEMBER']}><Notes /></ProtectedRoute>} />
+          {/* Librarian chat */}
+          <Route path='/librarian-chat' element={<ProtectedRoute roles={['LIBRARIAN']}><LibrarianChat /></ProtectedRoute>} />
 
           {/* Yasothan */}
-          <Route path="/message" element={<UserMessages />} />
-          <Route path='/mybooks' element={<MyBooks />} />
-          <Route path="/fine" element={
-            <ProtectedRoute roles={['MEMBER']}>
-              <FineManagement />
-            </ProtectedRoute>
-          } />
-          <Route path='/book-reservation' element={<BookReservation />} />
-          <Route path='/lending-history' element={<LendingHistory />} />
-          <Route path='/terms' element={<TermsAndPolicies />} />
-          <Route path='/fine-history' element={<FineHistory />} />
-          <Route path='/edit-profile' element={<EditProfile />} />
-          {/*TODO: Do security page connection */}
-          <Route path='/security' element={<SecurityPage />} />
+          <Route path="/message" element={<ProtectedRoute roles={['MEMBER']}><UserMessages /></ProtectedRoute>} />
+          <Route path='/mybooks' element={<ProtectedRoute roles={['MEMBER']}><MyBooks /></ProtectedRoute>} />
+          <Route path="/fine" element={<ProtectedRoute roles={['MEMBER']}><FineManagement /></ProtectedRoute>} />
+          <Route path='/book-reservation' element={<ProtectedRoute roles={['MEMBER']}><BookReservation /></ProtectedRoute>} />
+          <Route path='/lending-history' element={<ProtectedRoute roles={['MEMBER']}><LendingHistory /></ProtectedRoute>} />
+          <Route path='/terms' element={<ProtectedRoute roles={['MEMBER']}><TermsAndPolicies /></ProtectedRoute>} />
+          <Route path='/fine-history' element={<ProtectedRoute roles={['MEMBER']}><FineHistory /></ProtectedRoute>} />
+          <Route path='/edit-profile' element={<ProtectedRoute roles={['MEMBER']}><EditProfile /></ProtectedRoute>} />
+          <Route path='/security' element={<ProtectedRoute roles={['MEMBER']}><SecurityPage /></ProtectedRoute>} />
 
 
 
@@ -125,20 +120,66 @@ function App() {
               <AdminDashboardHome />
             </ProtectedRoute>
           } />
+
           <Route path='/admin-book-management' element={
             <ProtectedRoute roles={['LIBRARIAN']}>
               <BookManagement />
             </ProtectedRoute>
           } />
-          <Route path='/librarian-article-management' element={<ArticleManagement />} />
-          <Route path="/librarian-article-management/:articleId" element={<LibrarianArticleManagement />} />
-          <Route path='/admin-notification-control' element={<AdminNotificationControl />} />
-          <Route path="/book-lending" element={<BookLending />} />
-          <Route path='/admin-complaint' element={<AdminComplaintPage />} />
-          <Route path='/admin-fine-management' element={<AdminFineManagement />} />
-          <Route path='/librarian-book-reservation' element={<LibrarianBookReservation />} />
-          <Route path='/membership-management' element={<MembershipManagement />} />
-          <Route path='/admin-profile-management' element={<AdminProfileManagement />} />
+
+          <Route path='/librarian-article-management' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <ArticleManagement />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/librarian-article-management/:articleId" element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <LibrarianArticleManagement />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/admin-notification-control' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <AdminNotificationControl />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/book-lending" element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <BookLending />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/admin-complaint' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <AdminComplaintPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/admin-fine-management' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <AdminFineManagement />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/librarian-book-reservation' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <LibrarianBookReservation />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/membership-management' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <MembershipManagement />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/admin-profile-management' element={
+            <ProtectedRoute roles={['LIBRARIAN']}>
+              <AdminProfileManagement />
+            </ProtectedRoute>
+          } />
 
           {/* Sample code for test */}
           <Route path='/test' element={<Test />} />

@@ -9,8 +9,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import httpMultipart from '../service/http-multipart';
 import httpCommon from '../service/http-common';
+import getUserID from '../service/GetUserID';
 
-const sampleUserID = 'sampleUserID';
 
 function AdminProfileManagement() {
     const [adminDetails, setAdminDetails] = useState({
@@ -28,11 +28,14 @@ function AdminProfileManagement() {
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [csvFile, setCsvFile] = useState(null);
     const [profileImg, setProfileImg] = useState(null);
+    const [userID, setUserID] = useState('');
 
     useEffect(() => {
+        const userID = getUserID();
+        setUserID(userID);
         const fetchAdminDetails = async () => {
             try {
-                const response = await httpCommon.get(`/user/getUserProfileDetails/${sampleUserID}`);
+                const response = await httpCommon.get(`/user/getUserProfileDetails/${userID}`);
                 setAdminDetails(response.data);
             } catch (error) {
                 console.error('There was an error fetching the admin details!', error);
