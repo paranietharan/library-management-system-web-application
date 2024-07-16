@@ -46,10 +46,15 @@ function AdminFineManagement() {
     };
 
     // Pay fine by fineID
-    const payFine = async (fineID) => {
+    const payFine = async () => {
         try {
-            await httpCommon.put(`/fine/settle/${fineID}`);
+            await httpCommon.post(`/fine/settle/${userID}`);
             getUnpaidFines(userID);
+            alert('Fine paid successfully');
+            // refresh the unpaid fines
+            setSelectedMember(null);
+            setUnpaidFines([]);
+            setAllFines([]);
         } catch (error) {
             console.error(error);
         }
@@ -81,14 +86,14 @@ function AdminFineManagement() {
                                         <div className={styles.fineTableBodyHeaderItem}>Actions</div>
                                     </div>
                                     <div className={styles.fineTableBodyContent}>
-                                        {unpaidFines ?  (
+                                        {unpaidFines.fineId ? (
                                             <div className={styles.fineTableBodyContentRow} key={unpaidFines.fineId}>
                                                 <div className={styles.fineTableBodyContentItem}>{unpaidFines.fineId}</div>
                                                 <div className={styles.fineTableBodyContentItem}>{unpaidFines.amount}</div>
                                                 <div className={styles.fineTableBodyContentItem}>{unpaidFines.resourceIssueDate}</div>
                                                 <div className={styles.fineTableBodyContentItem}>{unpaidFines.paidStatus ? "Paid" : "Unpaid"}</div>
                                                 <div className={styles.fineTableBodyContentItem}>
-                                                    <button onClick={() => payFine(unpaidFines.fineId)} className={styles.payButton}>Pay</button>
+                                                    <button onClick={payFine} className={styles.payButton}>Pay</button>
                                                 </div>
                                             </div>
                                         ) : <p>No unpaid fines found.</p>}
