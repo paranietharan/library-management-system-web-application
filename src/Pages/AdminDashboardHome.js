@@ -7,12 +7,14 @@ import exampleImage from '../resources/sample-picture.jpg';
 import styles from './style/AdminDashBoardHome.module.css';
 import http from '../service/http-common';
 import Footer from "../Components/LibraryFooter";
+import httpCommon from '../service/http-common';
 
 function AdminDashboardHome() {
 
   const [totalAvilableBooks, setTotalAvilableBooks] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [IssuedBooks, setIssuedBooks] = useState(0);
 
   const handleSearch = (query) => {
     searchBooks(query);
@@ -28,6 +30,15 @@ function AdminDashboardHome() {
       })
       .catch(error => {
         console.log(error);
+      });
+
+      httpCommon.get("issues/issue-book-count")
+      .then((response) => {
+        setIssuedBooks(response.data);
+        console.log('Issued Books:', response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }, []);
 
@@ -53,6 +64,7 @@ function AdminDashboardHome() {
       <div className={styles.content}>
         <LibraryBookCount
           TotalBooks={totalAvilableBooks}
+          IssuedBooks={IssuedBooks}
         />
 
         <div className={styles.search}>
