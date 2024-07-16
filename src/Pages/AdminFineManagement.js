@@ -7,8 +7,9 @@ import httpCommon from '../service/http-common';
 
 function AdminFineManagement() {
     const [selectedMember, setSelectedMember] = useState(null);
-    const [unpaidFines, setUnpaidFines] = useState([]);
+    const [unpaidFines, setUnpaidFines] = useState(null);
     const [allFines, setAllFines] = useState([]);
+    const [userID, setUserID] = useState('');
 
     const handleSelectMember = (member) => {
         setSelectedMember(member);
@@ -18,14 +19,16 @@ function AdminFineManagement() {
 
     useEffect(() => {
         if (selectedMember) {
-            getUnpaidFines();
+            setUserID(selectedMember.userID);
+            getUnpaidFines(selectedMember.userID);
+            getAllFines(selectedMember.userID);
         }
     }, [selectedMember]);
 
     // Function to get the unpaid fines of the selected member
-    const getUnpaidFines = async () => {
+    const getUnpaidFines = async (userID) => {
         try {
-            const response = await httpCommon.get(`/fines/unpaid/${selectedMember.userID}`);
+            const response = await httpCommon.get(`/fine/unpaid/${userID}`);
             setUnpaidFines(response.data);
         } catch (error) {
             console.error(error);
@@ -33,20 +36,20 @@ function AdminFineManagement() {
     };
 
     // Get all fines of the selected member
-    const getAllFines = async () => {
+    const getAllFines = async (userID) => {
         try {
-            const response = await httpCommon.get(`/fines/history/${selectedMember.userID}`);
+            const response = await httpCommon.get(`/fine/history/${userID}`);
             setAllFines(response.data);
         } catch (error) {
             console.error(error);
         }
     };
 
-    // Pay fine by userID
-    const payFine = async (userID) => {
+    // Pay fine by fineID
+    const payFine = async (fineID) => {
         try {
-            await httpCommon.put(`/fine/settle/${userID}`);
-            getUnpaidFines();
+            await httpCommon.put(`/fine/settle/${fineID}`);
+            getUnpaidFines(userID);
         } catch (error) {
             console.error(error);
         }
@@ -67,7 +70,7 @@ function AdminFineManagement() {
                                 <div className={styles.fineTableHeader}>
                                     <h2>Fine Management</h2>
                                     <h3>Member: {selectedMember.userID}</h3>
-                                    <button onClick={getAllFines} className={styles.viewAllButton}>View All Fines</button>
+                                    <button onClick={() => getAllFines(selectedMember.userID)} className={styles.viewAllButton}>View All Fines</button>
                                 </div>
                                 <div className={styles.fineTableBody}>
                                     <div className={styles.fineTableBodyHeader}>
@@ -78,27 +81,27 @@ function AdminFineManagement() {
                                         <div className={styles.fineTableBodyHeaderItem}>Actions</div>
                                     </div>
                                     <div className={styles.fineTableBodyContent}>
-                                        {unpaidFines.length > 0 ? unpaidFines.map((fine) => (
-                                            <div className={styles.fineTableBodyContentRow} key={fine.fineID}>
-                                                <div className={styles.fineTableBodyContentItem}>{fine.fineID}</div>
-                                                <div className={styles.fineTableBodyContentItem}>{fine.amount}</div>
-                                                <div className={styles.fineTableBodyContentItem}>{fine.date}</div>
-                                                <div className={styles.fineTableBodyContentItem}>{fine.status}</div>
+                                        {unpaidFines ?  (
+                                            <div className={styles.fineTableBodyContentRow} key={unpaidFines.fineId}>
+                                                <div className={styles.fineTableBodyContentItem}>{unpaidFines.fineId}</div>
+                                                <div className={styles.fineTableBodyContentItem}>{unpaidFines.amount}</div>
+                                                <div className={styles.fineTableBodyContentItem}>{unpaidFines.resourceIssueDate}</div>
+                                                <div className={styles.fineTableBodyContentItem}>{unpaidFines.paidStatus ? "Paid" : "Unpaid"}</div>
                                                 <div className={styles.fineTableBodyContentItem}>
-                                                    <button onClick={() => payFine(fine.fineID)} className={styles.payButton}>Pay</button>
+                                                    <button onClick={() => payFine(unpaidFines.fineId)} className={styles.payButton}>Pay</button>
                                                 </div>
                                             </div>
-                                        )) : <p>No unpaid fines found.</p>}
+                                        ) : <p>No unpaid fines found.</p>}
                                     </div>
                                     {allFines.length > 0 && (
                                         <div className={styles.allFines}>
                                             <h3>All Fines</h3>
                                             {allFines.map((fine) => (
-                                                <div className={styles.fineTableBodyContentRow} key={fine.fineID}>
-                                                    <div className={styles.fineTableBodyContentItem}>{fine.fineID}</div>
+                                                <div className={styles.fineTableBodyContentRow} key={fine.fineId}>
+                                                    <div className={styles.fineTableBodyContentItem}>{fine.fineId}</div>
                                                     <div className={styles.fineTableBodyContentItem}>{fine.amount}</div>
-                                                    <div className={styles.fineTableBodyContentItem}>{fine.date}</div>
-                                                    <div className={styles.fineTableBodyContentItem}>{fine.status}</div>
+                                                    <div className={styles.fineTableBodyContentItem}>{fine.resourceIssueDate}</div>
+                                                    <div className={styles.fineTableBodyContentItem}>{fine.paidStatus ? "Paid" : "Unpaid"}</div>
                                                 </div>
                                             ))}
                                         </div>
