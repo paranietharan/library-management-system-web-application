@@ -10,10 +10,7 @@ function AdminBookGetReturn() {
 
     const handleSelectMember = (member) => {
         setSelectedMember(member);
-        getLendingDetails(member.userID); // Call getLendingDetails when a member is selected
-        if(issue){
-            getBookDetailsID(issue.resourceId)
-        }
+        getLendingDetails(member.userID);
     };
 
     // get lending details
@@ -21,6 +18,9 @@ function AdminBookGetReturn() {
         try {
             const response = await http.get(`/issues/check?memberId=${userId}`);
             setIssue(response.data);
+            if(response.data){
+                getBookDetailsID(response.data.resourceId)
+            }
         } catch (error) {
             console.error("Error getting lending details:", error);
         }
