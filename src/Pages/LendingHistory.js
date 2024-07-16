@@ -18,6 +18,7 @@ function LendingHistory() {
     const fetchLendingHistory = async (memberId) => {
         try {
             const response = await http.get(`/issues/history/${memberId}`);
+            console.log("Lending history:", response.data);
             // Assuming response.data is an array of lending history items
             setLendingHistory(response.data);
         } catch (error) {
