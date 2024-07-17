@@ -140,7 +140,7 @@ export default function LibrarianTopNavBar() {
                             </IconButton>
                         </Link>
 
-                        <Link onClick={LogOutUser} className={styles.navLink}>
+                        <Link onClick={LogOutUser} >
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <span style={{ color: 'black' }}>
                                     <LogoutIcon />
