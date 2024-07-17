@@ -140,11 +140,13 @@ export default function LibrarianTopNavBar() {
                             </IconButton>
                         </Link>
 
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={LogOutUser}>
-                            <span style={{ color: 'black' }}>
-                                <LogoutIcon />
-                            </span>
-                        </IconButton>
+                        <Link onClick={LogOutUser} className={styles.navLink}>
+                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                                <span style={{ color: 'black' }}>
+                                    <LogoutIcon />
+                                </span>
+                            </IconButton>
+                        </Link>
                     </Box>
                 </Toolbar>
             </AppBar>
