@@ -35,14 +35,11 @@ function AdminBookIssue() {
 
         try {
             const response = await http.post(`/issues/issue?resourceId=${selectedBook.resourceId}&memberId=${selectedMember.userID}`);
-            console.log("Book issued successfully:", response.data);
+            alert(response.data);
             // Reset the book and member state
             setSelectedBook(null);
             setSelectedMember(null);
             setIssueStatus(null);
-
-            // Show success message
-            alert("Book issued successfully!");
 
             // Forward to the book lending page
             window.location.href = "/book-lending";
@@ -52,23 +49,6 @@ function AdminBookIssue() {
         }
     };
 
-    const handleReturnBook = async () => {
-        try {
-            const response = await http.post(`/issues/return?memberId=${selectedMember.userID}`);
-            console.log("Book returned successfully:", response.data);
-            // Reset the issue status
-            setIssueStatus(null);
-
-            // Show success message
-            alert("Book returned successfully!");
-
-            // Forward to the book lending page
-            window.location.href = "/book-lending";
-        } catch (error) {
-            console.error("Error returning book:", error);
-            // Handle error
-        }
-    };
 
     const checkUserBookStatus = async (memberId) => {
         try {
@@ -76,13 +56,15 @@ function AdminBookIssue() {
             setIssueStatus(response.data);
         } catch (error) {
             console.error("Error checking book status:", error);
-            // Handle error
+            setIssueStatus(null); // Clear issue status on error
         }
     };
 
     const handleCloseError = () => {
         setShowError(false);
     };
+
+    const isLendDisabled = issueStatus && typeof issueStatus === 'string' && issueStatus.startsWith("Resource");
 
     return (
         <div className={Style.container}>
@@ -100,15 +82,9 @@ function AdminBookIssue() {
                 <h2>Book Lending Form</h2>
                 <p>Member ID: {selectedMember ? selectedMember.userID : "Not selected"}</p>
                 <p>Book Name: {selectedBook ? selectedBook.title : "Not selected"}</p>
-                <button onClick={handleLendBook} disabled={issueStatus && issueStatus.startsWith("Resource")}>
+                <button onClick={handleLendBook} disabled={isLendDisabled}>
                     Lend Book
                 </button>
-                {issueStatus && issueStatus.startsWith("Resource") && (
-                    <div>
-                        <p>{issueStatus}</p>
-                        <button onClick={handleReturnBook}>Return Book</button>
-                    </div>
-                )}
             </div>
 
             <AlertMessage
@@ -117,7 +93,7 @@ function AdminBookIssue() {
                 onClose={handleCloseError}
             />
         </div>
-    )
+    );
 }
 
 export default AdminBookIssue;
