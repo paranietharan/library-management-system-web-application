@@ -46,6 +46,8 @@ function AddMemberComponent() {
 
     const handleGoToMainMenu = () => {
         console.log('Go to main menu');
+        // forward to admin Membership Management page
+        window.location.href = '/membershipManagement';
     };
 
     return (
