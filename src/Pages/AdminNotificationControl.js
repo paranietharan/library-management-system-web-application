@@ -50,14 +50,14 @@ function AdminNotificationControl() {
                 <LibrarianTopNavBar />
 
                 <div className={styles.contents}>
-                    <h1>Admin Notification Control</h1>
+                    <h1>Admin Notice Control</h1>
 
                     {/* Notification Input Form */}
                     <div className={styles.notificationForm}>
                         <div className={styles.headingInput}>
                             <TextField
                                 fullWidth
-                                label="Notification Heading"
+                                label="Notice Heading"
                                 variant="outlined"
                                 value={newNotificationHeading}
                                 onChange={(e) => setNewNotificationHeading(e.target.value)}
@@ -67,7 +67,7 @@ function AdminNotificationControl() {
                         <div className={styles.bodyInput}>
                             <TextField
                                 fullWidth
-                                label="Type your notification here"
+                                label="Type your notice here"
                                 variant="outlined"
                                 value={newNotificationBody}
                                 onChange={(e) => setNewNotificationBody(e.target.value)}
@@ -79,13 +79,13 @@ function AdminNotificationControl() {
                             onClick={handleAddNotification}
                             className={styles.notificationButton}
                         >
-                            Send Notification
+                            Send Notice
                         </Button>
                     </div>
 
                     {/* Notification History List */}
                     <div className={styles.notificationList}>
-                        <h2>Notification History</h2>
+                        <h2>Notice History</h2>
 
                         <div className={styles.list}>
                             <List>

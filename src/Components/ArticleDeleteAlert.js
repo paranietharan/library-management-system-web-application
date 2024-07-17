@@ -1,25 +1,13 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import http from '../service/http-common'; // Import custom Axios instance
 
-export default function ArticleDeleteAlertDialog({ authorId, articleId, open, handleClose }) {
-  const deleteArticle = () => {
-    http.delete(`/article/${authorId}/delete/${articleId}`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    handleClose();
-  };
-
+function ArticleDeleteAlertDialog({ open, handleClose, handleConfirm, title, description }) {
   return (
     <Dialog
       open={open}
@@ -28,19 +16,29 @@ export default function ArticleDeleteAlertDialog({ authorId, articleId, open, ha
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Delete Article?"}
+        {title}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Note: If you delete this article, it will be permanently removed from the system.
+          {description}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={deleteArticle} autoFocus>
+        <Button onClick={handleConfirm} autoFocus>
           Delete
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
+
+ArticleDeleteAlertDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleConfirm: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
+
+export default ArticleDeleteAlertDialog;

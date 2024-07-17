@@ -27,8 +27,8 @@ function LibrarianArticleManagement() {
     };
 
     const handleDelete = () => {
-        const userID = "adminId";
-        http.delete(`/article/${userID}/delete/${article.id}`)
+        const userID = "admin";
+        http.delete(`/article/${userID}/delete/${articleId}`)
             .then(response => {
                 console.log('Article deleted successfully');
                 setOpen(false);
@@ -115,8 +115,8 @@ function LibrarianArticleManagement() {
 
                     <ArticleDeleteAlertDialog
                         open={open}
-                        onClose={handleClose}
-                        onConfirm={handleDelete}
+                        handleClose={handleClose}
+                        handleConfirm={handleDelete}
                         title="Delete Article"
                         description="Are you sure you want to delete this article?"
                     />

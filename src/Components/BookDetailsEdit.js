@@ -82,10 +82,10 @@ function BookDetailsEdit({ book, onBack }) {
     <div className={styles.bookDetails}>
       <div className={styles.row}>
         <div className={styles.column}>
-          <img 
-            src={newPhoto ? URL.createObjectURL(newPhoto) : (editedBook.bookImg ? `data:image/png;base64,${editedBook.bookImg}` : 'https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200-1024x672.png')} 
-            alt="Book Cover" 
-            className={styles.bookCover} 
+          <img
+            src={newPhoto ? URL.createObjectURL(newPhoto) : (editedBook.bookImg ? `data:image/png;base64,${editedBook.bookImg}` : 'https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200-1024x672.png')}
+            alt="Book Cover"
+            className={styles.bookCover}
           />
           {editing && (
             <div>
@@ -99,27 +99,27 @@ function BookDetailsEdit({ book, onBack }) {
             </div>
           )}
           <h2 className={styles.bookName}>
-            {editing ? (
-              <TextField
-                name="title"
-                value={editedBook.title}
-                onChange={handleInputChange}
-                variant="standard"
-              />
-            ) : (
-              editedBook.title
-            )}
+            {!editing && editedBook.title}
           </h2>
         </div>
         <div className={styles.column}>
           {editing ? (
             <>
               <TextField
+                name="title"
+                value={editedBook.title}
+                onChange={handleInputChange}
+                variant="standard"
+                sx={{ marginBottom: 2 }}
+              />
+
+              <TextField
                 name="author"
                 label="Author"
                 value={editedBook.author}
                 onChange={handleInputChange}
                 fullWidth
+                sx={{ marginBottom: 2 }}
               />
               <TextField
                 name="about"
@@ -127,6 +127,7 @@ function BookDetailsEdit({ book, onBack }) {
                 value={editedBook.about}
                 onChange={handleInputChange}
                 fullWidth
+                sx={{ marginBottom: 2 }}
               />
               <TextField
                 name="isbn"
@@ -134,6 +135,7 @@ function BookDetailsEdit({ book, onBack }) {
                 value={editedBook.isbn}
                 onChange={handleInputChange}
                 fullWidth
+                sx={{ marginBottom: 2 }}
               />
               <TextField
                 name="no_of_copies"
@@ -142,6 +144,7 @@ function BookDetailsEdit({ book, onBack }) {
                 value={editedBook.no_of_copies}
                 onChange={handleInputChange}
                 fullWidth
+                sx={{ marginBottom: 2 }}
               />
               <TextField
                 name="category"
@@ -149,6 +152,7 @@ function BookDetailsEdit({ book, onBack }) {
                 value={editedBook.category}
                 onChange={handleInputChange}
                 fullWidth
+                sx={{ marginBottom: 2 }}
               />
             </>
           ) : (
