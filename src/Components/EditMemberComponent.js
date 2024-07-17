@@ -24,7 +24,7 @@ function EditMemberComponent() {
         setFormValues({
             firstName: user.firstName || '',
             lastName: user.lastName || '',
-            Email: user.email || '',
+            email: user.email || '',
             phoneNumber: user.phoneNumber || ''
         });
     };
@@ -45,7 +45,7 @@ function EditMemberComponent() {
             const formData = new FormData();
             formData.append('firstName', formValues.firstName);
             formData.append('lastName', formValues.lastName);
-            formData.append('Email', formValues.Email);
+            formData.append('email', formValues.Email);
             formData.append('phoneNumber', formValues.phoneNumber);
 
             if (newProfilePicture) {
