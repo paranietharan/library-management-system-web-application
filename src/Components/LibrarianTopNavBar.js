@@ -18,6 +18,7 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
+import LogOutUser from '../service/LogoutUser';
 
 export default function LibrarianTopNavBar() {
 
@@ -139,13 +140,11 @@ export default function LibrarianTopNavBar() {
                             </IconButton>
                         </Link>
 
-                        <Link to="/admin">
-                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <span style={{ color: 'black' }}>
-                                    <LogoutIcon />
-                                </span>
-                            </IconButton>
-                        </Link>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={LogOutUser}>
+                            <span style={{ color: 'black' }}>
+                                <LogoutIcon />
+                            </span>
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </AppBar>
