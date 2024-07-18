@@ -31,11 +31,15 @@ function AddMemberComponent() {
                 // get the response data
                 const data = response.data;
                 if(data === 'User already exists') {
-                    console.log('User already exists');
+                    alert('User already exists');
                     setError('User already exists');
                     return;
                 } else if(data === 'User added successfully') {
-                    console.log('User added successfully');
+                    alert('User added successfully');
+                } else if(data === 'User not found in Student Database') {
+                    alert('User not found in Student Database');
+                    setError('User not found in Student Database');
+                    return;
                 }
                 setError('');
                 handleConfirm();
