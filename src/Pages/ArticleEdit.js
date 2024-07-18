@@ -113,7 +113,7 @@ function EditArticle() {
               <h1>{article.title}</h1>
             )}
             <button className={style.button} onClick={() => setEditMode({ ...editMode, title: !editMode.title })}>
-              {editMode.title ? 'Save' : 'Change'}
+              {editMode.title ? 'Save' : 'Edit Title'}
             </button>
           </div>
 
@@ -131,7 +131,7 @@ function EditArticle() {
               </div>
             )}
             <button className={style.button} onClick={() => setEditMode({ ...editMode, image: !editMode.image })}>
-              {editMode.image ? 'Save' : 'Change'}
+              {editMode.image ? 'Save Image' : 'Change Image'}
             </button>
           </div>
 
@@ -145,11 +145,11 @@ function EditArticle() {
               <p>{article.body}</p>
             )}
             <button className={style.button} onClick={() => setEditMode({ ...editMode, body: !editMode.body })}>
-              {editMode.body ? 'Save' : 'Change'}
+              {editMode.body ? 'Save Content' : 'Edit Content'}
             </button>
           </div>
 
-          <button className={style.button} onClick={handleSave}>Submit</button>
+          <button className={`${style.button} ${style.submitButton}`} onClick={handleSave}>Submit Changes</button>
         </div>
       </div>
     </>
