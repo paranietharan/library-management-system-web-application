@@ -23,8 +23,8 @@ import LogoutUser from '../service/LogoutUser';
 const pages = ['Search', 'Home', 'About'];
 const links = ['article-search', 'article-home', 'about'];
 
-const settings = ['Profile', 'Library book', 'About', 'Publish Articles'];
-const settingslinks = ['my-profile', '', 'about', 'publish-articles'];
+const settings = ['Profile', 'Library book', 'About', 'Publish Articles', 'Logout'];
+const settingslinks = ['my-profile', '', 'about', 'publish-articles', 'logout'];
 
 function ArticleNavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -211,12 +211,6 @@ function ArticleNavBar() {
                                     </Link>
                                 </MenuItem>
                             ))}
-                            <MenuItem onClick={LogoutUser}>
-                                    <Link style={{ textDecoration: 'none', color: 'inherit', display: 'flex' }}>
-                                        <LogoutIcon />
-                                        <Typography textAlign="center">Logout</Typography>
-                                    </Link>
-                                </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

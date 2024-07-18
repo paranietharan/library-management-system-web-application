@@ -63,7 +63,7 @@ function UserProfileLeftSideNavBar() {
       </div>
 
       <div className={styles.navItem}>
-        <Link onClick={LogOutUser} className={styles.navLink}>
+        <Link to="/logout" className={styles.navLink}>
           <LogoutIcon />
           <span className={styles.navText}>Logout</span>
         </Link>

@@ -61,6 +61,7 @@ import BookReservation from './Pages/BookReservation';
 import LibrarianBookReservation from './Pages/LibrarianBookReservation';
 import ToDoListPage from './Pages/ToDoListPage';
 import Notes from './Pages/Notes';
+import LogoutUser from './service/LogoutUser';
 
 function App() {
 
@@ -68,6 +69,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path="/logout" element={<LogoutUser />} />
+          
           {/* Paranietharan */}
           <Route path="/about" element={<ProtectedRoute roles={['MEMBER']}><AboutPage /></ProtectedRoute>} />
           <Route path="/article-home" element={<ProtectedRoute roles={['MEMBER']}><ArticleHome /></ProtectedRoute>} />
