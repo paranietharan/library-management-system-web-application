@@ -18,19 +18,16 @@ function ViewArticle() {
     const [authorDetails, setAuthorDetails] = useState(null);
     const [comment, setComment] = useState('');
     const [userRating, setUserRating] = useState(5.0);
-    const [userId, setuserId] = useState();
-
-    useEffect(() => {
-        const userID = getUserID();
-        setuserId(userID);
-    }, []);
+    const [userId, setuserId] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
+            const userID = getUserID();
+            setuserId(userID);
             await fetchArticleDetails();
             await fetchComments();
             await fetchAverageRating();
-            await fetchUserRating();
+            await fetchUserRating(userID);
         };
         fetchData();
     }, [articleId]);
@@ -103,13 +100,13 @@ function ViewArticle() {
     };
 
     // Fetch user's rating
-    const fetchUserRating = async () => {
+    const fetchUserRating = async (userId) => {
         try {
             const { data: userRatingData } = await http.get(`/article/${articleId}/rating/${userId}`);
             setUserRating(userRatingData);
         } catch (error) {
             console.error('Error fetching user rating:', error);
-            setUserRating(null);
+            setUserRating(0);
         }
     };
 

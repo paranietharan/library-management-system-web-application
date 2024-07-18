@@ -45,7 +45,7 @@ function EditMemberComponent() {
             const formData = new FormData();
             formData.append('firstName', formValues.firstName);
             formData.append('lastName', formValues.lastName);
-            formData.append('email', formValues.Email);
+            formData.append('email', formValues.email);
             formData.append('phoneNumber', formValues.phoneNumber);
 
             if (newProfilePicture) {
@@ -121,7 +121,7 @@ function EditMemberComponent() {
                         <input
                             type="email"
                             name="Email"
-                            value={formValues.Email}
+                            value={formValues.email}
                             onChange={handleInputChange}
                         />
                     </div>
