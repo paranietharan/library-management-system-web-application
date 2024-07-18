@@ -10,7 +10,7 @@ import CardActions from '@mui/material/CardActions';
 
 function ArticleSummary({ article }) {
   const title = article.title.split(' ');
-  const displayedTitle = title.length > 7 ? `${title.slice(0, 7).join(' ')}...` : title.join(' ');
+  const displayedTitle = title.length > 7 ? `${title.slice(0, 4).join(' ')}...` : title.join(' ');
 
   return (
     <Card sx={{ maxWidth: '100%', maxHeight: '400px', margin: '10px', backgroundColor: '#e6e6e6' , border: '2px solid #cccccc'}}>
@@ -29,7 +29,7 @@ function ArticleSummary({ article }) {
               {displayedTitle}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{fontFamily: '"Playwrite NO"', fontWeight: '1000'}}>
-              {article.body.substring(0, 200)} {/* Display first 200 characters of body */}
+              {article.body.substring(0, 20)} {/* Display first 200 characters of body */}
             </Typography>
           </CardContent>
         </CardActionArea>
