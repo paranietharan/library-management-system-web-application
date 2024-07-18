@@ -44,19 +44,26 @@ function ArticleSummaryProfile({ article }) {
             style={{ width: '25vw', maxHeight: '100px', height: 'auto' }}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" component="div" sx={{ fontFamily: '"Oswald", sans-serif', }}>
               {displayedTitle}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ fontFamily: '"Playwrite NO"', fontWeight: '1000' }}>
               {article.body.substring(0, 200)} {/* Display first 200 characters of body */}
             </Typography>
           </CardContent>
         </CardActionArea>
       </Link>
       <CardActions>
-        <Button size="small" component={Link} to={`/article-edit/${article.articleID}`} style={{ textDecoration: 'none' }}>Edit</Button>
+        <Button
+          size="small"
+          component={Link}
+          to={`/article-edit/${article.articleID}`}
+          style={{ textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '20px', fontWeight: 'bold' }}
+        >
+          Edit
+        </Button>
 
-        <Button variant="contained" color="secondary" onClick={handleDialogOpen}>
+        <Button sx={{textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '20px', fontWeight: 'bold', backgroundColor: 'red', color: 'white' }} onClick={handleDialogOpen}>
           Delete Article
         </Button>
         <ArticleDeleteAlertDialog
@@ -66,7 +73,7 @@ function ArticleSummaryProfile({ article }) {
           handleClose={handleDialogClose}
         />
 
-        <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none' }}>
+        <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '15px', fontWeight: 'bold'}}>
           Read Article
         </Button>
       </CardActions>
