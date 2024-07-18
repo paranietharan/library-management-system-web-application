@@ -28,7 +28,15 @@ function AddMemberComponent() {
             });
 
             if (response.status === 200) {
-                setIsSubmitted(true);
+                // get the response data
+                const data = response.data;
+                if(data === 'User already exists') {
+                    console.log('User already exists');
+                    setError('User already exists');
+                    return;
+                } else if(data === 'User added successfully') {
+                    console.log('User added successfully');
+                }
                 setError('');
                 handleConfirm();
             } else {
