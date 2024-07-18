@@ -29,13 +29,13 @@ function Comment({ comment }) {
                     <img
                         src={`data:image/png;base64,${commenter.profileImg}`}
                         alt={`${commenter.firstName} ${commenter.lastName}`}
-                        style={{ width: 50, height: 50, borderRadius: "50%", marginRight: 10 }}
+                        style={{ width: 50, height: 50, borderRadius: "50%", marginRight: 10, border: '2px solid #8c8c8c' }}
                     />
                 ) : (
                     <img
                         src="https://www.w3schools.com/howto/img_avatar.png" // Placeholder image or default avatar
                         alt="Default Avatar"
-                        style={{ width: 50, height: 50, borderRadius: "50%", marginRight: 10 }}
+                        style={{ width: 50, height: 50, borderRadius: "50%", marginRight: 10, border: '2px solid #8c8c8c' }}
                     />
                 )}
                 <div style={{ flex: "1", minWidth: "0" }}>
@@ -45,7 +45,7 @@ function Comment({ comment }) {
                     </p>
                 </div>
             </div>
-            <hr style={{ margin: "5px 0", border: "none", borderBottom: "1px solid #ccc" }} />
+            <hr style={{ margin: "5px 0 0 0", border: "none", borderBottom: "1px solid #ccc" }} />
         </>
     );
 }
