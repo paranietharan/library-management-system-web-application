@@ -34,6 +34,11 @@ function ViewArticle() {
 
     // Function to handle comment submission
     const handleSubmit = async () => {
+        // check the comment is empty or not
+        if (comment === '') {
+            alert('Comment cannot be empty');
+            return;
+        }
         try {
             const response = await http.post(`/article/${userId}/comment`, {
                 comment,
