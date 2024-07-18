@@ -46,8 +46,10 @@ function ArticleForm() {
             const response = await httpMultipart.post('/article/addArticle', formData);
             console.log(response.data);
 
+            alert('Article published successfully! Redirecting to article home page...');
+            
             setTimeout(() => {
-                window.location.href = '/';
+                window.location.href = '/article-home';
             }, 2000);
 
             setHeading('');
