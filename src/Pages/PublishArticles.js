@@ -15,7 +15,6 @@ function ArticleForm() {
         setAuthorId(userID);
     }, []);
 
-    //const authorId = 'sampleUserID'; // Example a
     const handleImageChange = (e) => {
         const selectedImage = e.target.files[0];
         setImage(selectedImage);
@@ -27,6 +26,12 @@ function ArticleForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // check if heading or body is empty
+        if (!heading || !body) {
+            alert('Please fill out all fields');
+            return;
+        }
 
         const formData = new FormData();
         formData.append('title', heading);
@@ -41,12 +46,10 @@ function ArticleForm() {
             const response = await httpMultipart.post('/article/addArticle', formData);
             console.log(response.data);
 
-            // Redirect to home page after 2 seconds
             setTimeout(() => {
                 window.location.href = '/';
             }, 2000);
 
-            // Reset form fields
             setHeading('');
             setBody('');
             setImage(null);
@@ -55,115 +58,129 @@ function ArticleForm() {
         }
     };
 
+    const containerStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        overflowY: 'scroll',
+        backgroundColor: '#f5f5f5',
+    };
+
+    const formContainerStyle = {
+        flex: '1',
+        width: '100%',
+        maxWidth: '800px',
+        margin: '20px auto',
+        padding: '40px',
+        boxSizing: 'border-box',
+        backgroundColor: '#ffffff',
+        boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
+        borderRadius: '8px',
+    };
+
+    const titleStyle = {
+        fontFamily: "'Playfair Display', serif",
+        fontSize: '2.5rem',
+        fontWeight: '700',
+        color: '#2c3e50',
+        marginBottom: '30px',
+        textAlign: 'center',
+    };
+
+    const inputStyle = {
+        width: '100%',
+        padding: '12px',
+        marginBottom: '20px',
+        border: '1px solid #bdc3c7',
+        borderRadius: '5px',
+        fontSize: '1rem',
+        fontFamily: "'Open Sans', sans-serif",
+    };
+
+    const buttonStyle = {
+        padding: '12px 24px',
+        backgroundColor: '#3498db',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '1rem',
+        fontWeight: '600',
+        fontFamily: "'Open Sans', sans-serif",
+        transition: 'background-color 0.3s ease',
+    };
+
+    const imagePreviewStyle = {
+        maxWidth: '200px',
+        marginBottom: '20px',
+        borderRadius: '5px',
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    };
+
+    const textareaStyle = {
+        width: '100%',
+        minHeight: '300px',
+        padding: '12px',
+        border: '1px solid #bdc3c7',
+        borderRadius: '5px',
+        fontSize: '1rem',
+        fontFamily: "'Open Sans', sans-serif",
+        resize: 'vertical',
+    };
+
+    const labelStyle = {
+        display: 'block',
+        marginBottom: '8px',
+        fontSize: '1rem',
+        fontWeight: '600',
+        color: '#2c3e50',
+        fontFamily: "'Open Sans', sans-serif",
+    };
+
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowY: 'scroll' }}>
+        <div style={containerStyle}>
             <ArticleNavBar />
-            <div
-                style={{
-                    flex: '1',
-                    width: '100%',
-                    maxWidth: '100%',
-                    padding: '20px',
-                    boxSizing: 'border-box',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
-            >
-                <div style={{ maxWidth: '80%', margin: '0 auto' }}>
-                    <form onSubmit={handleSubmit}>
-                        <div style={{ textAlign: 'right', marginBottom: '20px' }}>
-                            <button
-                                type="submit"
-                                style={{
-                                    padding: '10px 20px',
-                                    backgroundColor: '#007bff',
-                                    color: '#fff',
-                                    border: 'none',
-                                    borderRadius: '5px',
-                                    cursor: 'pointer',
-                                    fontSize: '1.2rem',
-                                }}
-                                className="submit-button"
-                            >
-                                Publish
-                            </button>
-                        </div>
-                        <div style={{ marginBottom: '20px' }}>
-                            <input
-                                type="text"
-                                value={heading}
-                                onChange={(e) => setHeading(e.target.value)}
-                                placeholder="Enter your article title"
-                                style={{
-                                    width: '100%',
-                                    padding: '10px',
-                                    marginBottom: '15px',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '5px',
-                                    boxSizing: 'border-box',
-                                    fontSize: '1.2rem',
-                                }}
-                                className="title-input"
-                            />
-                        </div>
-                        <div style={{ marginBottom: '20px' }}>
-                            <label
-                                htmlFor="image"
-                                style={{
-                                    display: 'block',
-                                    marginBottom: '5px',
-                                    fontSize: '1.2rem',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                Image:
-                            </label>
-                            <input
-                                type="file"
-                                id="image"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                style={{
-                                    width: '50%',
-                                    padding: '10px',
-                                    marginBottom: '15px',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '5px',
-                                    boxSizing: 'border-box',
-                                    fontSize: '1.2rem',
-                                }}
-                                className="image-input"
-                            />
-                        </div>
-                        {image && (
-                            <img
-                                src={URL.createObjectURL(image)}
-                                alt="Preview"
-                                style={{
-                                    width: '100px',
-                                    marginBottom: '15px',
-                                    borderRadius: '5px',
-                                    padding: '10px',
-                                }}
-                                className="image-preview"
-                            />
-                        )}
-                        <div style={{ marginBottom: '20px' }}>
-                            <textarea
-                                value={body}
-                                onChange={handleBodyChange}
-                                style={{
-                                    border: '1px solid #ccc',
-                                    borderRadius: '5px',
-                                    minHeight: '200px',
-                                    width: '70vw',
-                                    overflowY: 'scroll',
-                                }}
-                                placeholder="Type your article body here"
-                            />
-                        </div>
-                    </form>
-                </div>
+            <div style={formContainerStyle}>
+                <h1 style={titleStyle}>Publish Your Article</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <input
+                            type="text"
+                            value={heading}
+                            onChange={(e) => setHeading(e.target.value)}
+                            placeholder="Enter your article title"
+                            style={inputStyle}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="image" style={labelStyle}>Image:</label>
+                        <input
+                            type="file"
+                            id="image"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            style={inputStyle}
+                        />
+                    </div>
+                    {image && (
+                        <img
+                            src={URL.createObjectURL(image)}
+                            alt="Preview"
+                            style={imagePreviewStyle}
+                        />
+                    )}
+                    <div>
+                        <textarea
+                            value={body}
+                            onChange={handleBodyChange}
+                            placeholder="Type your article body here"
+                            style={textareaStyle}
+                        />
+                    </div>
+                    <button type="submit" style={buttonStyle}>
+                        Publish
+                    </button>
+                </form>
             </div>
             <Footer />
         </div>
