@@ -1,12 +1,23 @@
+import React from 'react';
 import { useAuth } from "./AuthContext";
+import { useNavigate } from 'react-router-dom';
 
-// logout.js
+// LogoutUser.js
 const LogoutUser = () => {
-    localStorage.removeItem('token');
     const { logout } = useAuth();
-    logout();
-    // Redirect to login page. Adjust the path as necessary.
-    window.location.href = '/login';
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        const performLogout = () => {
+            localStorage.removeItem('token');
+            logout();
+            navigate('/login');
+        };
+
+        performLogout();
+    }, [logout, navigate]);
+
+    return null; // This component doesn't render anything
 };
 
 export default LogoutUser;
