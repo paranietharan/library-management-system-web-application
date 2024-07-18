@@ -83,7 +83,7 @@ function ArticleNavBar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ fontFamily: 'Lato, sans-serif' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -161,7 +161,7 @@ function ArticleNavBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page, index) => (
