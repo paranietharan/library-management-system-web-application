@@ -4,6 +4,7 @@
   align-items: center;
   padding: 20px;
   background: #ebebe3;
+  min-height: 100vh;
 }
 
 .articles {
@@ -12,12 +13,6 @@
   justify-content: center;
   height: fit-content;
 }
-
-/* .card {
-  width: calc(33.33% - 20px);
-  height: 10vh;
-  margin: 10px;
-} */
 
 @media (max-width: 768px) {
   .card {
