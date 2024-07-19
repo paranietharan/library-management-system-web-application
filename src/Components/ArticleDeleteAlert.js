@@ -25,7 +25,10 @@ function ArticleDeleteAlertDialog({ open, handleClose, handleConfirm, title, des
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleConfirm} autoFocus>
+        <Button onClick={() => {
+          handleConfirm();
+          handleClose();
+        }} autoFocus>
           Delete
         </Button>
       </DialogActions>
