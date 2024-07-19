@@ -34,13 +34,14 @@ function AddMemberComponent() {
                     alert('User already exists');
                     setError('User already exists');
                     return;
-                } else if(data === 'User added successfully') {
+                } else if(data === 'User added successfully') {//User added successfully
                     alert('User added successfully');
                 } else if(data === 'User not found in Student Database') {
                     alert('User not found in Student Database');
                     setError('User not found in Student Database');
                     return;
                 }
+                alert(response.data);
                 setError('');
                 handleConfirm();
             } else {
