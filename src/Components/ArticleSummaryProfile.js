@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import ArticleDeleteAlertDialog from './ArticleDeleteAlert';
 import { useState } from 'react';
+import axios from 'axios';
 
 function ArticleSummaryProfile({ article }) {
   const title = article.title.split(' ');
@@ -24,6 +25,16 @@ function ArticleSummaryProfile({ article }) {
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/article/${authorId}/delete/${articleId}`);
+      setDialogOpen(false);
+      // Optionally refresh articles or navigate to another page
+    } catch (error) {
+      console.error("Failed to delete article:", error);
+    }
   };
 
   useEffect(() => {
@@ -45,10 +56,10 @@ function ArticleSummaryProfile({ article }) {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" sx={{ fontFamily: '"Oswald", sans-serif', }}>
-              {displayedTitle}
+              {displayedTitle.substring(0, 25)}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ fontFamily: '"Playwrite NO"', fontWeight: '1000' }}>
-              {article.body.substring(0, 200)} {/* Display first 200 characters of body */}
+              {article.body.substring(0, 5)} {/* Display first 200 characters of body */}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -63,17 +74,18 @@ function ArticleSummaryProfile({ article }) {
           Edit
         </Button>
 
-        <Button sx={{textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '20px', fontWeight: 'bold', backgroundColor: 'red', color: 'white' }} onClick={handleDialogOpen}>
+        <Button sx={{ textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '20px', fontWeight: 'bold', backgroundColor: 'red', color: 'white' }} onClick={handleDialogOpen}>
           Delete Article
         </Button>
         <ArticleDeleteAlertDialog
-          authorId={authorId}
-          articleId={articleId}
+          title={`Delete Article: ${displayedTitle}`}
+          description="Are you sure you want to delete this article? This action cannot be undone."
           open={dialogOpen}
           handleClose={handleDialogClose}
+          handleConfirm={handleDeleteConfirm}
         />
 
-        <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '15px', fontWeight: 'bold'}}>
+        <Button size="small" component={Link} to={`/article/${article.articleID}`} style={{ textDecoration: 'none', fontFamily: '"Bona Nova SC", serif', fontSize: '15px', fontWeight: 'bold' }}>
           Read Article
         </Button>
       </CardActions>
