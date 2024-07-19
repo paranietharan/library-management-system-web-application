@@ -38,7 +38,7 @@ const UnauthorizedPage = () => {
                 You are not authorized to access this page. Please login to continue.
             </p>
             <Link
-            to="/login"
+            to="/logout"
             style={{
                 marginTop: '20px',
                 padding: '10px 20px',
